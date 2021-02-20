@@ -1,0 +1,15 @@
+{
+  "api-errors": {
+    "connection": "خطأ في الشبكة",
+    "bad-request": "خطأ في الطلب المرسل",
+    "unauthorized": "يجب أن تكون مسجلاً",
+    "forbidden": "يجب أن تكون مسجلاً",
+    "not-found": "الرابط غير موجود",
+    "conflict": "حدث تضارب في الطلب",
+    "data-validation-failed": "البيانات المرسلة غير صحيحة",
+    "internal-server-error": "خطأ في المخدم",
+    "unknown-response-code": "خطأ غير معروف",
+    "unknown": "خطأ غير معروف"
+  },
+  "more": "المزيد"
+}

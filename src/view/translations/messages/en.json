@@ -1,0 +1,8 @@
+{
+  "add-to-fav": "Loved!",
+  "remove-from-fav": "Removed From Loved",
+  "add-to-saved": "Saved!",
+  "remove-from-saved": "Removed From Saved",
+  "not-auth-mes": "Not Authenticated",
+  "not-auth-des": "You need to be authenticated to perform this action"
+}

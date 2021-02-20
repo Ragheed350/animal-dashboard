@@ -1,0 +1,15 @@
+{
+  "operations": {
+    "header": "العمليات",
+    "delete-confirm": "هل أنت متأكد من حذف هذا العنصر"
+  },
+  "search": {
+    "search-a": "البحث عن ${name}",
+    "search": "بحق",
+    "reset": "إعادة تعيين",
+    "match-word": "مطابقة الكلمة كاملة"
+  },
+  "edit": "تعديل",
+  "add": "إضافة",
+  "delete": "حذف"
+}

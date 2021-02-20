@@ -1,0 +1,15 @@
+{
+  "api-errors": {
+    "connection": "Error With Your Network",
+    "bad-request": "Bad Request",
+    "unauthorized": "You Need To Be Authenticated",
+    "forbidden": "You Need To Be Authenticated",
+    "not-found": "This Route Is Not Found",
+    "conflict": "Request Conflict",
+    "data-validation-failed": "Error With Data You Send",
+    "internal-server-error": "Error in The Server",
+    "unknown-response-code": "Unknown Error Happend",
+    "unknown": "Unknown Error Happend"
+  },
+  "more": "More"
+}
