@@ -1,8 +1,17 @@
 //---------------AnimalAttribute-Req.ts---------------
-export interface AnimalAttribute_Req {}
+export interface AnimalAttribute_Req {
+  value: string;
+  attribute_id: string;
+  animal_id: string;
+}
 
 //---------------AnimalAttribute.ts---------------
-export interface AnimalAttribute {}
+export interface AnimalAttribute {
+  id: number;
+  value: string;
+  attribute_id: string;
+  animal_id: string;
+}
 
 //---------------AnimalAttribute-I-Req.ts---------------
 

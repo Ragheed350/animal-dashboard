@@ -16,6 +16,9 @@ export class AttributeService extends ApiService {
   public Fetch = async (): Promise<ApiResult<Attribute[]>> =>
     this.get<Attribute[]>(`attributes`);
 
+  public FetchByAnimal = async (id: number): Promise<ApiResult<Attribute[]>> =>
+    this.get<Attribute[]>(`attribute/showbycategory?animal_id=${id}`);
+
   public Insert = async ({
     attribute,
   }: Attribute_I_Req): Promise<ApiResult<Attribute>> =>

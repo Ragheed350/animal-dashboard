@@ -131,4 +131,18 @@ export const FetchAttributesAsync = (): AppThunk => async (dispatch) => {
   }
 };
 
+export const FetchAttributesByAnimalAsync = (id: number): AppThunk => async (
+  dispatch
+) => {
+  dispatch(setStatus('loading'));
+  const result = await attributeService.FetchByAnimal(id);
+  if (isError(result)) {
+    ApiErrorNotification(result);
+    dispatch(setStatus('error'));
+  } else {
+    dispatch(FetchAttributes(result.data));
+    dispatch(setStatus('data'));
+  }
+};
+
 export default AttributesSlice.reducer;

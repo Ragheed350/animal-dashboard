@@ -4,6 +4,7 @@ import Animal from './animal';
 import App from './app';
 import Attachments from './attachment';
 import Attribute from './attribute';
+import AnimalAttribute from './animal-attribute';
 import Category from './category';
 import Color from './color';
 import Country from './country';
@@ -23,6 +24,7 @@ const store = configureStore({
     App,
     Attachments,
     Attribute,
+    AnimalAttribute,
     Category,
     Color,
     Country,

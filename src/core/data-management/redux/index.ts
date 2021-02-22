@@ -2,6 +2,7 @@ export * from './animal';
 export * from './app';
 export * from './attachment';
 export * from './attribute';
+export * from './animal-attribute';
 export * from './category';
 export * from './color';
 export * from './country';

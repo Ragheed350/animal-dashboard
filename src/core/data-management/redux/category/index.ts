@@ -75,36 +75,36 @@ const CategoriesSlice = createSlice({
 
     // ************************************ {{level2}} ************************************
 
-    InsertLevel2: ({ parents }, { payload }: PayloadAction<Category>) => {
-      parents.push(payload);
+    InsertLevel2: ({ level2 }, { payload }: PayloadAction<Category>) => {
+      level2.push(payload);
     },
     UpdateLevel2: (state, { payload }: PayloadAction<Category>) => {
-      let ind = state.parents.findIndex((el) => el.id === payload.id);
-      if (ind !== -1) state.parents[ind] = payload;
+      let ind = state.level2.findIndex((el) => el.id === payload.id);
+      if (ind !== -1) state.level2[ind] = payload;
     },
-    DeleteLevel2: ({ parents }, { payload }: PayloadAction<number>) => {
-      let index = parents.findIndex((el) => el.id === payload);
-      if (index !== -1) parents.splice(index, 1);
+    DeleteLevel2: ({ level2 }, { payload }: PayloadAction<number>) => {
+      let index = level2.findIndex((el) => el.id === payload);
+      if (index !== -1) level2.splice(index, 1);
     },
     FetchLevel2s: (state, { payload }: PayloadAction<Category[]>) => {
-      state.parents = payload;
+      state.level2 = payload;
     },
 
     // ************************************ {{level3}} ************************************
 
-    InsertLevel3: ({ parents }, { payload }: PayloadAction<Category>) => {
-      parents.push(payload);
+    InsertLevel3: ({ level3 }, { payload }: PayloadAction<Category>) => {
+      level3.push(payload);
     },
     UpdateLevel3: (state, { payload }: PayloadAction<Category>) => {
-      let ind = state.parents.findIndex((el) => el.id === payload.id);
-      if (ind !== -1) state.parents[ind] = payload;
+      let ind = state.level3.findIndex((el) => el.id === payload.id);
+      if (ind !== -1) state.level3[ind] = payload;
     },
-    DeleteLevel3: ({ parents }, { payload }: PayloadAction<number>) => {
-      let index = parents.findIndex((el) => el.id === payload);
-      if (index !== -1) parents.splice(index, 1);
+    DeleteLevel3: ({ level3 }, { payload }: PayloadAction<number>) => {
+      let index = level3.findIndex((el) => el.id === payload);
+      if (index !== -1) level3.splice(index, 1);
     },
     FetchLevel3s: (state, { payload }: PayloadAction<Category[]>) => {
-      state.parents = payload;
+      state.level3 = payload;
     },
   },
 });

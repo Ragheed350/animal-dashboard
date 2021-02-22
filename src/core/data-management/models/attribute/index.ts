@@ -11,6 +11,7 @@ export interface Attribute {
   'name:ar': string;
   'name:en': string;
   category_id: string;
+  gender: string;
 }
 
 //---------------Attribute-I-Req.ts---------------

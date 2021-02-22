@@ -13,10 +13,10 @@ import { useDispatch } from 'react-redux';
 import { logoutAsync, appServices } from '@core';
 // import { PermissionToMenuItem } from '../../../utils/helpers/permission-to-menu-item';
 
-const manageMenu_arr: { title: string, href: string }[] = [
+const manageMenu_arr: { title: string; href: string }[] = [
   {
     title: 'Animals',
-    href: '/manage/animals'
+    href: '/manage/animals',
   },
   // don't needed
   // {
@@ -25,71 +25,74 @@ const manageMenu_arr: { title: string, href: string }[] = [
   // },
   {
     title: 'Attributes',
-    href: '/manage/attributes'
+    href: '/manage/attributes',
+  },
+  {
+    title: 'Animal Attributes',
+    href: '/manage/animal-attributes',
   },
   {
     title: 'Category Parents',
-    href: '/manage/category-parents'
+    href: '/manage/category-parents',
   },
   {
     title: 'Category Classes',
-    href: '/manage/category-classes'
+    href: '/manage/category-classes',
   },
   {
     title: 'Category Breeds',
-    href: '/manage/category-breeds'
+    href: '/manage/category-breeds',
   },
   {
     title: 'Colors',
-    href: '/manage/colors'
+    href: '/manage/colors',
   },
   {
     title: 'Countries',
-    href: '/manage/countries'
+    href: '/manage/countries',
   },
   {
     title: 'Display Categories',
-    href: '/manage/display-categories'
+    href: '/manage/display-categories',
   },
   {
     title: 'Farms',
-    href: '/manage/farms'
+    href: '/manage/farms',
   },
   {
     title: 'Notifications',
-    href: '/manage/notifications'
+    href: '/manage/notifications',
   },
   {
     title: 'Pollinations',
-    href: '/manage/pollinations'
+    href: '/manage/pollinations',
   },
   {
     title: 'Rates',
-    href: '/manage/rates'
+    href: '/manage/rates',
   },
   {
     title: 'Users',
-    href: '/manage/users'
+    href: '/manage/users',
   },
   {
     title: 'Vaccinates',
-    href: '/manage/vaccinates'
+    href: '/manage/vaccinates',
   },
   {
     title: 'Vitamins',
-    href: '/manage/vitamins'
+    href: '/manage/vitamins',
   },
   {
     title: 'Weights',
-    href: '/manage/weights'
+    href: '/manage/weights',
   },
-]
+];
 
 const Sider: FC = () => {
   const dispatch = useDispatch();
 
   const { replace, asPath, pathname } = useRouter();
-
 
   return (
     <Menu theme='dark' selectedKeys={[pathname]} mode='vertical'>
@@ -102,10 +105,11 @@ const Sider: FC = () => {
       </Menu.Item>} */}
 
       <Menu.SubMenu key='sub1' title='تنظيم' icon={<EditOutlined />}>
-        {manageMenu_arr.map(el => <Menu.Item key={el.href}>
-          <Link href={el.href}>{el.title}</Link>
-        </Menu.Item>
-        )}
+        {manageMenu_arr.map((el) => (
+          <Menu.Item key={el.href}>
+            <Link href={el.href}>{el.title}</Link>
+          </Menu.Item>
+        ))}
       </Menu.SubMenu>
 
       <Menu.SubMenu title='اللغة' icon={<TranslationOutlined />}>
@@ -113,18 +117,20 @@ const Sider: FC = () => {
           key='arabic'
           title='عربي'
           onClick={async () => {
-            await appServices.changeLang({ lang: 'ar' })
-            replace(asPath, undefined, { locale: 'ar' })
-          }}>
+            await appServices.changeLang({ lang: 'ar' });
+            replace(asPath, undefined, { locale: 'ar' });
+          }}
+        >
           عربي
         </Menu.Item>
         <Menu.Item
           key='english'
           title='English'
           onClick={async () => {
-            await appServices.changeLang({ lang: 'en' })
-            replace(asPath, undefined, { locale: 'en' })
-          }}>
+            await appServices.changeLang({ lang: 'en' });
+            replace(asPath, undefined, { locale: 'en' });
+          }}
+        >
           English
         </Menu.Item>
       </Menu.SubMenu>
@@ -133,11 +139,12 @@ const Sider: FC = () => {
         key='LogOut'
         onClick={() => {
           dispatch(logoutAsync());
-          replace('/login')
-        }}>
+          replace('/login');
+        }}
+      >
         تسجيل الخروج
       </Menu.Item>
-    </Menu >
+    </Menu>
   );
 };
 export default Sider;
