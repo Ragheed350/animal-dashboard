@@ -87,6 +87,10 @@ const manageMenu_arr: { title: string; href: string }[] = [
     title: 'Weights',
     href: '/manage/weights',
   },
+  {
+    title: 'Certificates',
+    href: '/manage/certificates',
+  },
 ];
 
 const Sider: FC = () => {

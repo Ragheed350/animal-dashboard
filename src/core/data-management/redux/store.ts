@@ -17,6 +17,7 @@ import Users from './user';
 import Vaccinate from './vaccinate';
 import Vitamin from './vitamin';
 import Weight from './weight';
+import Certificate from './certificate';
 
 const store = configureStore({
   reducer: {
@@ -37,6 +38,7 @@ const store = configureStore({
     Vitamin,
     Weight,
     Users,
+    Certificate,
   },
 });
 

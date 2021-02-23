@@ -17,3 +17,4 @@ export * from './user';
 export * from './vaccinate';
 export * from './vitamin';
 export * from './weight';
+export * from './certificate';

@@ -1,12 +1,13 @@
 //---------------Animal-Req.ts---------------
 export interface Animal_Req {
+  [x: string]: any;
   animal_no: string;
   'name:ar': string;
   'name:en': string;
   birth_date: string;
   gender: '0' | '1';
-  father_id?: string;
-  mother_id?: string;
+  father_no?: string;
+  mother_no?: string;
   tag_number: string;
   country_id: string;
   color_id: string;

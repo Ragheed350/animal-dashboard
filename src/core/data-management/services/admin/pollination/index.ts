@@ -19,7 +19,11 @@ export class PollinationService extends ApiService {
   public Insert = async ({
     pollination,
   }: Pollination_I_Req): Promise<ApiResult<Pollination>> =>
-    this.post<Pollination>(`pollinations`, pollination);
+    this.post<Pollination>(`pollination/store`, {
+      animal_no_1: pollination.female_no,
+      animal_no_2: pollination.male_no,
+      duration: pollination.duration,
+    });
 
   public Update = async ({
     pollination,
