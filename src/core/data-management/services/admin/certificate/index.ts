@@ -25,7 +25,7 @@ export class CertificateService extends ApiService {
     certificate,
     id,
   }: Certificate_U_Req): Promise<ApiResult<Certificate>> =>
-    this.put<Certificate>(`certificates/${id}`, certificate);
+    this.post<Certificate>(`certificates/${id}`, certificate);
 
   public Delete = async ({
     id,

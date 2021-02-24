@@ -14,16 +14,14 @@ import {
   UpdateCertificateAsync,
   FetchAnimalsAsync,
 } from '@core';
-import { Col, Form, message, Upload } from 'antd';
+import { Col, Form, Upload } from 'antd';
 import { InboxOutlined } from '@ant-design/icons';
 
 const { Dragger } = Upload;
 
 const mapper = (req: any): any => {
-  console.log(req);
-
   const formData = new FormData();
-
+  formData.append('_method', 'put');
   for (const key in req) {
     if (Object.prototype.hasOwnProperty.call(req, key)) {
       const el = req[key];
@@ -32,23 +30,24 @@ const mapper = (req: any): any => {
       } else formData.append(key, el);
     }
   }
+
   return formData;
 };
 
 const pdf_props = {
   name: 'file',
   accept: '.pdf',
-  onChange(info: any) {
-    const { status } = info.file;
-    if (status !== 'uploading') {
-      return info.file.originFileObj;
-    }
-    if (status === 'done') {
-      message.success(`${info.file.name} file uploaded successfully.`);
-    } else if (status === 'error') {
-      message.error(`${info.file.name} file upload failed.`);
-    }
-  },
+  // onChange(info: any) {
+  //   const { status } = info.file;
+  //   if (status !== 'uploading') {
+  //     return info.file.originFileObj;
+  //   }
+  //   if (status === 'done') {
+  //     message.success(`${info.file.name} file uploaded successfully.`);
+  //   } else if (status === 'error') {
+  //     message.error(`${info.file.name} file upload failed.`);
+  //   }
+  // },
 };
 
 export const columnsCertificates: ItemType[] = [
