@@ -21,7 +21,7 @@ const { Dragger } = Upload;
 
 const mapper = (req: any): any => {
   const formData = new FormData();
-  formData.append('_method', 'put');
+  // formData.append('_method', 'put');
   for (const key in req) {
     if (Object.prototype.hasOwnProperty.call(req, key)) {
       const el = req[key];
@@ -108,7 +108,7 @@ const ManageCertificates: FC = () => {
         dataIndex: 'url',
         width: 'auto',
       },
-      type: 'text',
+      type: 'file',
       customFormItem: (
         <Col span={24}>
           <Form.Item

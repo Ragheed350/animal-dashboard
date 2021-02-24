@@ -94,12 +94,11 @@ export const ShowCertificateAsync = (
   }
 };
 
-export const UpdateCertificateAsync = (
-  req: Certificate_U_Req
-): AppThunk => async (dispatch) => {
+export const UpdateCertificateAsync = (req: any): AppThunk => async (
+  dispatch
+) => {
   dispatch(setStatus('loading'));
-  console.log(req);
-
+  req.certificate.append('_method', 'put');
   const result = await certificateService.Update(req);
   if (isError(result)) {
     ApiErrorNotification(result);

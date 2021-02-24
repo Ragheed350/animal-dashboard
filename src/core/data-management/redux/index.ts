@@ -17,3 +17,4 @@ export * from './vitamin';
 export * from './weight';
 export * from './store';
 export * from './certificate';
+export * from './feature';

@@ -91,6 +91,10 @@ const manageMenu_arr: { title: string; href: string }[] = [
     title: 'Certificates',
     href: '/manage/certificates',
   },
+  {
+    title: 'Features',
+    href: '/manage/features',
+  },
 ];
 
 const Sider: FC = () => {

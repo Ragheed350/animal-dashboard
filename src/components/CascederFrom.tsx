@@ -2,12 +2,7 @@ import React, { FC, useEffect, useState } from 'react';
 import { Cascader } from 'antd';
 import { CascaderOptionType } from 'antd/lib/cascader';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  categoryService,
-  FetchCategoriesAsync,
-  isError,
-  RootState,
-} from '@core';
+import { categoryService, FetchParentsAsync, isError, RootState } from '@core';
 import useTranslation from 'next-translate/useTranslation';
 
 interface props {
@@ -35,7 +30,7 @@ const CascederForm: FC<props> = ({ onChange, value }) => {
   }, [parents]);
 
   useEffect(() => {
-    dispatch(FetchCategoriesAsync());
+    dispatch(FetchParentsAsync());
   }, []);
 
   const loadData = async (

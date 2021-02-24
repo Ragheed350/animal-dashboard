@@ -1,5 +1,5 @@
 import useTranslation from 'next-translate/useTranslation';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetServerSideProps } from 'next';
 
@@ -20,11 +20,8 @@ import {
   Attachment,
   DATE_FORMAT,
   FetchParentsAsync,
-  categoryService,
-  isError,
 } from '@core';
-import { Carousel, Cascader, Col, Form, Select, Typography } from 'antd';
-import { CascaderOptionType } from 'antd/lib/cascader';
+import { Carousel, Col, Form, Select, Typography } from 'antd';
 import CascederForm from 'src/components/CascederFrom';
 
 const mapper = (req: any): any => {
@@ -41,8 +38,6 @@ const mapper = (req: any): any => {
         });
       } else if (['for_buy', 'is_shown', 'approved', 'is_dead'].includes(key))
         formData.append(key, (el as boolean | undefined) ? '1' : '0');
-      // else if (key === 'category_id')
-      // formData.append(key, (el as boolean | undefined) ? '1' : '0');
       else formData.append(key, el);
     }
   }
