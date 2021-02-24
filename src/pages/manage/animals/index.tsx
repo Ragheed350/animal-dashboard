@@ -41,8 +41,8 @@ const mapper = (req: any): any => {
         });
       } else if (['for_buy', 'is_shown', 'approved', 'is_dead'].includes(key))
         formData.append(key, (el as boolean | undefined) ? '1' : '0');
-      else if (key === 'category_id')
-        formData.append(key, (el as boolean | undefined) ? '1' : '0');
+      // else if (key === 'category_id')
+      // formData.append(key, (el as boolean | undefined) ? '1' : '0');
       else formData.append(key, el);
     }
   }

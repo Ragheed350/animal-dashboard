@@ -19,6 +19,22 @@ import { InboxOutlined } from '@ant-design/icons';
 
 const { Dragger } = Upload;
 
+const mapper = (req: any): any => {
+  console.log(req);
+
+  const formData = new FormData();
+
+  for (const key in req) {
+    if (Object.prototype.hasOwnProperty.call(req, key)) {
+      const el = req[key];
+      if (key === 'pdf') {
+        formData.append(key, el.file.originFileObj);
+      } else formData.append(key, el);
+    }
+  }
+  return formData;
+};
+
 const pdf_props = {
   name: 'file',
   accept: '.pdf',
@@ -97,6 +113,7 @@ const ManageCertificates: FC = () => {
       customFormItem: (
         <Col span={24}>
           <Form.Item
+            valuePropName={'file'}
             label='Certificate'
             name='pdf'
             rules={[{ required: true }]}
@@ -126,7 +143,7 @@ const ManageCertificates: FC = () => {
       }
       DeleteAsync={(el) => DeleteCertificateAsync({ id: el.id })}
       itemsHeader={[...columnsCertificates, ...tmp]}
-      // Mapper={mapper}
+      Mapper={mapper}
     />
   );
 };
