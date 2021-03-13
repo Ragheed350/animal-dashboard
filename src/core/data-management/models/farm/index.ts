@@ -8,6 +8,7 @@ export interface Farm_Req {
   code: string;
   latitude: string;
   longitude: string;
+  logo: string;
 }
 
 //---------------Farm.ts---------------
@@ -21,6 +22,7 @@ export interface Farm {
   latLng: string;
   code: string;
   rate: number;
+  logo: string;
 }
 
 //---------------Farm-I-Req.ts---------------

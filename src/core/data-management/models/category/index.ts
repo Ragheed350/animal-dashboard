@@ -17,6 +17,7 @@ export interface Category {
   'description:en': string;
   parent_id: null | string;
   image: string;
+  pregnancy: string;
 }
 
 //---------------Category-I-Req.ts---------------

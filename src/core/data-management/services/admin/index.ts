@@ -17,3 +17,4 @@ export * from './vitamin';
 export * from './weight';
 export * from './certificate';
 export * from './features';
+export * from './approve-animal';

@@ -32,6 +32,10 @@ const manageMenu_arr: { title: string; href: string }[] = [
     href: '/manage/animal-attributes',
   },
   {
+    title: 'Approve animal',
+    href: '/manage/approve-animal',
+  },
+  {
     title: 'Category Parents',
     href: '/manage/category-parents',
   },
