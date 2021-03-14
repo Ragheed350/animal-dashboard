@@ -3,7 +3,7 @@ import React, { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetServerSideProps } from 'next';
 
-import { CRUDBuilder, ItemType, RootState, Authenticated, FetchUsersAsync, DeleteUserAsync, InsertUserAsync, UpdateUserAsync, FetchCountriesAsync } from '@core';
+import { CRUDBuilder, ItemType, RootState, Authenticated, FetchUsersAsync, DeleteUserAsync, FetchCountriesAsync } from '@core';
 import { Typography } from 'antd';
 
 // const mapper = (req: User): Promise<User_Req> => ({
@@ -136,10 +136,10 @@ const ManageUsers: FC = () => {
     return (
         <CRUDBuilder
             lang={lang === 'en' ? 'en' : 'ar'}
-            items={users}
+            items={[...users.map(el => ({ ...el, is_suspended: Number(el.is_suspended) }))]}
             loading={status === 'loading'}
-            AddAsync={(el) => InsertUserAsync({ user: el.item })}
-            UpdateAsync={(el) => UpdateUserAsync({ id: el.id, user: el.item })}
+            // AddAsync={(el) => InsertUserAsync({ user: el.item })}
+            // UpdateAsync={(el) => UpdateUserAsync({ id: el.id, user: el.item })}
             DeleteAsync={(el) => DeleteUserAsync({ id: el.id })}
             itemsHeader={[...columnsUsers, ...tmp]}
         // Mapper={mapper}

@@ -23,9 +23,20 @@ import {
 } from '@core';
 import { Carousel, Col, Form, Select, Typography } from 'antd';
 import CascederForm from 'src/components/CascederFrom';
+import { UploadFile } from 'antd/lib/upload/interface';
 
 const mapper = (req: any): any => {
   const formData = new FormData();
+
+
+  let result: (string | File | Blob)[] = [];
+  req.image.forEach((el: UploadFile) => {
+    if (el.originFileObj)
+      result.push(el.originFileObj)
+    else result.push(el.url!)
+  })
+
+  req.image = result;
 
   for (const key in req) {
     if (Object.prototype.hasOwnProperty.call(req, key)) {
@@ -41,6 +52,7 @@ const mapper = (req: any): any => {
       else formData.append(key, el);
     }
   }
+
 
   return formData;
 };
@@ -114,6 +126,24 @@ export const columnsAnimals: ItemType[] = [
   },
   {
     columnType: {
+      title: 'Price',
+      dataIndex: 'price',
+      width: 200,
+    },
+    type: 'text',
+    ignore: true
+  },
+  {
+    columnType: {
+      title: 'Buyer Data',
+      dataIndex: 'puyer_data',
+      width: 200,
+    },
+    type: 'text',
+    ignore: true
+  },
+  {
+    columnType: {
       title: 'Is Shown',
       dataIndex: 'is_shown',
       width: 200,
@@ -155,17 +185,25 @@ export const columnsAnimals: ItemType[] = [
       width: 200,
     },
     type: 'check-box',
-    required: false,
+    ignore: true
   },
   {
     columnType: {
-      title: 'Association',
-      dataIndex: 'association_no',
+      title: 'nfc',
+      dataIndex: 'nfc',
       width: 200,
     },
-    type: 'number',
-    required: false,
+    type: 'check-box'
   },
+  // {
+  //   columnType: {
+  //     title: 'Association',
+  //     dataIndex: 'association_no',
+  //     width: 200,
+  //   },
+  //   type: 'number',
+  //   required: false,
+  // },
   {
     columnType: {
       title: 'Farms',
@@ -234,7 +272,8 @@ export const columnsAnimals: ItemType[] = [
     hidden: true,
     initialValueDataIndex: 'attachments',
     getInitialValue: (val: Attachment[]) =>
-      val.map((el) => ({ uid: el.id, name: el.url, url: el.url })),
+      val.map((el) => ({ uid: el.id, name: el.url, url: el.url }))
+    ,
   },
 ];
 
@@ -392,7 +431,7 @@ const ManageAnimals: FC = () => {
   return (
     <CRUDBuilder
       lang={lang === 'en' ? 'en' : 'ar'}
-      items={animals}
+      items={[...animals.map(el => ({ ...el, for_buy: Number(el.for_buy), is_dead: Number(el.is_dead), is_shown: Number(el.is_shown), approved: Number(el.approved), nfc: Number(el.nfc) }))]}
       loading={status === 'loading'}
       AddAsync={(el) => InsertAnimalAsync({ animal: el.item })}
       UpdateAsync={(el) => UpdateAnimalAsync({ id: el.id, animal: el.item })}

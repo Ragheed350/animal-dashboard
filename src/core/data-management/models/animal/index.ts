@@ -16,7 +16,6 @@ export interface Animal_Req {
   is_shown?: '1' | '0';
   is_dead?: '1' | '0';
   approved?: '1' | '0';
-  association_no?: string;
   weight?: string;
   image: Blob[] | File[];
 }
@@ -40,15 +39,15 @@ export interface Animal {
   'color:en': string;
   category_id: string;
   for_buy: '0' | '1';
-  price: string;
-  puyer_data: string;
+  price?: string;
+  puyer_data?: string;
   is_shown: '0' | '1';
   qr: string;
   qr_image: string;
   display_category_id: string;
   is_dead: '1' | '0';
   approved: '1' | '0';
-  nfc: string;
+  nfc: '1' | '0';
   farm: Farm[];
   attachments: Attachment[];
   rate: number;

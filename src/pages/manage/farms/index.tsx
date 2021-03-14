@@ -3,11 +3,10 @@ import React, { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetServerSideProps } from 'next';
 
-import { CRUDBuilder, ItemType, RootState, Authenticated, FetchFarmsAsync, DeleteFarmAsync, InsertFarmAsync, UpdateFarmAsync } from '@core';
+import { CRUDBuilder, ItemType, RootState, Authenticated, FetchFarmsAsync, DeleteFarmAsync, InsertFarmAsync, UpdateFarmAsync, ObjToFormData } from '@core';
 
-// const mapper = (req: Farm): Promise<Farm_Req> => ({
+const mapper = (req: any): any => ObjToFormData(req);
 
-// })
 
 export const columnsFarms: ItemType[] = [
     {
@@ -54,6 +53,14 @@ export const columnsFarms: ItemType[] = [
         },
         type: 'text',
         ignore: true
+    },
+    {
+        columnType: {
+            title: 'Logo',
+            dataIndex: 'logo',
+            width: 300,
+        },
+        type: 'image',
     },
     {
         columnType: {
@@ -122,7 +129,7 @@ const ManageFarms: FC = () => {
             UpdateAsync={(el) => UpdateFarmAsync({ id: el.id, farm: el.item })}
             DeleteAsync={(el) => DeleteFarmAsync({ id: el.id })}
             itemsHeader={[...columnsFarms, ...tmp]}
-        // Mapper={mapper}
+            Mapper={mapper}
         />
     )
 }
