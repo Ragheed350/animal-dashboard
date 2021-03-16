@@ -1,13 +1,9 @@
-import { GetServerSideProps } from 'next';
+import { Authenticated } from '@utils';
 import React from 'react';
 
 const index: React.FC<{ name: string }> = () => {
-  // const { t } = useTranslation('home')
-
-  return <></>;
+  return <>HOME</>;
 };
 export default index;
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  return { props: { name: 'hell' } };
-};
+export const getServerSideProps = Authenticated

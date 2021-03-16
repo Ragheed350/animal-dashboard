@@ -10,7 +10,7 @@ interface props {
   onChange?: (val: any) => void;
 }
 
-const CascederForm: FC<props> = ({ onChange, value }) => {
+const CascederForm: FC<props> = ({ onChange }) => {
   const [options, setOptions] = useState<CascaderOptionType[]>();
   const { parents } = useSelector((state: RootState) => state.Category);
   const { lang } = useTranslation();

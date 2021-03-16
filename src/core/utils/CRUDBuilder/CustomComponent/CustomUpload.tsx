@@ -1,26 +1,26 @@
-import { UploadChangeParam, UploadFile, RcFile } from "antd/es/upload/interface";
+import { UploadChangeParam, UploadFile } from "antd/es/upload/interface";
 import { Typography, Image, Space, Upload } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
 import { FileToBase64 } from "../../helpers";
 
 interface UploadProps {
-    value?: string;
+    value?: string | File;
     onChange?: (value?: File | Blob) => void;
     disabled?: boolean;
 }
 
 export const CustomUpload: React.FC<UploadProps> = ({ onChange, value, disabled }) => {
 
-    const [image, setImage] = useState(value)
+    const [image, setImage] = useState<string>()
 
-    const triggerChange = async (changedValue?: File | Blob) => {
-        onChange && onChange(changedValue);
-        setImage(await FileToBase64(changedValue))
-    };
+    useEffect(() => {
+        typeof value === 'string' ? setImage(value) : FileToBase64(value).then(res => setImage(res))
+    }, [value])
 
-    const onFileChange = (newFile: UploadChangeParam<UploadFile<any>>) => {
-        triggerChange(newFile.file as RcFile);
+    const onFileChange = async (newFile: UploadChangeParam<UploadFile<any>>) => {
+        onChange && onChange(newFile.file as any);
+        setImage(await FileToBase64(newFile.file as any))
     }
 
     const uploadButton = (
@@ -39,8 +39,8 @@ export const CustomUpload: React.FC<UploadProps> = ({ onChange, value, disabled 
                     alt="NOT_FOUND"
                 />
             ) : (
-                    uploadButton
-                )}
+                uploadButton
+            )}
         </Upload>
     )
 }

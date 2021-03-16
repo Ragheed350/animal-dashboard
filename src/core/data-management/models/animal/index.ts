@@ -46,7 +46,7 @@ export interface Animal {
   qr_image: string;
   display_category_id: string;
   is_dead: '1' | '0';
-  approved: '1' | '0';
+  approved: 1 | 0;
   nfc: '1' | '0';
   farm: Farm[];
   attachments: Attachment[];

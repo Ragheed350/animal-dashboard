@@ -260,10 +260,10 @@ export const MapIntoFormItems: React.FC<{
 
       if (el.trans)
         return (
-          <>
+          <React.Fragment key={el.columnType.dataIndex?.toString() ?? el.columnType.key}>
             {formItem(el, `FI${ind}AR`, ':ar')}
             {formItem(el, `FI${ind}EN`, ':en')}
-          </>
+          </React.Fragment>
         );
 
       return formItem(el, `FI${ind}`);

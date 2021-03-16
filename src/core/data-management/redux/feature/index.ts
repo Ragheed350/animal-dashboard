@@ -11,17 +11,22 @@ import {
   Feature_S_Req,
   Feature_I_Req,
   Feature_D_Req,
+  FeatureForApprove,
 } from '@core';
+import { ApiSuccessNotification } from '@utils';
+import { FeatureForApprove_Req } from '../../models';
 
 interface FeaturesState {
   status: RequestStatus;
   features: Feature[];
+  featuresApprove: FeatureForApprove[];
   feature?: Feature;
 }
 
 let initialState: FeaturesState = {
   status: 'no-thing',
   features: [],
+  featuresApprove: [],
 };
 
 const FeaturesSlice = createSlice({
@@ -48,6 +53,32 @@ const FeaturesSlice = createSlice({
     FetchFeatures: (state, { payload }: PayloadAction<Feature[]>) => {
       state.features = payload;
     },
+    FetchFeaturesApprove: (
+      state,
+      { payload }: PayloadAction<FeatureForApprove[]>
+    ) => {
+      state.featuresApprove = payload;
+    },
+    InsertFeaturesApprove: (
+      state,
+      { payload }: PayloadAction<FeatureForApprove>
+    ) => {
+      state.featuresApprove.push(payload);
+    },
+    UpdateFeaturesApprove: (
+      state,
+      { payload }: PayloadAction<FeatureForApprove>
+    ) => {
+      let ind = state.featuresApprove.findIndex((el) => el.id === payload.id);
+      if (ind !== -1) state.featuresApprove[ind] = payload;
+    },
+    DeleteFeaturesApprove: (
+      { featuresApprove },
+      { payload }: PayloadAction<number>
+    ) => {
+      let index = featuresApprove.findIndex((el) => el.id === payload);
+      if (index !== -1) featuresApprove.splice(index, 1);
+    },
   },
 });
 
@@ -58,6 +89,10 @@ const {
   DeleteFeature,
   FetchFeatures,
   ShowFeature,
+  // DeleteFeaturesApprove,
+  FetchFeaturesApprove,
+  UpdateFeaturesApprove,
+  InsertFeaturesApprove,
 } = FeaturesSlice.actions;
 
 export const InsertFeatureAsync = (req: Feature_I_Req): AppThunk => async (
@@ -124,6 +159,62 @@ export const FetchFeaturesAsync = (): AppThunk => async (dispatch) => {
     dispatch(setStatus('error'));
   } else {
     dispatch(FetchFeatures(result.data));
+    dispatch(setStatus('data'));
+  }
+};
+
+export const listFeaturesAsync = (): AppThunk => async (dispatch) => {
+  dispatch(setStatus('loading'));
+  const result = await featureService.list();
+  if (isError(result)) {
+    ApiErrorNotification(result);
+    dispatch(setStatus('error'));
+  } else {
+    dispatch(FetchFeaturesApprove(result.data));
+    dispatch(setStatus('data'));
+  }
+};
+
+export const addFeatureUserAsync = (
+  req: FeatureForApprove_Req
+): AppThunk => async (dispatch) => {
+  dispatch(setStatus('loading'));
+  const result = await featureService.add(req);
+  if (isError(result)) {
+    ApiErrorNotification(result);
+    dispatch(setStatus('error'));
+  } else {
+    dispatch(InsertFeaturesApprove(result.data));
+    dispatch(setStatus('data'));
+  }
+};
+export const removeFeatureUserAsync = (
+  req: FeatureForApprove_Req&{id:number}
+): AppThunk => async (dispatch) => {
+  dispatch(setStatus('loading'));
+  const result = await featureService.remove(req);
+  if (isError(result)) {
+    ApiErrorNotification(result);
+    dispatch(setStatus('error'));
+  } else {
+    dispatch(InsertFeaturesApprove(result.data));
+    dispatch(setStatus('data'));
+  }
+};
+
+export const approveFeatureAsync = (req: {
+  id: number | string;
+  user_id: number | string;
+  feature_id: number | string;
+}): AppThunk => async (dispatch) => {
+  dispatch(setStatus('loading'));
+  const result = await featureService.approve(req);
+  if (isError(result)) {
+    ApiErrorNotification(result);
+    dispatch(setStatus('error'));
+  } else {
+    dispatch(UpdateFeaturesApprove(result.data));
+    ApiSuccessNotification({ mes: ['Done!', 'تم!'] });
     dispatch(setStatus('data'));
   }
 };

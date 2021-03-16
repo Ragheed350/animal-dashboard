@@ -32,6 +32,22 @@ export class AnimalService extends ApiService {
 
   public Show = async ({ id }: Animal_S_Req): Promise<ApiResult<Animal>> =>
     this.get<Animal>(`animal/show/${id}`);
+
+  public approve = async ({
+    id,
+    user_id,
+  }: {
+    id: number;
+    user_id: number;
+  }): Promise<ApiResult<Animal>> =>
+    this.post<Animal>(`animal/approve_animal/${id}`, { user_id });
+
+  public unapprove = async ({
+    id,
+  }: {
+    id: number;
+  }): Promise<ApiResult<Animal>> =>
+    this.post<Animal>(`animal/unapprove_animal/${id}`);
 }
 
 export const animalService = new AnimalService({

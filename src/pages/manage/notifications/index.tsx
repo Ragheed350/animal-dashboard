@@ -37,6 +37,7 @@ export const columnsNotifications: ItemType[] = [
             width: 150,
         },
         type: 'check-box',
+        ignore: true
     },
 ];
 

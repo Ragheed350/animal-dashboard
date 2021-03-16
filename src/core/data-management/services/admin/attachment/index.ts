@@ -19,7 +19,7 @@ export class AttachmentService extends ApiService {
   public Insert = async ({
     attachment,
   }: Attachment_I_Req): Promise<ApiResult<Attachment>> =>
-    this.post<Attachment>(`attachments`, attachment, undefined, true);
+    this.post<Attachment>(`attachments`, attachment, undefined);
 
   public Update = async ({
     attachment,

@@ -11,6 +11,7 @@ const Login: FC = () => {
     const dispatch = useDispatch()
 
     const { replace } = useRouter()
+    const { valid, token } = useSelector((state: RootState) => state.App.firebase);
 
     const { login: { status, error }, authenticated } = useSelector((state: RootState) => state.App)
 
@@ -23,7 +24,7 @@ const Login: FC = () => {
     }, [status, authenticated, error])
 
     const onFinish = (values: Login_Req) => {
-        dispatch(loginAsync(values));
+        token && dispatch(loginAsync({ ...values, devicetoken: token }));
     }
 
     return (
@@ -38,7 +39,7 @@ const Login: FC = () => {
                             <Input.Password size='large' />
                         </Form.Item>
                         <Form.Item >
-                            <Button size="large" type="primary" htmlType="submit" loading={status === 'loading'}>{'Login'}</Button>
+                            <Button size="large" type="primary" htmlType="submit" loading={status === 'loading'} disabled={!valid}>{'Login'}</Button>
                         </Form.Item>
                     </Form>
                 </Card>

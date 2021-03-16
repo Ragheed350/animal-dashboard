@@ -1,14 +1,38 @@
 ✔ fix initial values of multi image upload @done(21-03-13 16:09)
-☐ approve animal @started(21-03-13 16:50)
-☐ # features
+✔ approve animal @started(21-03-13 16:50) @done(21-03-15 09:35) @lasted(1d16h45m16s)
 
 ~ جداول كسر العلاقة
-☐ # animal-attribute
-☐ # animal-farm
-☐ # animal-vitamin
-☐ # animal-vaccinate
-☐ # animal-display-category
-☐ # farm-rate
-☐ # user-features
+✔ # animal-attribute @done(21-03-15 16:54)
+✘ # animal-farm @cancelled(21-03-16 14:04)
+✔ # animal-vitamin @done(21-03-16 12:03)
+✔ # animal-vaccinate @done(21-03-16 12:03)
+✘ # animal-display-category @cancelled(21-03-16 10:55)
+✔ # farm-rate @done(21-03-16 12:06)
+✔ # user-features @done(21-03-16 11:58)
+✔ approve user-features @done(21-03-16 11:58)
 
-☐ # look at categories *
+✔ check approvement section @started(21-03-16 07:59) @done(21-03-16 14:11) @lasted(6h12m47s)
+
+☐ find better way for translation
+
+✔ # features @done(21-03-15 16:54)
+try every thing:
+    ✔ category parent @started(21-03-15 15:18) @done(21-03-15 15:26) @lasted(8m9s)
+    ✔ category class @started(21-03-15 15:26) @done(21-03-15 15:33) @lasted(7m46s)
+    ✔ category children @started(21-03-15 15:34) @done(21-03-15 15:42) @lasted(8m55s)
+    ✘ animal - because of update and images @started(21-03-15 15:43) @cancelled(21-03-15 16:07) @wasted(24m38s)
+    ✔ attributes @started(21-03-15 16:08) @done(21-03-15 16:10) @lasted(2m47s)
+    ✔ animal attribute @started(21-03-15 16:11) @done(21-03-15 16:11) @lasted(8s)
+    ✔ colors @started(21-03-15 16:13) @done(21-03-15 16:13) @lasted(11s)
+    ✔ countries @started(21-03-15 16:13) @done(21-03-15 16:13) @lasted(23s)
+    ✔ display categories @done(21-03-15 16:36)
+    ✘ farm - because don`t add @cancelled(21-03-15 16:15)
+    ✔ notifications @done(21-03-15 16:39)
+    ✔ polinitation @done(21-03-15 16:20)
+    ✔ rates @done(21-03-15 16:21)
+    ✔ vaccinate @done(21-03-15 16:28)
+    ✔ vitamins @done(21-03-15 16:28)
+    ✔ weight @done(21-03-15 16:29)
+    ✔ certificate @done(21-03-15 16:31)
+    ✔ feature @done(21-03-15 16:36)
+    

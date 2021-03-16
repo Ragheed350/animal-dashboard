@@ -2,11 +2,11 @@ module.exports = {
   locales: ['en', 'ar'],
   defaultLocale: 'en',
   pages: {
-    '*': ['common', 'messages', 'errors'],
+    '*': ['common', 'messages', 'errors', 'crud-builder'],
     '/': ['home'],
     '/404': ['not-found'],
     '/error/auth': ['error-auth'],
-    'rgx:^/manage': ['crud-builder'],
+    // 'rgx:^/manage': [''],
   },
   interpolation: {
     prefix: '${',

@@ -1,4 +1,4 @@
-import { Layout } from 'antd';
+import { Layout, notification } from 'antd';
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image'
 import Head from 'next/head';
@@ -6,9 +6,10 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import DTICSider from './sider';
-import { appServices, setUser, isError } from '@core';
+import { appServices, setUser, isError, setFirebaseToken, setFirebaseValid } from '@core';
 import { useDispatch } from 'react-redux';
 import useTranslation from 'next-translate/useTranslation';
+import { getToken, onMessageListener } from '../../../../firebase';
 
 
 const { Content, Sider } = Layout;
@@ -29,6 +30,21 @@ export const CamelLayout: React.FC = ({ children }) => {
             }
         });
     }, []);
+
+
+    useEffect(() => {
+        dispatch(setFirebaseValid(false));
+        getToken((token) => {
+            dispatch(setFirebaseToken(token))
+            dispatch(setFirebaseValid(true));
+        });
+        onMessageListener().then(payload => {
+            notification.success({
+                message: payload.notification.title,
+                description: payload.notification.body
+            })
+        }).catch(err => console.log('failed: ', err));
+    }, [])
 
     return (
         <Layout className="site-layout" style={{ minHeight: '100vh' }} hasSider>

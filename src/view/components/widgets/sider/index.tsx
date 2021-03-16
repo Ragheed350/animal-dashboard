@@ -1,7 +1,10 @@
 import {
-  EditOutlined,
+  ApartmentOutlined,
   HomeOutlined,
   LogoutOutlined,
+  SecurityScanOutlined,
+  SettingOutlined,
+  ShopOutlined,
   TranslationOutlined,
 } from '@ant-design/icons';
 import { Menu } from 'antd';
@@ -27,14 +30,10 @@ const manageMenu_arr: { title: string; href: string }[] = [
     title: 'Attributes',
     href: '/manage/attributes',
   },
-  {
-    title: 'Animal Attributes',
-    href: '/manage/animal-attributes',
-  },
-  {
-    title: 'Approve animal',
-    href: '/manage/approve-animal',
-  },
+  // {
+  //   title: 'Animal Attributes',
+  //   href: '/manage/animal-attributes',
+  // },
   {
     title: 'Category Parents',
     href: '/manage/category-parents',
@@ -101,6 +100,29 @@ const manageMenu_arr: { title: string; href: string }[] = [
   },
 ];
 
+const approvementMenu_arr: { title: string; href: string }[] = [
+  {
+    title: 'Animals',
+    href: '/approvement/animals'
+  },
+  {
+    title: 'Features',
+    href: '/approvement/features'
+  },
+]
+
+const breakingMenu_arr: { title: string; href: string }[] = [
+  {
+    title: 'Animals - Attributes',
+    href: '/relationship-breaking/animals-attributes'
+  },
+  {
+    title: 'Users - Features',
+    href: '/relationship-breaking/users-features'
+  },
+]
+
+
 const Sider: FC = () => {
   const dispatch = useDispatch();
 
@@ -116,13 +138,38 @@ const Sider: FC = () => {
         <Link href='/dashboard/manage/roles'>Roles</Link>
       </Menu.Item>} */}
 
-      <Menu.SubMenu key='sub1' title='تنظيم' icon={<EditOutlined />}>
+      <Menu.SubMenu key='sub1' title='تنظيم' icon={<SettingOutlined />}>
         {manageMenu_arr.map((el) => (
           <Menu.Item key={el.href}>
             <Link href={el.href}>{el.title}</Link>
           </Menu.Item>
         ))}
       </Menu.SubMenu>
+
+      <Menu.SubMenu key='sub2' title='ربط العلاقات' icon={<ApartmentOutlined />}>
+        {breakingMenu_arr.map((el) => (
+          <Menu.Item key={el.href}>
+            <Link href={el.href}>{el.title}</Link>
+          </Menu.Item>
+        ))}
+      </Menu.SubMenu>
+
+      <Menu.SubMenu key='sub3' title='الموافقة' icon={<SecurityScanOutlined />}>
+        {approvementMenu_arr.map((el) => (
+          <Menu.Item key={el.href}>
+            <Link href={el.href}>{el.title}</Link>
+          </Menu.Item>
+        ))}
+      </Menu.SubMenu>
+
+
+      <Menu.Item
+        key='/buy-animal'
+        title='بيع حيوان'
+        icon={<ShopOutlined />}
+      >
+        <Link href='/buy-animal'>{'بيع حيوان'}</Link>
+      </Menu.Item>
 
       <Menu.SubMenu title='اللغة' icon={<TranslationOutlined />}>
         <Menu.Item

@@ -42,10 +42,10 @@ export class CategoryService extends ApiService {
   public Delete = async ({
     id,
   }: Category_D_Req): Promise<ApiResult<Category>> =>
-    this.delete<Category>(`category/soft_delete/${id}`);
+    this.delete<Category>(`admin/category/soft_delete/${id}`);
 
   public Show = async ({ id }: Category_S_Req): Promise<ApiResult<Category>> =>
-    this.get<Category>(`category/show/${id}`);
+    this.get<Category>(`admin/category/show/${id}`);
 }
 
 export const categoryService = new CategoryService({

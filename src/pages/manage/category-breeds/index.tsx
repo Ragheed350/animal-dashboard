@@ -3,11 +3,9 @@ import React, { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetServerSideProps } from 'next';
 
-import { CRUDBuilder, ItemType, DeleteCategoryAsync, InsertCategoryAsync, UpdateCategoryAsync, RootState, Authenticated, FetchLevel2Async, FetchLevel3Async } from '@core';
+import { CRUDBuilder, ItemType, RootState, Authenticated, FetchLevel2Async, FetchLevel3Async, UpdateLevel3Async, InsertLevel3Async, DeleteLevel3Async, ObjToFormData } from '@core';
 
-// const mapper = (req: Category): Promise<Category_Req> => ({
-
-// })
+const mapper = (req: any) => ObjToFormData(req);
 
 export const columnsCategories: ItemType[] = [
     {
@@ -45,6 +43,14 @@ export const columnsCategories: ItemType[] = [
         },
         type: 'image',
     },
+    {
+        columnType: {
+            title: 'Pregnancy (per month)',
+            dataIndex: 'pregnancy',
+            width: 300,
+        },
+        type: 'number',
+    },
 ];
 
 const ManageCategories: FC = () => {
@@ -77,11 +83,11 @@ const ManageCategories: FC = () => {
             lang={lang === 'en' ? 'en' : 'ar'}
             items={level3}
             loading={status === 'loading'}
-            AddAsync={(el) => InsertCategoryAsync({ category: el.item })}
-            UpdateAsync={(el) => UpdateCategoryAsync({ id: el.id, category: el.item })}
-            DeleteAsync={(el) => DeleteCategoryAsync({ id: el.id })}
+            AddAsync={(el) => InsertLevel3Async({ category: el.item })}
+            UpdateAsync={(el) => UpdateLevel3Async({ id: el.id, category: el.item })}
+            DeleteAsync={(el) => DeleteLevel3Async({ id: el.id })}
             itemsHeader={[...columnsCategories, ...tmp]}
-        // Mapper={mapper}
+            Mapper={mapper}
         />
     )
 }

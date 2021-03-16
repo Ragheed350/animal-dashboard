@@ -59,7 +59,7 @@ const ManageVaccinates: FC = () => {
                 title: 'Categories',
                 dataIndex: 'category',
                 width: 200,
-                render: (arr: Category[]) => <Select style={{ width: '100%' }}>
+                render: (arr: Category[]) => <Select value={arr.map(el => el.id)} style={{ width: '100%' }} mode='multiple'>
                     {arr.map(el => <Select.Option key={el.id} value={el.id}>{en ? el['name:en'] : el['name:ar']}</Select.Option>)}
                 </Select>
             },
@@ -72,7 +72,9 @@ const ManageVaccinates: FC = () => {
                 dataIndex: 'category_id',
                 width: 200,
             },
-            type: 'foreign-key',
+            type: 'multi-foreign-key-obj',
+            initialValueDataIndex: 'category',
+            getInitialValue: (arr: Category[]) => arr.map(el => el.id),
             hidden: true,
             foreignKeyArr: categories.map(el => ({ title: en ? el['name:en'] : el['name:ar'], value: el.id }))
         },

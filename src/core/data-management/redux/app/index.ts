@@ -13,6 +13,10 @@ interface AppState {
     status: RequestStatus;
     error?: loginError;
   };
+  firebase: {
+    token?: string;
+    valid: boolean;
+  };
   // register: {
   //   status: RequestStatus;
   // };
@@ -29,6 +33,9 @@ interface AppState {
 let initialState: AppState = {
   login: {
     status: 'no-thing',
+  },
+  firebase: {
+    valid: false,
   },
   // register: {
   //   status: 'no-thing',
@@ -57,6 +64,14 @@ const AppSlice = createSlice({
 
     setLoginError: ({ login }, { payload }: PayloadAction<loginError>) => {
       login.error = payload;
+    },
+
+    setFirebaseValid: ({ firebase }, { payload }: PayloadAction<boolean>) => {
+      firebase.valid = payload;
+    },
+
+    setFirebaseToken: ({ firebase }, { payload }: PayloadAction<string>) => {
+      firebase.token = payload;
     },
 
     // setRegisterStatus: (
@@ -104,6 +119,8 @@ const {
   setLoginError,
   // setVerifyStatus,
 } = AppSlice.actions;
+
+export const { setFirebaseValid, setFirebaseToken } = AppSlice.actions;
 
 export const logoutAsync = (): AppThunk => async (dispatch) => {
   dispatch(setStatus('loading'));

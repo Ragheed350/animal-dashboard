@@ -1,4 +1,3 @@
-import { objToFormData } from '@core';
 import { AxiosRequestConfig } from 'axios';
 
 import { ApiProvider } from './api-provider';
@@ -32,17 +31,8 @@ export class ApiService {
     url: string,
     data?: any,
     config?: AxiosRequestConfig,
-    multiPartForm = false
   ): Promise<ApiResult<T>> {
     const method = HttpMethod.POST;
-    if (multiPartForm) {
-      return this.provider.request({
-        method,
-        url,
-        data: objToFormData(data),
-        ...config,
-      });
-    }
     return this.provider.request({
       method,
       url,
@@ -55,17 +45,8 @@ export class ApiService {
     url: string,
     data?: any,
     config?: AxiosRequestConfig,
-    multiPartForm = false
   ): Promise<ApiResult<T>> {
     const method = HttpMethod.PUT;
-    if (multiPartForm) {
-      return this.provider.request({
-        method,
-        url,
-        data: objToFormData(data),
-        ...config,
-      });
-    }
     return this.provider.request({
       method,
       url,

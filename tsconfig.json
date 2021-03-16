@@ -24,6 +24,6 @@
       "@utils": ["src/core/utils"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "firebase.ts"],
   "exclude": ["node_modules"]
 }

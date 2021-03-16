@@ -6,18 +6,18 @@ import { GetServerSideProps } from 'next';
 import {
   CRUDBuilder,
   ItemType,
-  DeleteCategoryAsync,
-  InsertCategoryAsync,
-  UpdateCategoryAsync,
   RootState,
   Authenticated,
   FetchLevel2Async,
   FetchParentsAsync,
+  ObjToFormData,
+  InsertLevel2Async,
+  UpdateLevel2Async,
+  DeleteLevel2Async,
 } from '@core';
 
-// const mapper = (req: Category): Promise<Category_Req> => ({
+const mapper = (req: any) => ObjToFormData(req);
 
-// })
 
 export const columnsCategories: ItemType[] = [
   {
@@ -95,13 +95,13 @@ const ManageCategories: FC = () => {
       lang={lang === 'en' ? 'en' : 'ar'}
       items={level2}
       loading={status === 'loading'}
-      AddAsync={(el) => InsertCategoryAsync({ category: el.item })}
+      AddAsync={(el) => InsertLevel2Async({ category: el.item })}
       UpdateAsync={(el) =>
-        UpdateCategoryAsync({ id: el.id, category: el.item })
+        UpdateLevel2Async({ id: el.id, category: el.item })
       }
-      DeleteAsync={(el) => DeleteCategoryAsync({ id: el.id })}
+      DeleteAsync={(el) => DeleteLevel2Async({ id: el.id })}
       itemsHeader={[...columnsCategories, ...tmp]}
-      // Mapper={mapper}
+      Mapper={mapper}
     />
   );
 };

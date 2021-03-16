@@ -11,6 +11,7 @@ import {
   Animal_S_Req,
   Animal_I_Req,
   Animal_D_Req,
+  ApiSuccessNotification,
 } from '@core';
 
 interface AnimalsState {
@@ -99,6 +100,37 @@ export const UpdateAnimalAsync = (req: Animal_U_Req): AppThunk => async (
   } else {
     dispatch(UpdateAnimal(result.data));
     dispatch(setStatus('data'));
+  }
+};
+
+export const ApproveAnimalAsync = (req: {
+  id: number;
+  user_id: number;
+}): AppThunk => async (dispatch) => {
+  dispatch(setStatus('loading'));
+  const result = await animalService.approve(req);
+  if (isError(result)) {
+    ApiErrorNotification(result);
+    dispatch(setStatus('error'));
+  } else {
+    dispatch(UpdateAnimal(result.data));
+    dispatch(setStatus('data'));
+    ApiSuccessNotification({ mes: ['Done!', 'تم!'] });
+  }
+};
+
+export const UnApproveAnimalAsync = (req: { id: number }): AppThunk => async (
+  dispatch
+) => {
+  dispatch(setStatus('loading'));
+  const result = await animalService.unapprove(req);
+  if (isError(result)) {
+    ApiErrorNotification(result);
+    dispatch(setStatus('error'));
+  } else {
+    dispatch(UpdateAnimal(result.data));
+    dispatch(setStatus('data'));
+    ApiSuccessNotification({ mes: ['Done!', 'تم!'] });
   }
 };
 

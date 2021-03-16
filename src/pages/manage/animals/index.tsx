@@ -16,7 +16,6 @@ import {
   FetchColorsAsync,
   FetchCountriesAsync,
   FetchDisplayCategoriesAsync,
-  Farm,
   Attachment,
   DATE_FORMAT,
   FetchParentsAsync,
@@ -45,7 +44,12 @@ const mapper = (req: any): any => {
         formData.append(key, (el as moment.Moment).format(DATE_FORMAT));
       else if (key === 'image') {
         (el as (File | string)[]).forEach((element) => {
-          formData.append(key + '[]', element);
+          if (typeof element === 'string') {
+            const arr = element.split('/');
+            formData.append(key + '[]', `${arr[arr.length - 2]}/${arr[arr.length - 1]}`);
+          }
+          else
+            formData.append(key + '[]', element);
         });
       } else if (['for_buy', 'is_shown', 'approved', 'is_dead'].includes(key))
         formData.append(key, (el as boolean | undefined) ? '1' : '0');
@@ -193,7 +197,7 @@ export const columnsAnimals: ItemType[] = [
       dataIndex: 'nfc',
       width: 200,
     },
-    type: 'check-box'
+    type: 'number'
   },
   // {
   //   columnType: {
@@ -209,10 +213,10 @@ export const columnsAnimals: ItemType[] = [
       title: 'Farms',
       dataIndex: 'farm',
       width: 200,
-      render: (arr: Farm[]) => (
+      render: (arr: any[]) => (
         <Select style={{ width: '100%' }}>
           {arr.map((el) => (
-            <Select.Option value={el.id}>{el['name:en']}</Select.Option>
+            <Select.Option value={el.id}>{el['farm:ar']}</Select.Option>
           ))}
         </Select>
       ),
@@ -251,6 +255,7 @@ export const columnsAnimals: ItemType[] = [
       width: 200,
     },
     type: 'number',
+    ignore: true
   },
   {
     columnType: {
@@ -260,7 +265,18 @@ export const columnsAnimals: ItemType[] = [
     },
     type: 'number',
     hidden: true,
-    required: false,
+    initialValueDataIndex: 'Weight',
+    getInitialValue: (val: { id: number, value: string, animal_id: string, weight_date: string }[]) => val[val.length - 1]?.value,
+  },
+  {
+    columnType: {
+      title: 'Weight',
+      dataIndex: 'Weight',
+      width: 200,
+      render: (val: { id: number, value: string, animal_id: string, weight_date: string }[]) => <>{val[val.length - 1]?.value}</>
+    },
+    type: 'number',
+    ignore: true
   },
   {
     columnType: {

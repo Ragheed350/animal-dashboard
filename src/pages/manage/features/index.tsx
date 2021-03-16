@@ -12,10 +12,8 @@ import {
   DeleteFeatureAsync,
   InsertFeatureAsync,
   UpdateFeatureAsync,
-  FetchCategoriesAsync,
+  FetchParentsAsync,
 } from '@core';
-import { Col, Form } from 'antd';
-import CascederForm from '../../../components/CascederFrom';
 
 export const columnsFeatures: ItemType[] = [
   {
@@ -55,13 +53,13 @@ export const columnsFeatures: ItemType[] = [
 
 const ManageFeatures: FC = () => {
   const { lang } = useTranslation();
-  const en = lang === 'en';
   const dispatch = useDispatch();
 
+  const { parents } = useSelector((state: RootState) => state.Category);
   const { status, features } = useSelector((state: RootState) => state.Feature);
 
   useEffect(() => {
-    dispatch(FetchCategoriesAsync());
+    dispatch(FetchParentsAsync());
     dispatch(FetchFeaturesAsync());
   }, [dispatch]);
 
@@ -80,20 +78,10 @@ const ManageFeatures: FC = () => {
         title: 'Category',
         dataIndex: 'category_id',
         width: 200,
+        render: (id: number | string) => parents.find(el => el.id === Number(id))?.['name:ar']
       },
       type: 'foreign-key',
-      customFormItem: (
-        <Col span={12}>
-          <Form.Item
-            label='Category'
-            name='category_id'
-            rules={[{ required: true }]}
-          >
-            <CascederForm />
-          </Form.Item>
-        </Col>
-      ),
-      getInitialValue: () => undefined,
+      foreignKeyArr: parents.map(el => ({ title: el['name:ar'], value: el.id }))
     },
   ];
 
@@ -106,7 +94,7 @@ const ManageFeatures: FC = () => {
       UpdateAsync={(el) => UpdateFeatureAsync({ id: el.id, feature: el.item })}
       DeleteAsync={(el) => DeleteFeatureAsync({ id: el.id })}
       itemsHeader={[...columnsFeatures, ...tmp]}
-      // Mapper={mapper}
+    // Mapper={mapper}
     />
   );
 };

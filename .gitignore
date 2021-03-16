@@ -36,4 +36,4 @@ yarn-error.log*
 # my ignore
 *.zip
 # *.ignore
-# *.ignore
+report.*.json

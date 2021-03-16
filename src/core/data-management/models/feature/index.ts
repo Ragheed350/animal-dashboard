@@ -14,6 +14,17 @@ export interface Feature {
   'text:en'?: string;
   category_id: string;
 }
+export interface FeatureForApprove {
+  id: number;
+  user_id: string;
+  feature_id: string;
+  is_approved: string;
+}
+
+export interface FeatureForApprove_Req {
+  user_id: string;
+  feature_id: string;
+}
 
 //---------------Feature-I-Req.ts---------------
 

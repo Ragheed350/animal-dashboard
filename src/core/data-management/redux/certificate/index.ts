@@ -7,7 +7,6 @@ import {
   RequestStatus,
   certificateService,
   Certificate,
-  Certificate_U_Req,
   Certificate_S_Req,
   Certificate_I_Req,
   Certificate_D_Req,

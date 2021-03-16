@@ -3,6 +3,7 @@ import { User } from 'src/core/data-management/models';
 export interface Login_Req {
   email: string;
   password: string;
+  devicetoken: string;
 }
 
 export interface Login_Res {

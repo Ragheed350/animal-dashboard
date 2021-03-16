@@ -6,21 +6,16 @@ import { GetServerSideProps } from 'next';
 import {
   CRUDBuilder,
   ItemType,
-  DeleteCategoryAsync,
-  InsertCategoryAsync,
-  UpdateCategoryAsync,
   RootState,
   Authenticated,
   FetchParentsAsync,
+  InsertParentAsync,
+  UpdateParentAsync,
+  DeleteParentAsync,
+  ObjToFormData,
 } from '@core';
 
-const mapper = (req: any) => {
-  const formData = new FormData();
-  for (const key in req)
-    if (Object.prototype.hasOwnProperty.call(req, key))
-      formData.append(key, req[key]);
-  return formData;
-};
+const mapper = (req: any) => ObjToFormData(req);
 
 export const columnsCategories: ItemType[] = [
   {
@@ -76,11 +71,11 @@ const ManageCategories: FC = () => {
       lang={lang === 'en' ? 'en' : 'ar'}
       items={parents}
       loading={status === 'loading'}
-      AddAsync={(el) => InsertCategoryAsync({ category: el.item })}
+      AddAsync={(el) => InsertParentAsync({ category: el.item })}
       UpdateAsync={(el) =>
-        UpdateCategoryAsync({ id: el.id, category: el.item })
+        UpdateParentAsync({ id: el.id, category: el.item })
       }
-      DeleteAsync={(el) => DeleteCategoryAsync({ id: el.id })}
+      DeleteAsync={(el) => DeleteParentAsync({ id: el.id })}
       itemsHeader={[...columnsCategories]}
       Mapper={mapper}
     />
