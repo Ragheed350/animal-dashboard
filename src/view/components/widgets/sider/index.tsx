@@ -4,7 +4,6 @@ import {
   LogoutOutlined,
   SecurityScanOutlined,
   SettingOutlined,
-  ShopOutlined,
   TranslationOutlined,
 } from '@ant-design/icons';
 import { Menu } from 'antd';
@@ -161,15 +160,6 @@ const Sider: FC = () => {
           </Menu.Item>
         ))}
       </Menu.SubMenu>
-
-
-      <Menu.Item
-        key='/buy-animal'
-        title='بيع حيوان'
-        icon={<ShopOutlined />}
-      >
-        <Link href='/buy-animal'>{'بيع حيوان'}</Link>
-      </Menu.Item>
 
       <Menu.SubMenu title='اللغة' icon={<TranslationOutlined />}>
         <Menu.Item
