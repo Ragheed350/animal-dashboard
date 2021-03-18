@@ -32,6 +32,7 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
     const cookies = new Cookies(req, res);
 
     const token = cookies.get(KEY_TOKEN_COOKIE);
+    const en = !!req.headers['referer']?.match(/(\/en\/)|(\/en)$/);
 
     // Rewrite URL, strip out leading '/api'
     // '/api/proxy/*' becomes '${API_URL}/*'
@@ -43,7 +44,7 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
     // Set auth-token header from cookie
     req.headers[KEY_TOKEN_HEADER] = `Bearer ${token}`;
 
-    req.headers[KEY_LANG_HEADER] = req.query.__nextLocale.toString() ?? 'en';
+    req.headers[KEY_LANG_HEADER] = en ? 'en' : 'ar';
 
     proxy
       .once(

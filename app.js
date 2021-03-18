@@ -4,7 +4,7 @@ const next = require('next');
 
 const prod = true;
 // const prod = process.env.NODE_ENV === 'production';
-const port = prod ? process.env.PORT ?? 3000 : 3000;
+const port = prod ? process.env.PORT || 3000 : 3000;
 
 // Create the Express-Next App
 const app = next({ dev: !prod });

@@ -5,6 +5,7 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
   return new Promise<void>((resolve, reject) => {
     const { lang } = req.body;
 
+    console.log(req.query);
     if (lang) {
       setLang(req, res, lang);
       res.status(200).json({});

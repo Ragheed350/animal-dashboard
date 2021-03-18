@@ -19,7 +19,7 @@
     "firebase": "^8.3.0",
     "http-proxy": "^1.18.1",
     "less": "^3.13.1",
-    "next": "^10.0.3",
+    "next": "^10.0.5",
     "next-fonts": "^1.5.1",
     "next-translate": "^1.0.1",
     "react": "^17.0.1",

@@ -6,7 +6,6 @@ module.exports = {
     '/': ['home'],
     '/404': ['not-found'],
     '/error/auth': ['error-auth'],
-    // 'rgx:^/manage': [''],
   },
   interpolation: {
     prefix: '${',

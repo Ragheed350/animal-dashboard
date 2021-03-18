@@ -49,7 +49,7 @@ export const CamelLayout: React.FC = ({ children }) => {
     return (
         <Layout className="site-layout" style={{ minHeight: '100vh' }} hasSider>
             <Head>
-                <title>Camel Racing Dashboard</title>
+                <title>ANIMALS - Dashboard</title>
             </Head>
             {!pathname.includes('login') &&
                 <Sider
