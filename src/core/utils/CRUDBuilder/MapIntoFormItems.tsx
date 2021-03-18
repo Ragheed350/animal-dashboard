@@ -17,7 +17,6 @@ import { ItemType } from './types';
 import {
   CustomUpload,
   CustomMultiImageUpload,
-  HtmlEditor,
 } from './CustomComponent';
 import { DATE_FORMAT } from '../../constants/keys';
 import { FileToBase64 } from '../helpers';
@@ -230,19 +229,19 @@ export const MapIntoFormItems: React.FC<{
             </Col>
           );
 
-        case 'html-editor':
-          return (
-            <Col span={24}>
-              <Form.Item
-                key={key}
-                label={label}
-                name={dataIndex}
-                rules={[{ required }]}
-              >
-                <HtmlEditor disable={allDisabled} />
-              </Form.Item>
-            </Col>
-          );
+        // case 'html-editor':
+        //   return (
+        //     <Col span={24}>
+        //       <Form.Item
+        //         key={key}
+        //         label={label}
+        //         name={dataIndex}
+        //         rules={[{ required }]}
+        //       >
+        //         <HtmlEditor disable={allDisabled} />
+        //       </Form.Item>
+        //     </Col>
+        //   );
 
         default:
           return undefined;
