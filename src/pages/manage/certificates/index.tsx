@@ -53,7 +53,7 @@ const pdf_props = {
 export const columnsCertificates: ItemType[] = [
   {
     columnType: {
-      title: 'ID',
+      title: 'المعرف',
       dataIndex: 'id',
       fixed: 'left',
       width: 100,
@@ -62,7 +62,7 @@ export const columnsCertificates: ItemType[] = [
   },
   {
     columnType: {
-      title: 'Title',
+      title: 'العنوان',
       dataIndex: 'title',
       width: 'auto',
     },
@@ -88,7 +88,7 @@ const ManageCertificates: FC = () => {
   const tmp: ItemType[] = [
     {
       columnType: {
-        title: 'Animal',
+        title: 'الحيوان',
         dataIndex: 'animal_id',
         width: 'auto',
         render: (val: string) =>
@@ -104,7 +104,7 @@ const ManageCertificates: FC = () => {
     },
     {
       columnType: {
-        title: 'Certificate',
+        title: 'الشهادة',
         dataIndex: 'url',
         width: 'auto',
       },

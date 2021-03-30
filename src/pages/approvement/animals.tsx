@@ -2,36 +2,50 @@ import { CheckCircleFilled, CloseCircleFilled } from '@ant-design/icons';
 import { Animal, ApproveAnimalAsync, Authenticated, FetchAnimalsAsync, RootState, UnApproveAnimalAsync } from '@core';
 import { Button, Popconfirm, Table } from 'antd';
 import { ColumnsType } from 'antd/lib/table';
-import React, { useEffect } from 'react';
+import { FilterValue } from 'antd/lib/table/interface';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-const colums: ColumnsType<any> = [
-    {
-        title: 'ID',
-        dataIndex: 'id',
-        fixed: 'left',
-        width: 100,
-    },
-    {
-        title: 'Name',
-        dataIndex: 'name:ar',
-        width: 'auto',
-    },
-    {
-        title: 'Approved',
-        dataIndex: 'approved',
-        width: 200,
-        render: (val: '1' | '0') => Number(val) === 1 ?
-            <CheckCircleFilled style={{ fontSize: '3rem', color: 'green' }} /> :
-            <CloseCircleFilled style={{ fontSize: '3rem', color: 'red' }} />
 
-    },
-]
 
 const index: React.FC = () => {
     const dispatch = useDispatch()
 
     const { animals, status } = useSelector((state: RootState) => state.Animal);
+
+    const [filterInfo, setFilterInfo] = useState<Record<string, FilterValue | null>>();
+
+    const colums: ColumnsType<Animal> = useMemo(() => [
+        {
+            title: 'المعرف',
+            dataIndex: 'id',
+            fixed: 'left',
+            width: 100,
+        },
+        {
+            title: 'الاسم',
+            dataIndex: 'name:ar',
+            width: 'auto',
+        },
+        {
+            title: 'تمت الموافقة عليه',
+            dataIndex: 'approved',
+            width: 200,
+            render: (val: '1' | '0') => Number(val) === 1 ?
+                <CheckCircleFilled style={{ fontSize: '3rem', color: 'green' }} /> :
+                <CloseCircleFilled style={{ fontSize: '3rem', color: 'red' }} />,
+
+            filters: [
+                { text: 'الموافق عليه', value: '1' },
+                { text: 'غير الموافق عليه', value: '0' },
+            ],
+            filteredValue: filterInfo && filterInfo.approved,
+            onFilter: (value, record) => record.approved === Number(value)
+            ,
+            ellipsis: true,
+
+        },
+    ], [])
 
     useEffect(() => {
         dispatch(FetchAnimalsAsync())
@@ -39,7 +53,7 @@ const index: React.FC = () => {
 
     const tmp: ColumnsType<any> = [
         {
-            title: 'Operations',
+            title: 'عمليات',
             dataIndex: 'approved',
             key: '123123',
             width: 200,
@@ -62,9 +76,13 @@ const index: React.FC = () => {
             loading={status === 'loading'}
             dataSource={[...animals.map(el => ({ ...el, approved: Number(el.approved) }))]}
             columns={[...colums, ...tmp]}
+            onChange={(pagination, filters) => {
+                console.log('Various parameters', { pagination, filters });
+                setFilterInfo(filters);
+            }}
         >
 
-        </Table>
+        </Table >
     )
 }
 

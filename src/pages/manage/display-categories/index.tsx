@@ -12,7 +12,7 @@ import { CRUDBuilder, ItemType, RootState, Authenticated, FetchDisplayCategories
 export const columnsDisplayCategories: ItemType[] = [
     {
         columnType: {
-            title: 'ID',
+            title: 'المعرف',
             dataIndex: 'id',
             fixed: 'left',
             width: 100,
@@ -22,7 +22,7 @@ export const columnsDisplayCategories: ItemType[] = [
     },
     {
         columnType: {
-            title: 'Name',
+            title: 'الاسم',
             dataIndex: 'name',
             width: 'auto',
         },
@@ -31,7 +31,7 @@ export const columnsDisplayCategories: ItemType[] = [
     },
     {
         columnType: {
-            title: 'Is Featured',
+            title: 'مميز؟',
             dataIndex: 'is_featured',
             width: 100,
         },

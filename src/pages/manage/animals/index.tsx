@@ -20,7 +20,7 @@ import {
   DATE_FORMAT,
   FetchParentsAsync,
 } from '@core';
-import { Carousel, Col, Form, Select, Typography } from 'antd';
+import { Carousel, Col, Form, Image, Select, Typography } from 'antd';
 import CascederForm from 'src/components/CascederFrom';
 import { UploadFile } from 'antd/lib/upload/interface';
 
@@ -64,7 +64,7 @@ const mapper = (req: any): any => {
 export const columnsAnimals: ItemType[] = [
   {
     columnType: {
-      title: 'ID',
+      title: 'المعرف',
       dataIndex: 'id',
       fixed: 'left',
       width: 100,
@@ -73,7 +73,7 @@ export const columnsAnimals: ItemType[] = [
   },
   {
     columnType: {
-      title: 'Animal NO',
+      title: 'رقم الحيوان',
       dataIndex: 'animal_no',
       width: 200,
     },
@@ -81,7 +81,7 @@ export const columnsAnimals: ItemType[] = [
   },
   {
     columnType: {
-      title: 'Name',
+      title: 'الاسم',
       dataIndex: 'name',
       width: 200,
     },
@@ -90,7 +90,7 @@ export const columnsAnimals: ItemType[] = [
   },
   {
     columnType: {
-      title: 'Birth Date',
+      title: 'تاريخ الولادة',
       dataIndex: 'birth_date',
       width: 200,
     },
@@ -98,7 +98,7 @@ export const columnsAnimals: ItemType[] = [
   },
   {
     columnType: {
-      title: 'Gender',
+      title: 'الجنس',
       dataIndex: 'gender',
       width: 200,
       render: (val: '0' | '1') => (
@@ -121,7 +121,7 @@ export const columnsAnimals: ItemType[] = [
   },
   {
     columnType: {
-      title: 'For Buy',
+      title: 'للشراء؟',
       dataIndex: 'for_buy',
       width: 200,
     },
@@ -130,7 +130,7 @@ export const columnsAnimals: ItemType[] = [
   },
   {
     columnType: {
-      title: 'Price',
+      title: 'السعر',
       dataIndex: 'price',
       width: 200,
     },
@@ -139,7 +139,7 @@ export const columnsAnimals: ItemType[] = [
   },
   {
     columnType: {
-      title: 'Buyer Data',
+      title: 'بيانات المشتري',
       dataIndex: 'puyer_data',
       width: 200,
     },
@@ -148,7 +148,7 @@ export const columnsAnimals: ItemType[] = [
   },
   {
     columnType: {
-      title: 'Is Shown',
+      title: 'للعرض؟',
       dataIndex: 'is_shown',
       width: 200,
     },
@@ -157,7 +157,7 @@ export const columnsAnimals: ItemType[] = [
   },
   {
     columnType: {
-      title: 'QR',
+      title: 'كود',
       dataIndex: 'qr',
       width: 200,
     },
@@ -166,7 +166,7 @@ export const columnsAnimals: ItemType[] = [
   },
   {
     columnType: {
-      title: 'QR Image',
+      title: 'صورة الكود',
       dataIndex: 'qr_image',
       width: 200,
     },
@@ -175,7 +175,7 @@ export const columnsAnimals: ItemType[] = [
   },
   {
     columnType: {
-      title: 'Is Dead',
+      title: 'ميّت؟',
       dataIndex: 'is_dead',
       width: 200,
     },
@@ -184,7 +184,7 @@ export const columnsAnimals: ItemType[] = [
   },
   {
     columnType: {
-      title: 'Approved',
+      title: 'مقبول؟',
       dataIndex: 'approved',
       width: 200,
     },
@@ -193,7 +193,7 @@ export const columnsAnimals: ItemType[] = [
   },
   {
     columnType: {
-      title: 'nfc',
+      title: 'NFC',
       dataIndex: 'nfc',
       width: 200,
     },
@@ -210,7 +210,7 @@ export const columnsAnimals: ItemType[] = [
   // },
   {
     columnType: {
-      title: 'Farms',
+      title: 'المزرعة',
       dataIndex: 'farm',
       width: 200,
       render: (arr: any[]) => (
@@ -226,13 +226,15 @@ export const columnsAnimals: ItemType[] = [
   },
   {
     columnType: {
-      title: 'Attachments',
+      title: 'المرفقات',
       dataIndex: 'attachments',
       width: 200,
       render: (arr: Attachment[]) => (
         <Carousel draggable>
           {arr.map((el) => (
-            <img key={el.id} src={el.url} />
+            <div>
+              <Image key={el.id} src={el.url} style={{ width: 150, height: 150, objectFit: 'cover' }} />
+            </div>
           ))}
         </Carousel>
       ),
@@ -242,7 +244,7 @@ export const columnsAnimals: ItemType[] = [
   },
   {
     columnType: {
-      title: 'Rate',
+      title: 'التقييم',
       dataIndex: 'rate',
       width: 200,
     },
@@ -250,7 +252,7 @@ export const columnsAnimals: ItemType[] = [
   },
   {
     columnType: {
-      title: 'Age',
+      title: 'العمر',
       dataIndex: 'age',
       width: 200,
     },
@@ -259,7 +261,7 @@ export const columnsAnimals: ItemType[] = [
   },
   {
     columnType: {
-      title: 'Weight',
+      title: 'الوزن',
       dataIndex: 'weight',
       width: 200,
     },
@@ -270,7 +272,7 @@ export const columnsAnimals: ItemType[] = [
   },
   {
     columnType: {
-      title: 'Weight',
+      title: 'الوزن',
       dataIndex: 'Weight',
       width: 200,
       render: (val: { id: number, value: string, animal_id: string, weight_date: string }[]) => <>{val[val.length - 1]?.value}</>
@@ -280,7 +282,7 @@ export const columnsAnimals: ItemType[] = [
   },
   {
     columnType: {
-      title: 'Images',
+      title: 'الصور',
       dataIndex: 'image',
       width: 200,
     },
@@ -317,7 +319,7 @@ const ManageAnimals: FC = () => {
   const tmp: ItemType[] = [
     {
       columnType: {
-        title: 'Father',
+        title: 'الأب',
         dataIndex: 'father_id',
         width: 200,
         render: (id: string) => (
@@ -341,7 +343,7 @@ const ManageAnimals: FC = () => {
     },
     {
       columnType: {
-        title: 'Mother',
+        title: 'الأم',
         dataIndex: 'mother_id',
         width: 200,
         render: (id: string) => (
@@ -365,7 +367,7 @@ const ManageAnimals: FC = () => {
     },
     {
       columnType: {
-        title: 'Country',
+        title: 'البلد',
         dataIndex: 'country_id',
         width: 200,
       },
@@ -379,7 +381,7 @@ const ManageAnimals: FC = () => {
     },
     {
       columnType: {
-        title: 'Country',
+        title: 'البلد',
         dataIndex: 'country',
         width: 200,
       },
@@ -389,7 +391,7 @@ const ManageAnimals: FC = () => {
     },
     {
       columnType: {
-        title: 'Color',
+        title: 'اللوم',
         dataIndex: 'color_id',
         width: 200,
       },
@@ -402,7 +404,7 @@ const ManageAnimals: FC = () => {
     },
     {
       columnType: {
-        title: 'Color',
+        title: 'اللون',
         dataIndex: 'color',
         width: 200,
       },
@@ -412,7 +414,7 @@ const ManageAnimals: FC = () => {
     },
     {
       columnType: {
-        title: 'Category',
+        title: 'الصنف',
         dataIndex: 'category_id',
         width: 200,
       },
@@ -432,7 +434,7 @@ const ManageAnimals: FC = () => {
     },
     {
       columnType: {
-        title: 'Display Category',
+        title: 'صنف العرض',
         dataIndex: 'display_category_id',
         width: 200,
       },

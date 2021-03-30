@@ -12,7 +12,7 @@ import { CRUDBuilder, ItemType, RootState, Authenticated, FetchCountriesAsync, D
 export const columnsCountries: ItemType[] = [
     {
         columnType: {
-            title: 'ID',
+            title: 'المعرف',
             dataIndex: 'id',
             fixed: 'left',
             width: 100,
@@ -22,7 +22,7 @@ export const columnsCountries: ItemType[] = [
     },
     {
         columnType: {
-            title: 'Name',
+            title: 'الاسم',
             dataIndex: 'name',
             width: 'auto',
         },

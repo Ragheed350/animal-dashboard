@@ -12,7 +12,7 @@ import { Typography } from 'antd';
 export const columnsWeights: ItemType[] = [
     {
         columnType: {
-            title: 'ID',
+            title: 'المعرف',
             dataIndex: 'id',
             fixed: 'left',
             width: 100,
@@ -22,7 +22,7 @@ export const columnsWeights: ItemType[] = [
     },
     {
         columnType: {
-            title: 'Value',
+            title: 'القيمة',
             dataIndex: 'value',
             width: 200,
         },
@@ -30,7 +30,7 @@ export const columnsWeights: ItemType[] = [
     },
     {
         columnType: {
-            title: 'Weight Date',
+            title: 'تاريخ الوزن',
             dataIndex: 'weight_date',
             width: 300,
         },
@@ -55,7 +55,7 @@ const ManageWeights: FC = () => {
     const tmp: ItemType[] = [
         {
             columnType: {
-                title: 'Animal',
+                title: 'الحيوان',
                 dataIndex: 'animal_id',
                 width: 200,
                 render: (id: string) => <Typography.Text>{en ? animals.find(el => el.id === Number(id))?.['name:en'] : animals.find(el => el.id === Number(id))?.['name:ar']}</Typography.Text>

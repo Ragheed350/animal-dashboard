@@ -15,11 +15,11 @@ import { ItemType } from './types';
 
 // import HTMLEditor from './CustomComponent/HTMLEditor';
 import {
-  CustomUpload,
   CustomMultiImageUpload,
 } from './CustomComponent';
 import { DATE_FORMAT } from '../../constants/keys';
 import { FileToBase64 } from '../helpers';
+import { CustomUploadBase64 } from './CustomComponent/custom-upload-b64';
 
 const { Option } = Select;
 
@@ -165,7 +165,7 @@ export const MapIntoFormItems: React.FC<{
                 name={dataIndex}
                 rules={[{ required }]}
               >
-                <CustomUpload disabled={allDisabled} />
+                <CustomUploadBase64 disabled={allDisabled} />
               </Form.Item>
             </Col>
           );
@@ -271,7 +271,7 @@ export const MapIntoFormItems: React.FC<{
   }, [allDisabled, form, itemsHeader]);
 
   const handlePreview = async (file: UploadFile<any>) => {
-    if (!file.url && !file.preview) {
+    if (!file.url && !file.preview && file.originFileObj) {
       file.preview = await FileToBase64(file.originFileObj);
     }
 

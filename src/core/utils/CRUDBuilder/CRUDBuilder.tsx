@@ -1,4 +1,4 @@
-import { Button, Form, notification, Popconfirm, Row, Table, Modal, Typography, DatePicker, Image, Carousel } from 'antd';
+import { Button, Form, notification, Popconfirm, Row, Table, Modal, Typography, DatePicker, Carousel, Image } from 'antd';
 import { CheckSquareFilled, CloseSquareFilled, DeleteFilled, EditFilled, EditOutlined } from '@ant-design/icons';
 import { ColumnsType, ColumnType } from 'antd/lib/table';
 import React, { useEffect, useState } from 'react';
@@ -11,7 +11,6 @@ import { ItemType } from './types';
 import { getColumnSearchProps } from './CustomComponent/searchProperties';
 import useTranslation from 'next-translate/useTranslation';
 
-import './style.less';
 
 const { Text, Paragraph } = Typography;
 
@@ -98,7 +97,7 @@ export const CRUDBuilder: React.FC<CRADBuilderProps> = ({ AddAsync, DeleteAsync,
 
             case 'image':
               col = {
-                render: (val) => <Image src={val} preview={false} />,
+                render: (val) => <Image src={val} alt='NOT_FOUND' style={{ width: 150, height: 150, objectFit: 'cover' }} />,
                 align: 'center',
                 ...el.columnType,
               };
@@ -107,7 +106,7 @@ export const CRUDBuilder: React.FC<CRADBuilderProps> = ({ AddAsync, DeleteAsync,
 
             case 'multi-images':
               col = {
-                render: (val: string[]) => <Carousel draggable>{val.map(el => <Image key={el} src={el} preview={false} />)}</Carousel>,
+                render: (val: string[]) => <Carousel draggable>{val.map(el => <Image src={el} alt='NOT_FOUND' style={{ width: 150, height: 150, objectFit: 'cover' }} />)}</Carousel>,
                 align: 'center',
                 ...el.columnType,
               };

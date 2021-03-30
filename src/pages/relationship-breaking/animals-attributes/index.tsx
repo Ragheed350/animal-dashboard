@@ -23,7 +23,7 @@ import { FetchAnimalAttributesAsync } from 'src/core/data-management/redux/anima
 export const columnsAnimalAttributes: ItemType[] = [
   {
     columnType: {
-      title: 'ID',
+      title: 'المعرف',
       dataIndex: 'id',
       fixed: 'left',
       width: 100,
@@ -52,7 +52,7 @@ const ManageAttributes: FC = () => {
   const tmp: ItemType[] = [
     {
       columnType: {
-        title: 'Animal',
+        title: 'الحيوان',
         dataIndex: 'animal_id',
         width: 'auto',
         render: (val: string) =>
@@ -68,7 +68,7 @@ const ManageAttributes: FC = () => {
     },
     {
       columnType: {
-        title: 'Attribute',
+        title: 'الصفة',
         dataIndex: 'attribute_id',
         width: 'auto',
         render: (val: string) =>
@@ -84,7 +84,7 @@ const ManageAttributes: FC = () => {
     },
     {
       columnType: {
-        title: 'Value',
+        title: 'القيمة',
         dataIndex: 'value',
         width: 'auto',
       },
@@ -105,7 +105,7 @@ const ManageAttributes: FC = () => {
       }
       DeleteAsync={(el) => DeleteAnimalAttributeAsync({ id: el.id })}
       itemsHeader={[...columnsAnimalAttributes, ...tmp]}
-      // Mapper={mapper}
+    // Mapper={mapper}
     />
   );
 };

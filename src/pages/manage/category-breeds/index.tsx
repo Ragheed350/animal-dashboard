@@ -10,7 +10,7 @@ const mapper = (req: any) => ObjToFormData(req);
 export const columnsCategories: ItemType[] = [
     {
         columnType: {
-            title: 'ID',
+            title: 'المعرف',
             dataIndex: 'id',
             fixed: 'left',
             width: 100,
@@ -19,7 +19,7 @@ export const columnsCategories: ItemType[] = [
     },
     {
         columnType: {
-            title: 'Name',
+            title: 'الاسم',
             dataIndex: 'name',
             width: 200,
         },
@@ -28,7 +28,7 @@ export const columnsCategories: ItemType[] = [
     },
     {
         columnType: {
-            title: 'Description',
+            title: 'الوصف',
             dataIndex: 'description',
             width: 'auto',
         },
@@ -37,7 +37,7 @@ export const columnsCategories: ItemType[] = [
     },
     {
         columnType: {
-            title: 'Image',
+            title: 'الصورة',
             dataIndex: 'image',
             width: 300,
         },
@@ -45,7 +45,7 @@ export const columnsCategories: ItemType[] = [
     },
     {
         columnType: {
-            title: 'Pregnancy (per month)',
+            title: 'معدل الولادة (بالشهر)',
             dataIndex: 'pregnancy',
             width: 300,
         },
@@ -68,7 +68,7 @@ const ManageCategories: FC = () => {
     const tmp: ItemType[] = [
         {
             columnType: {
-                title: 'Parent ID',
+                title: 'معرف الأب',
                 dataIndex: 'parent_id',
                 width: 200,
                 render: (val: string) => en ? level2.find(el => el.id === Number(val))?.['name:en'] : level2.find(el => el.id === Number(val))?.['name:ar']

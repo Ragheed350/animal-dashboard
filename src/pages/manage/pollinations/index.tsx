@@ -27,7 +27,7 @@ const mapper = (req: Pollination): Pollination_Req => ({
 export const columnsPollinations: ItemType[] = [
   {
     columnType: {
-      title: 'ID',
+      title: 'المعرف',
       dataIndex: 'id',
       fixed: 'left',
       width: 100,
@@ -37,7 +37,7 @@ export const columnsPollinations: ItemType[] = [
   },
   {
     columnType: {
-      title: 'Duration',
+      title: 'المدة',
       dataIndex: 'duration',
       width: 200,
     },
@@ -63,7 +63,7 @@ const ManagePollinations: FC = () => {
   const tmp: ItemType[] = [
     {
       columnType: {
-        title: 'Male',
+        title: 'الذكر',
         dataIndex: 'male_id',
         width: 200,
         render: (id: string) => (
@@ -84,7 +84,7 @@ const ManagePollinations: FC = () => {
     },
     {
       columnType: {
-        title: 'Female',
+        title: 'الأنثى',
         dataIndex: 'female_id',
         width: 200,
         render: (id: string) => (

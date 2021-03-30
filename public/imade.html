@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>farm form</title>
+  </head>
+  <body>
+    <form id="abc" onSubmit="submit">
+      <label htmlFor="location">location:</label>
+      <input name="location" type="text" />
+      <br />
+      <label htmlFor="price">price:</label>
+      <input name="price" type="number" />
+      <br />
+      <label htmlFor="lat">lat:</label>
+      <input name="lat" type="text" />
+      <br />
+      <label htmlFor="land">land:</label>
+      <input name="land" type="text" />
+      <br />
+      <label htmlFor="AC">AC:</label>
+      <input name="AC" type="checkbox" />
+      <br />
+      <label htmlFor="pool">pool:</label>
+      <input name="pool" type="number" />
+      <br />
+      <label htmlFor="bbq">bbq:</label>
+      <input name="bbq" type="checkbox" />
+      <br />
+      <label htmlFor="rooms">rooms:</label>
+      <input name="rooms" type="number" />
+      <br />
+      <label htmlFor="info">info:</label>
+      <input name="info" type="textarea" />
+      <br />
+      <input type="submit" />
+    </form>
+    <script>
+      document
+        .getElementById('abc')
+        .addEventListener('submit', function (event) {
+          event.preventDefault();
+          console.log(event);
+        });
+    </script>
+  </body>
+</html>

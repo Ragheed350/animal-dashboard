@@ -24,7 +24,7 @@ import { Typography } from 'antd';
 export const columnsAttributes: ItemType[] = [
   {
     columnType: {
-      title: 'ID',
+      title: 'المعرف',
       dataIndex: 'id',
       fixed: 'left',
       width: 100,
@@ -34,7 +34,7 @@ export const columnsAttributes: ItemType[] = [
   },
   {
     columnType: {
-      title: 'Name',
+      title: 'الاسم',
       dataIndex: 'name',
       width: 'auto',
     },
@@ -43,7 +43,7 @@ export const columnsAttributes: ItemType[] = [
   },
   {
     columnType: {
-      title: 'Gender',
+      title: 'الجنس',
       dataIndex: 'gender',
       width: 200,
       render: (val: '0' | '1') => (
@@ -77,7 +77,7 @@ const ManageAttributes: FC = () => {
   const tmp: ItemType[] = [
     {
       columnType: {
-        title: 'Category ID',
+        title: 'معرف الصنف',
         dataIndex: 'category_id',
         width: 200,
         render: (val: string) =>

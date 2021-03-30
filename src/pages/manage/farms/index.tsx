@@ -5,13 +5,16 @@ import { GetServerSideProps } from 'next';
 
 import { CRUDBuilder, ItemType, RootState, Authenticated, FetchFarmsAsync, DeleteFarmAsync, InsertFarmAsync, UpdateFarmAsync, ObjToFormData } from '@core';
 
-const mapper = (req: any): any => ObjToFormData(req);
+const mapper = (req: any): any => {
+    const formData = ObjToFormData(req);
+    return formData;
+}
 
 
 export const columnsFarms: ItemType[] = [
     {
         columnType: {
-            title: 'ID',
+            title: 'المعرف',
             dataIndex: 'id',
             fixed: 'left',
             width: 100,
@@ -21,7 +24,7 @@ export const columnsFarms: ItemType[] = [
     },
     {
         columnType: {
-            title: 'Name',
+            title: 'الاسم',
             dataIndex: 'name',
             width: 200,
         },
@@ -30,7 +33,7 @@ export const columnsFarms: ItemType[] = [
     },
     {
         columnType: {
-            title: 'Description',
+            title: 'الوصف',
             dataIndex: 'description',
             width: 300,
         },
@@ -39,7 +42,7 @@ export const columnsFarms: ItemType[] = [
     },
     {
         columnType: {
-            title: 'Code',
+            title: 'الكود',
             dataIndex: 'code',
             width: 200,
         },
@@ -47,7 +50,7 @@ export const columnsFarms: ItemType[] = [
     },
     {
         columnType: {
-            title: 'Rate',
+            title: 'التقييم',
             dataIndex: 'rate',
             width: 200,
         },
@@ -56,7 +59,7 @@ export const columnsFarms: ItemType[] = [
     },
     {
         columnType: {
-            title: 'Logo',
+            title: 'الشعار',
             dataIndex: 'logo',
             width: 300,
         },
@@ -64,11 +67,11 @@ export const columnsFarms: ItemType[] = [
     },
     {
         columnType: {
-            title: 'Location',
+            title: 'الموقع',
             dataIndex: 'latLng',
             render: (val: string) => {
                 const res = JSON.parse(val) as { longitude: string, latitude: string };
-                return <a target='__blank' href={`https://www.google.com/maps/place/${res.latitude}, ${res.longitude}`}>go to map</a>
+                return <a target='__blank' href={`https://www.google.com/maps/place/${res.longitude}, ${res.latitude}`}>{'إذهب إلى الموقع'}</a>
             },
             width: 200,
         },
@@ -77,7 +80,7 @@ export const columnsFarms: ItemType[] = [
     },
     {
         columnType: {
-            title: 'latitude',
+            title: 'خطوط الطول',
             dataIndex: 'latitude',
             width: 200,
         },
@@ -86,7 +89,7 @@ export const columnsFarms: ItemType[] = [
     },
     {
         columnType: {
-            title: 'longitude',
+            title: 'خطوط العرض',
             dataIndex: 'longitude',
             width: 200,
         },
@@ -110,7 +113,7 @@ const ManageFarms: FC = () => {
     const tmp: ItemType[] = [
         {
             columnType: {
-                title: 'Owner',
+                title: 'المالك',
                 dataIndex: 'owner_id',
                 width: 200,
             },

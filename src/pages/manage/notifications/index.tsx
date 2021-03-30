@@ -13,7 +13,7 @@ import { Typography } from 'antd';
 export const columnsNotifications: ItemType[] = [
     {
         columnType: {
-            title: 'ID',
+            title: 'المعرف',
             dataIndex: 'id',
             fixed: 'left',
             width: 100,
@@ -23,7 +23,7 @@ export const columnsNotifications: ItemType[] = [
     },
     {
         columnType: {
-            title: 'Text',
+            title: 'النص',
             dataIndex: 'text',
             width: 200,
         },
@@ -32,7 +32,7 @@ export const columnsNotifications: ItemType[] = [
     },
     {
         columnType: {
-            title: 'Is Read',
+            title: 'مقروءة؟',
             dataIndex: 'is_read',
             width: 150,
         },
@@ -59,7 +59,7 @@ const ManageNotifications: FC = () => {
     const tmp: ItemType[] = [
         {
             columnType: {
-                title: 'Animal',
+                title: 'الحيوان',
                 dataIndex: 'animal_id',
                 width: 200,
                 render: (val: string) => <Typography.Text>{en ? animals.find(el => el.id === Number(val))?.['name:en'] : animals.find(el => el.id === Number(val))?.['name:ar']}</Typography.Text>
@@ -69,7 +69,7 @@ const ManageNotifications: FC = () => {
         },
         {
             columnType: {
-                title: 'User',
+                title: 'المستخدم',
                 dataIndex: 'user_id',
                 width: 200,
                 render: (id: string) => <Typography.Text>{en ? users.find(el => el.id === Number(id))?.['name:en'] : users.find(el => el.id === Number(id))?.['name:ar']}</Typography.Text>,

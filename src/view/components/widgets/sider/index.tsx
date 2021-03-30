@@ -1,5 +1,5 @@
 import {
-  ApartmentOutlined,
+  // ApartmentOutlined,
   HomeOutlined,
   LogoutOutlined,
   SecurityScanOutlined,
@@ -17,109 +17,112 @@ import { logoutAsync, appServices } from '@core';
 
 const manageMenu_arr: { title: string; href: string }[] = [
   {
-    title: 'Animals',
+    title: 'الفئات',
+    href: '/manage/category-parents',
+  },
+  {
+    title: 'الأصناف',
+    href: '/manage/category-classes',
+  },
+  {
+    title: 'السلالات',
+    href: '/manage/category-breeds',
+  },
+
+  {
+    title: 'الحيوانات',
     href: '/manage/animals',
   },
+
+  {
+    title: 'المزارع',
+    href: '/manage/farms',
+  },
+
   // don't needed
   // {
   //   title: 'Attachments',
   //   href: '/manage/attachments'
   // },
-  {
-    title: 'Attributes',
-    href: '/manage/attributes',
-  },
   // {
   //   title: 'Animal Attributes',
   //   href: '/manage/animal-attributes',
   // },
   {
-    title: 'Category Parents',
-    href: '/manage/category-parents',
-  },
-  {
-    title: 'Category Classes',
-    href: '/manage/category-classes',
-  },
-  {
-    title: 'Category Breeds',
-    href: '/manage/category-breeds',
-  },
-  {
-    title: 'Colors',
+    title: 'الألوان',
     href: '/manage/colors',
   },
   {
-    title: 'Countries',
+    title: 'البلدان',
     href: '/manage/countries',
   },
   {
-    title: 'Display Categories',
+    title: 'العروض',
     href: '/manage/display-categories',
   },
   {
-    title: 'Farms',
-    href: '/manage/farms',
-  },
-  {
-    title: 'Notifications',
+    title: 'الإشعارات',
     href: '/manage/notifications',
   },
   {
-    title: 'Pollinations',
+    title: 'التزاوج',
     href: '/manage/pollinations',
   },
   {
-    title: 'Rates',
-    href: '/manage/rates',
-  },
-  {
-    title: 'Users',
-    href: '/manage/users',
-  },
-  {
-    title: 'Vaccinates',
+    title: 'اللقاحات',
     href: '/manage/vaccinates',
   },
   {
-    title: 'Vitamins',
+    title: 'الفيتامينات',
     href: '/manage/vitamins',
   },
   {
-    title: 'Weights',
+    title: 'الأوزان',
     href: '/manage/weights',
   },
   {
-    title: 'Certificates',
+    title: 'الشهادات',
     href: '/manage/certificates',
   },
   {
-    title: 'Features',
+    title: 'الباقات',
     href: '/manage/features',
+  },
+  {
+    title: 'خصائص الحيوانات',
+    href: '/relationship-breaking/animals-attributes'
+  },
+  {
+    title: 'باقات المستخدمين',
+    href: '/relationship-breaking/users-features'
+  },
+  {
+    title: 'المستخدمون',
+    href: '/manage/users',
+  },
+  {
+    title: 'الخصائص',
+    href: '/manage/attributes',
+  },
+  {
+    title: 'التقييمات',
+    href: '/manage/rates',
   },
 ];
 
 const approvementMenu_arr: { title: string; href: string }[] = [
   {
-    title: 'Animals',
+    title: 'الحيوانات',
     href: '/approvement/animals'
   },
   {
-    title: 'Features',
+    title: 'الباقات',
     href: '/approvement/features'
   },
 ]
 
-const breakingMenu_arr: { title: string; href: string }[] = [
-  {
-    title: 'Animals - Attributes',
-    href: '/relationship-breaking/animals-attributes'
-  },
-  {
-    title: 'Users - Features',
-    href: '/relationship-breaking/users-features'
-  },
-]
+// const breakingMenu_arr: { title: string; href: string }[] = [
+// ]
 
 
 const Sider: FC = () => {
@@ -145,13 +148,13 @@ const Sider: FC = () => {
         ))}
       </Menu.SubMenu>
 
-      <Menu.SubMenu key='sub2' title='ربط العلاقات' icon={<ApartmentOutlined />}>
+      {/* <Menu.SubMenu key='sub2' title='ربط العلاقات' icon={<ApartmentOutlined />}>
         {breakingMenu_arr.map((el) => (
           <Menu.Item key={el.href}>
             <Link href={el.href}>{el.title}</Link>
           </Menu.Item>
         ))}
-      </Menu.SubMenu>
+      </Menu.SubMenu> */}
 
       <Menu.SubMenu key='sub3' title='الموافقة' icon={<SecurityScanOutlined />}>
         {approvementMenu_arr.map((el) => (

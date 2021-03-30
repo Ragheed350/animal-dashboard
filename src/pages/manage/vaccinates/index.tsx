@@ -3,7 +3,7 @@ import React, { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetServerSideProps } from 'next';
 
-import { CRUDBuilder, ItemType, RootState, Authenticated, FetchVaccinatesAsync, DeleteVaccinateAsync, InsertVaccinateAsync, UpdateVaccinateAsync, FetchCategoriesAsync, Category } from '@core';
+import { CRUDBuilder, ItemType, RootState, Authenticated, FetchVaccinatesAsync, DeleteVaccinateAsync, InsertVaccinateAsync, UpdateVaccinateAsync, Category, FetchLevel3Async } from '@core';
 import { Select } from 'antd';
 
 // const mapper = (req: Vaccinate): Vaccinate_Req => ({
@@ -12,7 +12,7 @@ import { Select } from 'antd';
 export const columnsVaccinates: ItemType[] = [
     {
         columnType: {
-            title: 'ID',
+            title: 'المعرف',
             dataIndex: 'id',
             fixed: 'left',
             width: 100,
@@ -22,7 +22,7 @@ export const columnsVaccinates: ItemType[] = [
     },
     {
         columnType: {
-            title: 'Name',
+            title: 'الاسم',
             dataIndex: 'name',
             width: 200,
         },
@@ -31,7 +31,7 @@ export const columnsVaccinates: ItemType[] = [
     },
     {
         columnType: {
-            title: 'Description',
+            title: 'الوصف',
             dataIndex: 'description',
             width: 300,
         },
@@ -46,17 +46,17 @@ const ManageVaccinates: FC = () => {
     const dispatch = useDispatch()
 
     const { status, vaccinates } = useSelector((state: RootState) => state.Vaccinate);
-    const { categories } = useSelector((state: RootState) => state.Category);
+    const { level3 } = useSelector((state: RootState) => state.Category);
 
     useEffect(() => {
         dispatch(FetchVaccinatesAsync())
-        dispatch(FetchCategoriesAsync())
+        dispatch(FetchLevel3Async())
     }, [dispatch])
 
     const tmp: ItemType[] = [
         {
             columnType: {
-                title: 'Categories',
+                title: 'الأصناف',
                 dataIndex: 'category',
                 width: 200,
                 render: (arr: Category[]) => <Select value={arr.map(el => el.id)} style={{ width: '100%' }} mode='multiple'>
@@ -68,7 +68,7 @@ const ManageVaccinates: FC = () => {
         },
         {
             columnType: {
-                title: 'Category',
+                title: 'الصنف',
                 dataIndex: 'category_id',
                 width: 200,
             },
@@ -76,7 +76,7 @@ const ManageVaccinates: FC = () => {
             initialValueDataIndex: 'category',
             getInitialValue: (arr: Category[]) => arr.map(el => el.id),
             hidden: true,
-            foreignKeyArr: categories.map(el => ({ title: en ? el['name:en'] : el['name:ar'], value: el.id }))
+            foreignKeyArr: level3.map(el => ({ title: en ? el['name:en'] : el['name:ar'], value: el.id }))
         },
     ]
 

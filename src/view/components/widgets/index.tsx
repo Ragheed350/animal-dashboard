@@ -65,7 +65,7 @@ export const CamelLayout: React.FC = ({ children }) => {
                     </div> */}
                     <DTICSider />
                     <div style={{ padding: collapsed ? 10 : 5, position: 'fixed', bottom: collapsed ? 25 : 50 }}>
-                        <Link href='https://its.sy'>
+                        <Link href='https://its.ae'>
                             <a target='__black'>
                                 {collapsed ?
                                     <Image src="/assets/big-bang/BB-ICON.png" alt="LOGO" layout='intrinsic' height={60} width={60} />

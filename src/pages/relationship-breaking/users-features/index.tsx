@@ -22,7 +22,7 @@ import {
 export const columnsAnimalAttributes: ItemType[] = [
     {
         columnType: {
-            title: 'ID',
+            title: 'المعرف',
             dataIndex: 'id',
             fixed: 'left',
             width: 100,
@@ -48,7 +48,7 @@ const ManageAttributes: FC = () => {
 
         {
             columnType: {
-                title: 'User',
+                title: 'المستخدم',
                 dataIndex: 'user_id',
                 width: 'auto',
                 render: (val: number | string) => <>{users.find(el => el.id === Number(val))?.['name:ar']}</>
@@ -58,7 +58,7 @@ const ManageAttributes: FC = () => {
         },
         {
             columnType: {
-                title: 'Feature',
+                title: 'الباقة',
                 dataIndex: 'feature_id',
                 width: 'auto',
                 render: (val: number | string) => <>{features.find(el => el.id === Number(val))?.['text:ar']}</>

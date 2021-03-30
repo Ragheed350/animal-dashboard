@@ -12,7 +12,7 @@ import { CRUDBuilder, ItemType, RootState, Authenticated, FetchColorsAsync, Dele
 export const columnsColors: ItemType[] = [
     {
         columnType: {
-            title: 'ID',
+            title: 'المعرف',
             dataIndex: 'id',
             fixed: 'left',
             width: 100,
@@ -21,7 +21,7 @@ export const columnsColors: ItemType[] = [
     },
     {
         columnType: {
-            title: 'Name',
+            title: 'الاسم',
             dataIndex: 'name',
             width: 'auto',
         },

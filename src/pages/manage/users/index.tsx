@@ -13,7 +13,7 @@ import { Typography } from 'antd';
 export const columnsUsers: ItemType[] = [
     {
         columnType: {
-            title: 'ID',
+            title: 'المعرف',
             dataIndex: 'id',
             fixed: 'left',
             width: 100,
@@ -22,7 +22,7 @@ export const columnsUsers: ItemType[] = [
     },
     {
         columnType: {
-            title: 'Name',
+            title: 'الاسم',
             dataIndex: 'name',
             width: 200,
         },
@@ -31,7 +31,7 @@ export const columnsUsers: ItemType[] = [
     },
     {
         columnType: {
-            title: 'Email',
+            title: 'البريد الالكتروني',
             dataIndex: 'email',
             width: 200,
         },
@@ -39,7 +39,7 @@ export const columnsUsers: ItemType[] = [
     },
     {
         columnType: {
-            title: 'Phone',
+            title: 'الرقم',
             dataIndex: 'phone',
             width: 200,
         },
@@ -47,7 +47,7 @@ export const columnsUsers: ItemType[] = [
     },
     {
         columnType: {
-            title: 'Gender',
+            title: 'الجنس',
             dataIndex: 'gender',
             width: 200,
             render: (val: '0' | '1') => <Typography.Text>{val === '1' ? 'ذكر' : 'أنثى'}</Typography.Text>
@@ -57,7 +57,7 @@ export const columnsUsers: ItemType[] = [
     },
     {
         columnType: {
-            title: 'Marital',
+            title: 'الحالة العائلية',
             dataIndex: 'marital',
             width: 200,
         },
@@ -65,7 +65,7 @@ export const columnsUsers: ItemType[] = [
     },
     {
         columnType: {
-            title: 'Is Suspended',
+            title: 'معلق؟',
             dataIndex: 'is_suspended',
             width: 200,
         },
@@ -73,7 +73,7 @@ export const columnsUsers: ItemType[] = [
     },
     {
         columnType: {
-            title: 'Nationallity',
+            title: 'الجنسية',
             dataIndex: 'nationallity',
             width: 200,
         },
@@ -82,7 +82,7 @@ export const columnsUsers: ItemType[] = [
     },
     {
         columnType: {
-            title: 'Address',
+            title: 'العنوان',
             dataIndex: 'address',
             width: 200,
         },
@@ -91,19 +91,11 @@ export const columnsUsers: ItemType[] = [
     },
     {
         columnType: {
-            title: 'Image',
+            title: 'الصورة',
             dataIndex: 'image',
             width: 300,
         },
         type: 'image',
-    },
-    {
-        columnType: {
-            title: 'package_id',
-            dataIndex: 'package_id',
-            width: 300,
-        },
-        type: 'text',
     },
 ];
 
@@ -123,7 +115,7 @@ const ManageUsers: FC = () => {
     const tmp: ItemType[] = [
         {
             columnType: {
-                title: 'Country ID',
+                title: 'البلد',
                 dataIndex: 'country_id',
                 width: 200,
                 render: (val: string) => en ? countries.find(el => el.id === Number(val))?.['name:en'] : countries.find(el => el.id === Number(val))?.['name:ar']

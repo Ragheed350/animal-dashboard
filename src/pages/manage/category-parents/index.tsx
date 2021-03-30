@@ -15,12 +15,15 @@ import {
   ObjToFormData,
 } from '@core';
 
-const mapper = (req: any) => ObjToFormData(req);
+const mapper = (req: any) => {
+  const fd = ObjToFormData(req)
+  return fd;
+};
 
 export const columnsCategories: ItemType[] = [
   {
     columnType: {
-      title: 'ID',
+      title: 'المعرف',
       dataIndex: 'id',
       fixed: 'left',
       width: 100,
@@ -29,7 +32,7 @@ export const columnsCategories: ItemType[] = [
   },
   {
     columnType: {
-      title: 'Name',
+      title: 'الاسم',
       dataIndex: 'name',
       width: 200,
     },
@@ -38,7 +41,7 @@ export const columnsCategories: ItemType[] = [
   },
   {
     columnType: {
-      title: 'Description',
+      title: 'الوصف',
       dataIndex: 'description',
       width: 'auto',
     },
@@ -47,7 +50,7 @@ export const columnsCategories: ItemType[] = [
   },
   {
     columnType: {
-      title: 'Image',
+      title: 'الصورة',
       dataIndex: 'image',
       width: 300,
     },
@@ -72,9 +75,7 @@ const ManageCategories: FC = () => {
       items={parents}
       loading={status === 'loading'}
       AddAsync={(el) => InsertParentAsync({ category: el.item })}
-      UpdateAsync={(el) =>
-        UpdateParentAsync({ id: el.id, category: el.item })
-      }
+      UpdateAsync={(el) => UpdateParentAsync({ id: el.id, category: el.item })}
       DeleteAsync={(el) => DeleteParentAsync({ id: el.id })}
       itemsHeader={[...columnsCategories]}
       Mapper={mapper}

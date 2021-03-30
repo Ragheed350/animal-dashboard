@@ -19,7 +19,7 @@ const mapper = async (req: Attachment_Req) => {
 export const columnsAttachments: ItemType[] = [
     {
         columnType: {
-            title: 'ID',
+            title: 'المعرف',
             dataIndex: 'id',
             fixed: 'left',
             width: 100,
@@ -29,7 +29,7 @@ export const columnsAttachments: ItemType[] = [
     },
     {
         columnType: {
-            title: 'URL',
+            title: 'الرابط',
             dataIndex: 'url',
             render: (val: string) => <a href={val} target='__blank' >{val}</a>,
             width: 'auto',
@@ -39,7 +39,7 @@ export const columnsAttachments: ItemType[] = [
     },
     {
         columnType: {
-            title: 'Type',
+            title: 'النوع',
             dataIndex: 'type',
             width: 200,
         },
@@ -48,7 +48,7 @@ export const columnsAttachments: ItemType[] = [
     },
     {
         columnType: {
-            title: 'Animal ID',
+            title: 'معرف الحيوان',
             dataIndex: 'animal_id',
             width: 200,
         },
@@ -61,7 +61,7 @@ export const columnsAttachments: ItemType[] = [
     },
     {
         columnType: {
-            title: 'Images',
+            title: 'الصور',
             dataIndex: 'image',
             width: 200,
         },

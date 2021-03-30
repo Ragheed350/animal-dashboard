@@ -12,9 +12,9 @@ import {
   DeleteVitaminAsync,
   InsertVitaminAsync,
   UpdateVitaminAsync,
-  FetchCategoriesAsync,
   Vitamin_Req,
   Category,
+  FetchLevel3Async,
 } from '@core';
 import { Select } from 'antd';
 
@@ -26,7 +26,7 @@ const mapper = (req: any): Vitamin_Req => ({
 export const columnsVitamins: ItemType[] = [
   {
     columnType: {
-      title: 'ID',
+      title: 'المعرف',
       dataIndex: 'id',
       fixed: 'left',
       width: 100,
@@ -35,7 +35,7 @@ export const columnsVitamins: ItemType[] = [
   },
   {
     columnType: {
-      title: 'Name',
+      title: 'الاسم',
       dataIndex: 'name',
       width: 200,
     },
@@ -44,7 +44,7 @@ export const columnsVitamins: ItemType[] = [
   },
   {
     columnType: {
-      title: 'Description',
+      title: 'الوصف',
       dataIndex: 'description',
       width: 'auto',
     },
@@ -59,17 +59,17 @@ const ManageVitamins: FC = () => {
   const dispatch = useDispatch();
 
   const { status, vitamins } = useSelector((state: RootState) => state.Vitamin);
-  const { categories, status: cstatus } = useSelector((state: RootState) => state.Category);
+  const { level3, status: cstatus } = useSelector((state: RootState) => state.Category);
 
   useEffect(() => {
     dispatch(FetchVitaminsAsync());
-    dispatch(FetchCategoriesAsync());
+    dispatch(FetchLevel3Async());
   }, [dispatch]);
 
   const tmp: ItemType[] = [
     {
       columnType: {
-        title: 'Category',
+        title: 'السلالات',
         dataIndex: 'category',
         width: 300,
         render: (arr: Category[]) => <Select value={arr.map(el => el.id)} style={{ width: '100%' }} mode='multiple'>
@@ -77,7 +77,7 @@ const ManageVitamins: FC = () => {
         </Select>
       },
       type: 'multi-foreign-key-obj',
-      foreignKeyArr: categories.map(el => ({ value: el.id, title: en ? el['name:en'] : el['name:ar'] }))
+      foreignKeyArr: level3.map(el => ({ value: el.id, title: en ? el['name:en'] : el['name:ar'] }))
     },
   ]
 

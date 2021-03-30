@@ -24,7 +24,7 @@ import { Typography } from 'antd';
 export const columnsRates: ItemType[] = [
   {
     columnType: {
-      title: 'ID',
+      title: 'المعرف',
       dataIndex: 'id',
       fixed: 'left',
       width: 100,
@@ -34,7 +34,7 @@ export const columnsRates: ItemType[] = [
   },
   {
     columnType: {
-      title: 'Value',
+      title: 'القيمة',
       dataIndex: 'value',
       width: 200,
     },
@@ -60,7 +60,7 @@ const ManageRates: FC = () => {
   const tmp: ItemType[] = [
     {
       columnType: {
-        title: 'User',
+        title: 'المستخدم',
         dataIndex: 'user_id',
         width: 200,
         render: (id: string) => (
@@ -79,7 +79,7 @@ const ManageRates: FC = () => {
     },
     {
       columnType: {
-        title: 'Animal',
+        title: 'الحيوان',
         dataIndex: 'animal_id',
         width: 200,
         render: (id: string) => (
@@ -107,7 +107,7 @@ const ManageRates: FC = () => {
       UpdateAsync={(el) => UpdateRateAsync({ id: el.id, rate: el.item })}
       DeleteAsync={(el) => DeleteRateAsync({ id: el.id })}
       itemsHeader={[...columnsRates, ...tmp]}
-      // Mapper={mapper}
+    // Mapper={mapper}
     />
   );
 };

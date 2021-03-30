@@ -18,7 +18,7 @@ import {
 export const columnsFeatures: ItemType[] = [
   {
     columnType: {
-      title: 'ID',
+      title: 'المعرف',
       dataIndex: 'id',
       fixed: 'left',
       width: 100,
@@ -27,7 +27,7 @@ export const columnsFeatures: ItemType[] = [
   },
   {
     columnType: {
-      title: 'Value',
+      title: 'القيمة',
       dataIndex: 'value',
       width: 'auto',
     },
@@ -35,7 +35,7 @@ export const columnsFeatures: ItemType[] = [
   },
   {
     columnType: {
-      title: 'Price',
+      title: 'السعر',
       dataIndex: 'price',
       width: 'auto',
     },
@@ -43,7 +43,7 @@ export const columnsFeatures: ItemType[] = [
   },
   {
     columnType: {
-      title: 'Limit',
+      title: 'الحد (بالشهر)',
       dataIndex: 'limit',
       width: 'auto',
     },
@@ -66,7 +66,7 @@ const ManageFeatures: FC = () => {
   const tmp: ItemType[] = [
     {
       columnType: {
-        title: 'Text',
+        title: 'النص',
         dataIndex: 'text',
         width: 'auto',
       },
@@ -75,7 +75,7 @@ const ManageFeatures: FC = () => {
     },
     {
       columnType: {
-        title: 'Category',
+        title: 'الصنف',
         dataIndex: 'category_id',
         width: 200,
         render: (id: number | string) => parents.find(el => el.id === Number(id))?.['name:ar']
