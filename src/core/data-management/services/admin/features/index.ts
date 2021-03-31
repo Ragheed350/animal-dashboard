@@ -60,6 +60,9 @@ export class FeatureService extends ApiService {
       user_id,
       feature_id,
     });
+
+  public unapprove = async ({ id }: { id: number | string }) =>
+    this.post<FeatureForApprove>(`userfeature/unapprove_feature/${id}`);
 }
 
 export const featureService = new FeatureService({

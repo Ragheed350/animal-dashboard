@@ -219,4 +219,19 @@ export const approveFeatureAsync = (req: {
   }
 };
 
+export const unapproveFeatureAsync = (req: {
+  id: number | string;
+}): AppThunk => async (dispatch) => {
+  dispatch(setStatus('loading'));
+  const result = await featureService.unapprove(req);
+  if (isError(result)) {
+    ApiErrorNotification(result);
+    dispatch(setStatus('error'));
+  } else {
+    dispatch(UpdateFeaturesApprove(result.data));
+    ApiSuccessNotification({ mes: ['Done!', 'تم!'] });
+    dispatch(setStatus('data'));
+  }
+};
+
 export default FeaturesSlice.reducer;

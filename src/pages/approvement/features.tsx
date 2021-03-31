@@ -1,5 +1,5 @@
 import { CheckCircleFilled, CloseCircleFilled } from '@ant-design/icons';
-import { Authenticated, RootState, listFeaturesAsync, approveFeatureAsync, FeatureForApprove, FetchUsersAsync, FetchFeaturesAsync } from '@core';
+import { Authenticated, RootState, listFeaturesAsync, approveFeatureAsync, unapproveFeatureAsync, FeatureForApprove, FetchUsersAsync, FetchFeaturesAsync } from '@core';
 import { Button, Popconfirm, Table } from 'antd';
 import { ColumnsType } from 'antd/lib/table';
 import React, { useEffect, useMemo } from 'react';
@@ -50,8 +50,8 @@ const index: React.FC = () => {
             key: '123123',
             width: 200,
             render: (val: '1' | '0', { id, feature_id, user_id }) => Number(val) === 1 ?
-                <Popconfirm disabled onConfirm={() => dispatch(approveFeatureAsync({ id, feature_id, user_id }))} title='هل أنت متأكد من أنك تريد عدم الموافقة على هذه الباقة؟'>
-                    <Button disabled type='primary' size='large'>
+                <Popconfirm onConfirm={() => dispatch(unapproveFeatureAsync({ id }))} title='هل أنت متأكد من أنك تريد عدم الموافقة على هذه الباقة؟'>
+                    <Button type='primary' danger ghost size='large'>
                         {'عدم الموافقة'}
                     </Button>
                 </Popconfirm > :
