@@ -19,7 +19,7 @@ export class AnimalService extends ApiService {
   public Insert = async ({
     animal,
   }: Animal_I_Req): Promise<ApiResult<Animal>> =>
-    this.post<Animal>(`animals`, animal);
+    this.post<Animal>(`animal/store_by_admin`, animal);
 
   public Update = async ({
     animal,

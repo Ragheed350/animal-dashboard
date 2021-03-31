@@ -19,7 +19,7 @@ import {
 } from './CustomComponent';
 import { DATE_FORMAT } from '../../constants/keys';
 import { FileToBase64 } from '../helpers';
-import { CustomUploadBase64 } from './CustomComponent/custom-upload-b64';
+import { CustomUploadFile } from './CustomComponent';
 
 const { Option } = Select;
 
@@ -75,14 +75,9 @@ export const MapIntoFormItems: React.FC<{
                   disabled={allDisabled}
                   style={{ width: '100%' }}
                   allowClear
-                >
-                  {el.foreignKeyArr &&
-                    el.foreignKeyArr.map((el) => (
-                      <Option key={el.value} value={el.value}>
-                        {el.title}
-                      </Option>
-                    ))}
-                </Select>
+                  showSearch
+                  options={el.foreignKeyArr?.map(el => ({ label: el.title, value: el.value }))}
+                />
               </Form.Item>
             </Col>
           );
@@ -101,6 +96,7 @@ export const MapIntoFormItems: React.FC<{
                   disabled={allDisabled}
                   style={{ width: '100%' }}
                   mode='multiple'
+                  showSearch
                   allowClear
                 >
                   {el.foreignKeyArr &&
@@ -165,7 +161,7 @@ export const MapIntoFormItems: React.FC<{
                 name={dataIndex}
                 rules={[{ required }]}
               >
-                <CustomUploadBase64 disabled={allDisabled} />
+                <CustomUploadFile disabled={allDisabled} />
               </Form.Item>
             </Col>
           );

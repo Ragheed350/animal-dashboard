@@ -58,14 +58,14 @@ const index: React.FC = () => {
             key: '123123',
             width: 200,
             render: (val: '1' | '0', { id, farm }: Animal) => Number(val) === 1 ?
-                <Popconfirm onConfirm={() => dispatch(UnApproveAnimalAsync({ id }))} title='Are You Sure You Want To UnApprove this Animal?'>
-                    <Button type='primary' size='large'>
-                        {'UnApprove'}
+                <Popconfirm onConfirm={() => dispatch(UnApproveAnimalAsync({ id }))} title='هل أنت متأكد من أنك تريد عدم الموافقة على هذا الحيوان؟'>
+                    <Button type='primary' size='large' ghost danger>
+                        {'عدم الموافقة'}
                     </Button>
                 </Popconfirm > :
-                <Popconfirm onConfirm={() => dispatch(ApproveAnimalAsync({ id, user_id: Number(farm[0].farm_id) }))} title='Are You Sure You Want To Approve this Animal?'>
+                <Popconfirm onConfirm={() => dispatch(ApproveAnimalAsync({ id, user_id: Number(farm[0].farm_id) }))} title='هل انت متأكد من أنك تريد الموافقة على هذا الحيوان؟'>
                     <Button type='primary' size='large'>
-                        {'Approve'}
+                        {'موافقة'}
                     </Button>
                 </Popconfirm >
         }

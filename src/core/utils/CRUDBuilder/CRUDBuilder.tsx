@@ -97,7 +97,7 @@ export const CRUDBuilder: React.FC<CRADBuilderProps> = ({ AddAsync, DeleteAsync,
 
             case 'image':
               col = {
-                render: (val) => <Image src={val} alt='NOT_FOUND' style={{ width: 150, height: 150, objectFit: 'cover' }} />,
+                render: (val) => <Image src={val} alt='NOT_FOUND' style={{ width: 150, height: 150, objectFit: 'contain' }} />,
                 align: 'center',
                 ...el.columnType,
               };

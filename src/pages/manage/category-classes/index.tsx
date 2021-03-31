@@ -15,6 +15,7 @@ import {
   UpdateLevel2Async,
   DeleteLevel2Async,
 } from '@core';
+import { UploadFile } from 'antd/lib/upload/interface';
 
 const mapper = (req: any) => ObjToFormData(req);
 
@@ -53,6 +54,7 @@ export const columnsCategories: ItemType[] = [
       dataIndex: 'image',
       width: 300,
     },
+    getInitialValue: (val: string) => ({ name: val, preview: val, uid: val } as UploadFile),
     type: 'image',
   },
 ];
@@ -74,7 +76,7 @@ const ManageCategories: FC = () => {
   const tmp: ItemType[] = [
     {
       columnType: {
-        title: 'معرف الوالد',
+        title: 'السلالة',
         dataIndex: 'parent_id',
         width: 200,
         render: (val: string) =>

@@ -1,6 +1,6 @@
 module.exports = {
   locales: ['en', 'ar'],
-  defaultLocale: 'en',
+  defaultLocale: 'ar',
   pages: {
     '*': ['common', 'messages', 'errors', 'crud-builder'],
     '/': ['home'],

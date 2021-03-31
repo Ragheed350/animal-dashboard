@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { GetServerSideProps } from 'next';
 
 import { CRUDBuilder, ItemType, RootState, Authenticated, FetchLevel2Async, FetchLevel3Async, UpdateLevel3Async, InsertLevel3Async, DeleteLevel3Async, ObjToFormData } from '@core';
+import { UploadFile } from 'antd/lib/upload/interface';
 
 const mapper = (req: any) => ObjToFormData(req);
 
@@ -41,6 +42,7 @@ export const columnsCategories: ItemType[] = [
             dataIndex: 'image',
             width: 300,
         },
+        getInitialValue: (val: string) => ({ name: val, preview: val, uid: val } as UploadFile),
         type: 'image',
     },
     {

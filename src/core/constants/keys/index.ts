@@ -17,6 +17,6 @@ export const KEY_LANG_HEADER = 'accept-language';
 export const DATE_FORMAT = 'YYYY-MM-DD HH:mm:ss';
 
 //default language for the website
-export const DEFAULT_LANG: SITE_LANGUAGE = 'en';
+export const DEFAULT_LANG: SITE_LANGUAGE = 'ar';
 
 export type SITE_LANGUAGE = 'ar' | 'en';

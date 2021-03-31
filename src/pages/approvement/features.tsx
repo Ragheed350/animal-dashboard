@@ -19,25 +19,25 @@ const index: React.FC = () => {
 
     const colums: ColumnsType<FeatureForApprove> = useMemo(() => [
         {
-            title: 'ID',
+            title: 'المعرف',
             dataIndex: 'id',
             fixed: 'left',
             width: 100,
         },
         {
-            title: 'User',
+            title: 'السمتخدم',
             dataIndex: 'user_id',
             width: 'auto',
             render: (val: number | string) => <>{users.find(el => el.id === Number(val))?.['name:ar']}</>
         },
         {
-            title: 'Feature',
+            title: 'الباقة',
             dataIndex: 'feature_id',
             width: 'auto',
             render: (val: number | string) => <>{features.find(el => el.id === Number(val))?.['text:ar']}</>
         },
         {
-            title: 'Approved',
+            title: 'تمت الموافقة عليه؟',
             dataIndex: 'is_approved',
             width: 200,
             render: (val: '1' | '0') => Number(val) === 1 ?
@@ -45,22 +45,29 @@ const index: React.FC = () => {
                 <CloseCircleFilled style={{ fontSize: '3rem', color: 'red' }} />
         },
         {
-            title: 'Operations',
+            title: 'عمليات',
             dataIndex: 'is_approved',
             key: '123123',
             width: 200,
             render: (val: '1' | '0', { id, feature_id, user_id }) => Number(val) === 1 ?
-                <Popconfirm disabled onConfirm={() => dispatch(approveFeatureAsync({ id, feature_id, user_id }))} title='Are You Sure You Want To Approve this Feature?'>
+                <Popconfirm disabled onConfirm={() => dispatch(approveFeatureAsync({ id, feature_id, user_id }))} title='هل أنت متأكد من أنك تريد عدم الموافقة على هذه الباقة؟'>
                     <Button disabled type='primary' size='large'>
-                        {'Approve'}
+                        {'عدم الموافقة'}
                     </Button>
                 </Popconfirm > :
-                <Popconfirm onConfirm={() => dispatch(approveFeatureAsync({ id, feature_id, user_id }))} title='Are You Sure You Want To Approve this Feature?'>
+                <Popconfirm onConfirm={() => dispatch(approveFeatureAsync({ id, feature_id, user_id }))} title='هل أنت متأكد من أنك تريد الموافقة على هذه الباقة؟'>
                     <Button type='primary' size='large'>
-                        {'Approve'}
+                        {'موافقة'}
                     </Button>
                 </Popconfirm >
-        }
+        },
+        // {
+        //     title: 'الحذف',
+        //     dataIndex: 'id',
+        //     key: 'delete123',
+        //     width: 100,
+        //     render: (val: number) => <Button size='small' type='text' icon={<DeleteFilled />} onClick={() => { val }} />
+        // }
     ], [users, features])
 
     return (

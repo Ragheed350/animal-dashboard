@@ -14,6 +14,7 @@ import {
   DeleteParentAsync,
   ObjToFormData,
 } from '@core';
+import { UploadFile } from 'antd/lib/upload/interface';
 
 const mapper = (req: any) => {
   const fd = ObjToFormData(req)
@@ -54,6 +55,7 @@ export const columnsCategories: ItemType[] = [
       dataIndex: 'image',
       width: 300,
     },
+    getInitialValue: (val: string) => ({ name: val, preview: val, uid: val } as UploadFile),
     type: 'image',
   },
 ];

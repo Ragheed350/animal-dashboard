@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { GetServerSideProps } from 'next';
 
 import { CRUDBuilder, ItemType, DeleteAttachmentAsync, FetchAttachmentsAsync, InsertAttachmentAsync, UpdateAttachmentAsync, RootState, Authenticated, Attachment_Req } from '@core';
+import { UploadFile } from 'antd/lib/upload/interface';
 
 const mapper = async (req: Attachment_Req) => {
 
@@ -66,6 +67,7 @@ export const columnsAttachments: ItemType[] = [
             width: 200,
         },
         type: 'image',
+        getInitialValue: (val: string) => ({ name: val, preview: val, uid: val } as UploadFile),
         hidden: true
     },
 

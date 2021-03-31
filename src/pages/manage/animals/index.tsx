@@ -19,8 +19,9 @@ import {
   Attachment,
   DATE_FORMAT,
   FetchParentsAsync,
+  FetchFarmsAsync,
 } from '@core';
-import { Carousel, Col, Form, Image, Select, Typography } from 'antd';
+import { Carousel, Col, Form, Image, Typography } from 'antd';
 import CascederForm from 'src/components/CascederFrom';
 import { UploadFile } from 'antd/lib/upload/interface';
 
@@ -113,7 +114,7 @@ export const columnsAnimals: ItemType[] = [
   },
   {
     columnType: {
-      title: 'Tag Number',
+      title: 'رقم الأذن',
       dataIndex: 'tag_number',
       width: 200,
     },
@@ -210,22 +211,6 @@ export const columnsAnimals: ItemType[] = [
   // },
   {
     columnType: {
-      title: 'المزرعة',
-      dataIndex: 'farm',
-      width: 200,
-      render: (arr: any[]) => (
-        <Select style={{ width: '100%' }}>
-          {arr.map((el) => (
-            <Select.Option value={el.id}>{el['farm:ar']}</Select.Option>
-          ))}
-        </Select>
-      ),
-    },
-    type: 'multi-foreign-key',
-    ignore: true,
-  },
-  {
-    columnType: {
       title: 'المرفقات',
       dataIndex: 'attachments',
       width: 200,
@@ -249,6 +234,7 @@ export const columnsAnimals: ItemType[] = [
       width: 200,
     },
     type: 'number',
+    ignore: true,
   },
   {
     columnType: {
@@ -301,6 +287,7 @@ const ManageAnimals: FC = () => {
   const dispatch = useDispatch();
 
   const { status, animals } = useSelector((state: RootState) => state.Animal);
+  const { farms } = useSelector((state: RootState) => state.Farm);
   const { colors } = useSelector((state: RootState) => state.Color);
   const { countries } = useSelector((state: RootState) => state.Country);
   const { displayCategories } = useSelector(
@@ -314,9 +301,20 @@ const ManageAnimals: FC = () => {
     dispatch(FetchCountriesAsync());
     dispatch(FetchDisplayCategoriesAsync());
     dispatch(FetchParentsAsync());
+    dispatch(FetchFarmsAsync());
   }, [dispatch]);
 
   const tmp: ItemType[] = [
+    {
+      columnType: {
+        title: 'المزرعة',
+        dataIndex: 'farm',
+        width: 200,
+        render: (arr: any[]) => arr[0]['name:ar']
+      },
+      type: 'foreign-key',
+      foreignKeyArr: farms.map(el => ({ title: el['name:ar'], value: el.id }))
+    },
     {
       columnType: {
         title: 'الأب',
@@ -324,9 +322,7 @@ const ManageAnimals: FC = () => {
         width: 200,
         render: (id: string) => (
           <Typography.Text>
-            {en
-              ? animals.find((el) => el.id === Number(id))?.['name:en']
-              : animals.find((el) => el.id === Number(id))?.['name:ar']}
+            { animals.find((el) => el.id === Number(id))?.animal_no}
           </Typography.Text>
         ),
       },
@@ -338,7 +334,7 @@ const ManageAnimals: FC = () => {
         .filter((el) => el.gender === '0')
         .map((el) => ({
           value: el.animal_no,
-          title: en ? el['name:en'] : el['name:ar'],
+          title: el.animal_no,
         })),
     },
     {
@@ -348,9 +344,7 @@ const ManageAnimals: FC = () => {
         width: 200,
         render: (id: string) => (
           <Typography.Text>
-            {en
-              ? animals.find((el) => el.id === Number(id))?.['name:en']
-              : animals.find((el) => el.id === Number(id))?.['name:ar']}
+            { animals.find((el) => el.id === Number(id))?.animal_no}
           </Typography.Text>
         ),
       },
@@ -362,7 +356,7 @@ const ManageAnimals: FC = () => {
         .filter((el) => el.gender === '1')
         .map((el) => ({
           value: el.animal_no,
-          title: en ? el['name:en'] : el['name:ar'],
+          title: el.animal_no,
         })),
     },
     {
@@ -391,7 +385,7 @@ const ManageAnimals: FC = () => {
     },
     {
       columnType: {
-        title: 'اللوم',
+        title: 'اللون',
         dataIndex: 'color_id',
         width: 200,
       },
@@ -422,7 +416,7 @@ const ManageAnimals: FC = () => {
       customFormItem: (
         <Col span={12}>
           <Form.Item
-            label='Category'
+            label='السلالة'
             name='category_id'
             rules={[{ required: true }]}
           >
@@ -443,6 +437,7 @@ const ManageAnimals: FC = () => {
         value: el.id,
         title: en ? el['name:en'] : el['name:ar'],
       })),
+      required: false
     },
   ];
 

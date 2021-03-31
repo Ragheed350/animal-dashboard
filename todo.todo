@@ -45,6 +45,13 @@ translate all site:
 ✔ فئات - أصناف - سلالات. @done(21-03-18 13:49)
 ✔ images make image width and height 150 and obj-fit @done(21-03-23 11:26)
 
-☐ contact us.
 ✔ level3 in vitamins edit just try it. @done(21-03-30 11:22)
 ✔ filter for appeoved/unapproved animals in approvement tab. @done(21-03-30 11:19)
+
+
+✔ contact us. @done(21-03-31 11:14)
+✔ approve | delelte fetaure @done(21-03-31 11:37)
+✔ translate approve section @started(21-03-31 10:38) @done(21-03-31 10:42) @lasted(4m6s)
+✔ add duration column to the feature crud and approve @started(21-03-31 10:38) @done(21-03-31 10:38) @lasted(38s)
+✔ remove "delete farm" from the dashboard @started(21-03-31 10:33) @done(21-03-31 10:34) @lasted(1m7s)
+✔ what`s up fixes @done(21-03-31 11:52)

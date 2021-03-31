@@ -77,7 +77,7 @@ const ManageAttributes: FC = () => {
                 addFeatureUserAsync(el.item)
             }
             DeleteAsync={(el) => {
-                const rec = featuresApprove.find(el => el.id === Number(el.id))
+                const rec = featuresApprove.find(l => Number(l.id) === Number(el.id))
                 return rec ? removeFeatureUserAsync({ id: el.id, user_id: rec.user_id, feature_id: rec.feature_id }) : () => { }
             }}
             itemsHeader={[...columnsAnimalAttributes, ...tmp]}

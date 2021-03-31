@@ -1,4 +1,5 @@
 import {
+  ContactsOutlined,
   // ApartmentOutlined,
   HomeOutlined,
   LogoutOutlined,
@@ -163,6 +164,10 @@ const Sider: FC = () => {
           </Menu.Item>
         ))}
       </Menu.SubMenu>
+
+      <Menu.Item icon={<ContactsOutlined />} key='/contact-us-requests'>
+        <Link href='/contact-us-requests'>{'طلبات الإتصال'}</Link>
+      </Menu.Item>
 
       <Menu.SubMenu title='اللغة' icon={<TranslationOutlined />}>
         <Menu.Item

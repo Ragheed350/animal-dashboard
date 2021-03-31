@@ -7,6 +7,7 @@ import Attribute from './attribute';
 import AnimalAttribute from './animal-attribute';
 import Category from './category';
 import Color from './color';
+import ContactUsRequests from './contact-us';
 import Country from './country';
 import DisplayCategory from './display-category';
 import Farm from './farm';
@@ -29,6 +30,7 @@ const store = configureStore({
     AnimalAttribute,
     Category,
     Color,
+    ContactUsRequests,
     Country,
     DisplayCategory,
     Farm,

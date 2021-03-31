@@ -6,6 +6,7 @@ export * from './attribute';
 export * from './auth';
 export * from './category';
 export * from './color';
+export * from './contact-us';
 export * from './country';
 export * from './display-category';
 export * from './farm';

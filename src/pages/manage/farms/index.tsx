@@ -3,7 +3,7 @@ import React, { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetServerSideProps } from 'next';
 
-import { CRUDBuilder, ItemType, RootState, Authenticated, FetchFarmsAsync, DeleteFarmAsync, InsertFarmAsync, UpdateFarmAsync, ObjToFormData } from '@core';
+import { CRUDBuilder, ItemType, RootState, Authenticated, FetchFarmsAsync, InsertFarmAsync, UpdateFarmAsync, ObjToFormData } from '@core';
 
 const mapper = (req: any): any => {
     const formData = ObjToFormData(req);
@@ -130,7 +130,8 @@ const ManageFarms: FC = () => {
             loading={status === 'loading'}
             AddAsync={(el) => InsertFarmAsync({ farm: el.item })}
             UpdateAsync={(el) => UpdateFarmAsync({ id: el.id, farm: el.item })}
-            DeleteAsync={(el) => DeleteFarmAsync({ id: el.id })}
+            // by request from the customer
+            // DeleteAsync={(el) => DeleteFarmAsync({ id: el.id })}
             itemsHeader={[...columnsFarms, ...tmp]}
             Mapper={mapper}
         />

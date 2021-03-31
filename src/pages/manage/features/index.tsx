@@ -27,7 +27,7 @@ export const columnsFeatures: ItemType[] = [
   },
   {
     columnType: {
-      title: 'القيمة',
+      title: 'عدد الحيوانات المسموحة',
       dataIndex: 'value',
       width: 'auto',
     },

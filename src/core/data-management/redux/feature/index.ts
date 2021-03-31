@@ -89,7 +89,7 @@ const {
   DeleteFeature,
   FetchFeatures,
   ShowFeature,
-  // DeleteFeaturesApprove,
+  DeleteFeaturesApprove,
   FetchFeaturesApprove,
   UpdateFeaturesApprove,
   InsertFeaturesApprove,
@@ -189,7 +189,7 @@ export const addFeatureUserAsync = (
   }
 };
 export const removeFeatureUserAsync = (
-  req: FeatureForApprove_Req&{id:number}
+  req: FeatureForApprove_Req & { id: number }
 ): AppThunk => async (dispatch) => {
   dispatch(setStatus('loading'));
   const result = await featureService.remove(req);
@@ -197,7 +197,7 @@ export const removeFeatureUserAsync = (
     ApiErrorNotification(result);
     dispatch(setStatus('error'));
   } else {
-    dispatch(InsertFeaturesApprove(result.data));
+    dispatch(DeleteFeaturesApprove(req.id));
     dispatch(setStatus('data'));
   }
 };
