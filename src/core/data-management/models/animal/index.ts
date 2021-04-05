@@ -8,7 +8,6 @@ export interface Animal_Req {
   gender: '0' | '1';
   father_no?: string;
   mother_no?: string;
-  tag_number: string;
   country_id: string;
   color_id: string;
   category_id: string;
@@ -30,7 +29,6 @@ export interface Animal {
   gender: '0' | '1';
   father_id: null | number;
   mother_id: null | number;
-  tag_number: string;
   country_id: number;
   'country:ar': string;
   'country:en': string;
@@ -47,9 +45,11 @@ export interface Animal {
   display_category_id: string;
   is_dead: '1' | '0';
   approved: 1 | 0;
-  nfc: '1' | '0';
-  farm: Farm[];
+  nfc: string;
+  nfc_location: string;
+  farm: AnimalFarm[];
   attachments: Attachment[];
+  Weight: Weight[];
   rate: number;
   age: number;
 }
@@ -77,17 +77,26 @@ export interface Animal_S_Req {
   id: number;
 }
 
-interface Farm {
-  id: number;
+export interface AnimalFarm {
+  id: 3;
   farm_id: string;
   animal_id: string;
   quantity: string;
-  'farm:ar': string;
-  'farm:en': string;
+  'name:ar'?: string;
+  'name:en'?: string;
+  'description:ar'?: string;
+  'description:en'?: string;
 }
 interface Attachment {
   id: number;
   url: string;
   type: string;
   animal_id: string;
+}
+
+interface Weight {
+  id: number;
+  value: string;
+  animal_id: string;
+  weight_date: Date;
 }

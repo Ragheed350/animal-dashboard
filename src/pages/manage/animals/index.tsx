@@ -20,6 +20,9 @@ import {
   DATE_FORMAT,
   FetchParentsAsync,
   FetchFarmsAsync,
+  Weight,
+  AnimalFarm,
+  Farm,
 } from '@core';
 import { Carousel, Col, Form, Image, Typography } from 'antd';
 import CascederForm from 'src/components/CascederFrom';
@@ -28,36 +31,30 @@ import { UploadFile } from 'antd/lib/upload/interface';
 const mapper = (req: any): any => {
   const formData = new FormData();
 
-
   let result: (string | File | Blob)[] = [];
   req.image.forEach((el: UploadFile) => {
-    if (el.originFileObj)
-      result.push(el.originFileObj)
-    else result.push(el.url!)
-  })
+    if (el.originFileObj) result.push(el.originFileObj);
+    else result.push(el.url!);
+  });
 
   req.image = result;
 
   for (const key in req) {
     if (Object.prototype.hasOwnProperty.call(req, key)) {
       const el = req[key];
-      if (key === 'birth_date')
-        formData.append(key, (el as moment.Moment).format(DATE_FORMAT));
+      if (key === 'birth_date') formData.append(key, (el as moment.Moment).format(DATE_FORMAT));
       else if (key === 'image') {
         (el as (File | string)[]).forEach((element) => {
           if (typeof element === 'string') {
             const arr = element.split('/');
             formData.append(key + '[]', `${arr[arr.length - 2]}/${arr[arr.length - 1]}`);
-          }
-          else
-            formData.append(key + '[]', element);
+          } else formData.append(key + '[]', element);
         });
       } else if (['for_buy', 'is_shown', 'approved', 'is_dead'].includes(key))
         formData.append(key, (el as boolean | undefined) ? '1' : '0');
       else formData.append(key, el);
     }
   }
-
 
   return formData;
 };
@@ -102,23 +99,13 @@ export const columnsAnimals: ItemType[] = [
       title: 'الجنس',
       dataIndex: 'gender',
       width: 200,
-      render: (val: '0' | '1') => (
-        <Typography.Text>{val === '1' ? 'ذكر' : 'أنثى'}</Typography.Text>
-      ),
+      render: (val: '0' | '1') => <Typography.Text>{val === '1' ? 'ذكر' : 'أنثى'}</Typography.Text>,
     },
     type: 'select',
     foreignKeyArr: [
       { title: 'ذكر', value: '0' },
       { title: 'أنثى', value: '1' },
     ],
-  },
-  {
-    columnType: {
-      title: 'رقم الأذن',
-      dataIndex: 'tag_number',
-      width: 200,
-    },
-    type: 'number',
   },
   {
     columnType: {
@@ -136,7 +123,7 @@ export const columnsAnimals: ItemType[] = [
       width: 200,
     },
     type: 'text',
-    ignore: true
+    ignore: true,
   },
   {
     columnType: {
@@ -145,7 +132,7 @@ export const columnsAnimals: ItemType[] = [
       width: 200,
     },
     type: 'text',
-    ignore: true
+    ignore: true,
   },
   {
     columnType: {
@@ -190,7 +177,7 @@ export const columnsAnimals: ItemType[] = [
       width: 200,
     },
     type: 'check-box',
-    ignore: true
+    ignore: true,
   },
   {
     columnType: {
@@ -198,17 +185,8 @@ export const columnsAnimals: ItemType[] = [
       dataIndex: 'nfc',
       width: 200,
     },
-    type: 'number'
+    type: 'number',
   },
-  // {
-  //   columnType: {
-  //     title: 'Association',
-  //     dataIndex: 'association_no',
-  //     width: 200,
-  //   },
-  //   type: 'number',
-  //   required: false,
-  // },
   {
     columnType: {
       title: 'المرفقات',
@@ -243,7 +221,7 @@ export const columnsAnimals: ItemType[] = [
       width: 200,
     },
     type: 'number',
-    ignore: true
+    ignore: true,
   },
   {
     columnType: {
@@ -254,17 +232,18 @@ export const columnsAnimals: ItemType[] = [
     type: 'number',
     hidden: true,
     initialValueDataIndex: 'Weight',
-    getInitialValue: (val: { id: number, value: string, animal_id: string, weight_date: string }[]) => val[val.length - 1]?.value,
+    getInitialValue: (val: { id: number; value: string; animal_id: string; weight_date: string }[]) =>
+      val[val.length - 1]?.value,
   },
   {
     columnType: {
       title: 'الوزن',
       dataIndex: 'Weight',
       width: 200,
-      render: (val: { id: number, value: string, animal_id: string, weight_date: string }[]) => <>{val[val.length - 1]?.value}</>
+      render: (val: Weight[]) => <>{val[val.length - 1]?.value}</>,
     },
     type: 'number',
-    ignore: true
+    ignore: true,
   },
   {
     columnType: {
@@ -275,9 +254,7 @@ export const columnsAnimals: ItemType[] = [
     type: 'multi-images',
     hidden: true,
     initialValueDataIndex: 'attachments',
-    getInitialValue: (val: Attachment[]) =>
-      val.map((el) => ({ uid: el.id, name: el.url, url: el.url }))
-    ,
+    getInitialValue: (val: Attachment[]) => val.map((el) => ({ uid: el.id, name: el.url, url: el.url })),
   },
 ];
 
@@ -290,9 +267,7 @@ const ManageAnimals: FC = () => {
   const { farms } = useSelector((state: RootState) => state.Farm);
   const { colors } = useSelector((state: RootState) => state.Color);
   const { countries } = useSelector((state: RootState) => state.Country);
-  const { displayCategories } = useSelector(
-    (state: RootState) => state.DisplayCategory
-  );
+  const { displayCategories } = useSelector((state: RootState) => state.DisplayCategory);
 
   useEffect(() => {
     dispatch(FetchAnimalsAsync());
@@ -304,16 +279,31 @@ const ManageAnimals: FC = () => {
     dispatch(FetchFarmsAsync());
   }, [dispatch]);
 
+  // {
+  //   columnType: {
+  //     title: 'الوزن',
+  //     dataIndex: 'weight',
+  //     width: 200,
+  //   },
+  //   type: 'number',
+  //   hidden: true,
+  //   initialValueDataIndex: 'Weight',
+  //   getInitialValue: (val: { id: number; value: string; animal_id: string; weight_date: string }[]) =>
+  //     val[val.length - 1]?.value,
+  // },
+
   const tmp: ItemType[] = [
     {
       columnType: {
         title: 'المزرعة',
         dataIndex: 'farm',
         width: 200,
-        render: (arr: any[]) => arr[0]['name:ar']
+        render: (farm: AnimalFarm[]) => farm[0]['name:ar']!,
       },
       type: 'foreign-key',
-      foreignKeyArr: farms.map(el => ({ title: el['name:ar'], value: el.id }))
+      initialValueDataIndex: 'farm',
+      getInitialValue: (val: Farm[]) => val[val.length - 1]?.['name:ar'],
+      foreignKeyArr: farms.map((farm: Farm) => ({ value: farm.id, title: farm['name:ar'] })),
     },
     {
       columnType: {
@@ -321,15 +311,12 @@ const ManageAnimals: FC = () => {
         dataIndex: 'father_id',
         width: 200,
         render: (id: string) => (
-          <Typography.Text>
-            { animals.find((el) => el.id === Number(id))?.animal_no}
-          </Typography.Text>
+          <Typography.Text>{animals.find((el) => el.id === Number(id))?.animal_no}</Typography.Text>
         ),
       },
       type: 'foreign-key',
       required: false,
-      getInitialValue: (val: string) =>
-        animals.find((el) => el.id === Number(val))?.animal_no,
+      getInitialValue: (val: string) => animals.find((el) => el.id === Number(val))?.animal_no,
       foreignKeyArr: animals
         .filter((el) => el.gender === '0')
         .map((el) => ({
@@ -343,15 +330,12 @@ const ManageAnimals: FC = () => {
         dataIndex: 'mother_id',
         width: 200,
         render: (id: string) => (
-          <Typography.Text>
-            { animals.find((el) => el.id === Number(id))?.animal_no}
-          </Typography.Text>
+          <Typography.Text>{animals.find((el) => el.id === Number(id))?.animal_no}</Typography.Text>
         ),
       },
       type: 'foreign-key',
       required: false,
-      getInitialValue: (val: string) =>
-        animals.find((el) => el.id === Number(val))?.animal_no,
+      getInitialValue: (val: string) => animals.find((el) => el.id === Number(val))?.animal_no,
       foreignKeyArr: animals
         .filter((el) => el.gender === '1')
         .map((el) => ({
@@ -367,7 +351,6 @@ const ManageAnimals: FC = () => {
       },
       type: 'foreign-key',
       hidden: true,
-
       foreignKeyArr: countries.map((el) => ({
         value: el.id,
         title: en ? el['name:en'] : el['name:ar'],
@@ -415,11 +398,7 @@ const ManageAnimals: FC = () => {
       type: 'foreign-key',
       customFormItem: (
         <Col span={12}>
-          <Form.Item
-            label='السلالة'
-            name='category_id'
-            rules={[{ required: true }]}
-          >
+          <Form.Item label='السلالة' name='category_id' rules={[{ required: true }]}>
             <CascederForm />
           </Form.Item>
         </Col>
@@ -437,14 +416,23 @@ const ManageAnimals: FC = () => {
         value: el.id,
         title: en ? el['name:en'] : el['name:ar'],
       })),
-      required: false
+      required: false,
     },
   ];
 
   return (
     <CRUDBuilder
       lang={lang === 'en' ? 'en' : 'ar'}
-      items={[...animals.map(el => ({ ...el, for_buy: Number(el.for_buy), is_dead: Number(el.is_dead), is_shown: Number(el.is_shown), approved: Number(el.approved), nfc: Number(el.nfc) }))]}
+      items={[
+        ...animals.map((el) => ({
+          ...el,
+          for_buy: Number(el.for_buy),
+          is_dead: Number(el.is_dead),
+          is_shown: Number(el.is_shown),
+          approved: Number(el.approved),
+          nfc: Number(el.nfc),
+        })),
+      ]}
       loading={status === 'loading'}
       AddAsync={(el) => InsertAnimalAsync({ animal: el.item })}
       UpdateAsync={(el) => UpdateAnimalAsync({ id: el.id, animal: el.item })}
