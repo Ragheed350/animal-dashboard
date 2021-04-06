@@ -15,6 +15,8 @@ export interface Animal_Req {
   is_shown?: '1' | '0';
   is_dead?: '1' | '0';
   approved?: '1' | '0';
+  nfc?: number;
+  nfc_location?: string;
   weight?: string;
   image: Blob[] | File[];
 }

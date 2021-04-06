@@ -23,8 +23,9 @@ import {
   Weight,
   AnimalFarm,
   Farm,
+  FetchLevel3Async,
 } from '@core';
-import { Carousel, Col, Form, Image, Typography } from 'antd';
+import { Carousel, Col, Form, Image, InputNumber, Typography } from 'antd';
 import CascederForm from 'src/components/CascederFrom';
 import { UploadFile } from 'antd/lib/upload/interface';
 
@@ -52,6 +53,7 @@ const mapper = (req: any): any => {
         });
       } else if (['for_buy', 'is_shown', 'approved', 'is_dead'].includes(key))
         formData.append(key, (el as boolean | undefined) ? '1' : '0');
+      else if (req[key] === undefined) delete req.key;
       else formData.append(key, el);
     }
   }
@@ -181,11 +183,43 @@ export const columnsAnimals: ItemType[] = [
   },
   {
     columnType: {
-      title: 'NFC',
+      title: 'الرقاقة الالكترونية',
       dataIndex: 'nfc',
       width: 200,
     },
     type: 'number',
+    required: true,
+    customFormItem: (
+      <Col span={12}>
+        <Form.Item
+          label='nfc'
+          name='nfc'
+          rules={[
+            { type: 'number' },
+            () => ({
+              validator(_, value) {
+                console.log(value, value.toString().length);
+                if (value && value.toString().length === 15) {
+                  return Promise.resolve();
+                }
+                return Promise.reject('nfc number should be 15 character');
+              },
+            }),
+          ]}
+        >
+          <InputNumber style={{ width: '100%' }} />
+        </Form.Item>
+      </Col>
+    ),
+  },
+  {
+    columnType: {
+      title: 'موقع الرقاقة',
+      dataIndex: 'nfc_location',
+      width: 200,
+    },
+    type: 'text',
+    required: false,
   },
   {
     columnType: {
@@ -232,15 +266,14 @@ export const columnsAnimals: ItemType[] = [
     type: 'number',
     hidden: true,
     initialValueDataIndex: 'Weight',
-    getInitialValue: (val: { id: number; value: string; animal_id: string; weight_date: string }[]) =>
-      val[val.length - 1]?.value,
+    getInitialValue: (val: Weight[]) => Number(val[val.length - 1]?.value),
   },
   {
     columnType: {
       title: 'الوزن',
       dataIndex: 'Weight',
       width: 200,
-      render: (val: Weight[]) => <>{val[val.length - 1]?.value}</>,
+      render: (val: Weight[]) => Number(val[val.length - 1]?.value),
     },
     type: 'number',
     ignore: true,
@@ -268,6 +301,7 @@ const ManageAnimals: FC = () => {
   const { colors } = useSelector((state: RootState) => state.Color);
   const { countries } = useSelector((state: RootState) => state.Country);
   const { displayCategories } = useSelector((state: RootState) => state.DisplayCategory);
+  const { level3 } = useSelector((state: RootState) => state.Category);
 
   useEffect(() => {
     dispatch(FetchAnimalsAsync());
@@ -277,6 +311,7 @@ const ManageAnimals: FC = () => {
     dispatch(FetchDisplayCategoriesAsync());
     dispatch(FetchParentsAsync());
     dispatch(FetchFarmsAsync());
+    dispatch(FetchLevel3Async());
   }, [dispatch]);
 
   // {
@@ -385,15 +420,17 @@ const ManageAnimals: FC = () => {
         dataIndex: 'color',
         width: 200,
       },
+
       type: 'text',
       trans: true,
       ignore: true,
     },
     {
       columnType: {
-        title: 'الصنف',
+        title: 'السلالة',
         dataIndex: 'category_id',
         width: 200,
+        render: (id: string) => level3.find((el) => el.id.toString() === id)?.['name:ar'],
       },
       type: 'foreign-key',
       customFormItem: (
@@ -403,7 +440,6 @@ const ManageAnimals: FC = () => {
           </Form.Item>
         </Col>
       ),
-      getInitialValue: () => undefined,
     },
     {
       columnType: {

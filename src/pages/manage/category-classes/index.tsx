@@ -19,7 +19,6 @@ import { UploadFile } from 'antd/lib/upload/interface';
 
 const mapper = (req: any) => ObjToFormData(req);
 
-
 export const columnsCategories: ItemType[] = [
   {
     columnType: {
@@ -50,12 +49,12 @@ export const columnsCategories: ItemType[] = [
   },
   {
     columnType: {
-      title: 'الصورة',
-      dataIndex: 'image',
+      title: 'معدل الولادة (بالشهر)',
+      dataIndex: 'pregnancy',
       width: 300,
     },
-    getInitialValue: (val: string) => ({ name: val, preview: val, uid: val } as UploadFile),
-    type: 'image',
+    getInitialValue: (val: string) => Number(val),
+    type: 'number',
   },
 ];
 
@@ -64,9 +63,7 @@ const ManageCategories: FC = () => {
   const en = lang === 'en';
   const dispatch = useDispatch();
 
-  const { status, parents, level2 } = useSelector(
-    (state: RootState) => state.Category
-  );
+  const { status, parents, level2 } = useSelector((state: RootState) => state.Category);
 
   useEffect(() => {
     dispatch(FetchLevel2Async());
@@ -90,6 +87,15 @@ const ManageCategories: FC = () => {
         value: el.id,
       })),
     },
+    {
+      columnType: {
+        title: 'الصورة',
+        dataIndex: 'image',
+        width: 300,
+      },
+      getInitialValue: (val: string) => ({ name: val, preview: val, uid: val } as UploadFile),
+      type: 'image',
+    },
   ];
 
   return (
@@ -98,9 +104,7 @@ const ManageCategories: FC = () => {
       items={level2}
       loading={status === 'loading'}
       AddAsync={(el) => InsertLevel2Async({ category: el.item })}
-      UpdateAsync={(el) =>
-        UpdateLevel2Async({ id: el.id, category: el.item })
-      }
+      UpdateAsync={(el) => UpdateLevel2Async({ id: el.id, category: el.item })}
       DeleteAsync={(el) => DeleteLevel2Async({ id: el.id })}
       itemsHeader={[...columnsCategories, ...tmp]}
       Mapper={mapper}

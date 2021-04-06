@@ -33,15 +33,11 @@ const CascederForm: FC<props> = ({ onChange }) => {
     dispatch(FetchParentsAsync());
   }, []);
 
-  const loadData = async (
-    selectedOptions: CascaderOptionType[] | undefined
-  ) => {
+  const loadData = async (selectedOptions: CascaderOptionType[] | undefined) => {
     const targetOption = selectedOptions![selectedOptions!.length - 1];
     targetOption.loading = true;
 
-    const result = await categoryService.FetchChildren(
-      Number(targetOption.value)
-    );
+    const result = await categoryService.FetchChildren(Number(targetOption.value));
 
     if (!isError(result)) {
       targetOption.children = result.data.map((el) => ({
@@ -58,6 +54,7 @@ const CascederForm: FC<props> = ({ onChange }) => {
   return (
     <Cascader
       options={options}
+      defaultValue={[12]}
       loadData={loadData}
       changeOnSelect
       displayRender={(label: any) => {

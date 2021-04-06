@@ -15,6 +15,7 @@ import {
   FetchAnimalsAsync,
   Pollination_Req,
   Pollination,
+  Animal,
 } from '@core';
 import { Typography } from 'antd';
 
@@ -37,11 +38,19 @@ export const columnsPollinations: ItemType[] = [
   },
   {
     columnType: {
-      title: 'المدة',
+      title: 'المدة المتبقية للولادة(باليوم)',
       dataIndex: 'duration',
       width: 200,
     },
     type: 'text',
+  },
+  {
+    columnType: {
+      title: 'تاريخ التلقيح',
+      dataIndex: 'date',
+      width: 200,
+    },
+    type: 'date',
   },
 ];
 
@@ -50,9 +59,7 @@ const ManagePollinations: FC = () => {
   const en = lang === 'en';
   const dispatch = useDispatch();
 
-  const { status, pollinations } = useSelector(
-    (state: RootState) => state.Pollination
-  );
+  const { status, pollinations } = useSelector((state: RootState) => state.Pollination);
   const { animals } = useSelector((state: RootState) => state.Animal);
 
   useEffect(() => {
@@ -66,15 +73,17 @@ const ManagePollinations: FC = () => {
         title: 'الذكر',
         dataIndex: 'male_id',
         width: 200,
-        render: (id: string) => (
-          <Typography.Text>
-            {en
-              ? animals.find((el) => el.id === Number(id))?.['name:en']
-              : animals.find((el) => el.id === Number(id))?.['name:ar']}
-          </Typography.Text>
-        ),
+        render: (id: string) =>
+          en
+            ? animals.find((el) => el.id === Number(id))?.['name:en']
+            : animals.find((el) => el.id === Number(id))?.['name:ar'],
       },
       type: 'foreign-key',
+      getInitialValue: (id: string) =>
+        en
+          ? animals.find((el) => el.id === Number(id))?.['name:en']
+          : animals.find((el) => el.id === Number(id))?.['name:ar'],
+
       foreignKeyArr: animals
         .filter((el) => el.gender === '0')
         .map((el) => ({
@@ -87,15 +96,17 @@ const ManagePollinations: FC = () => {
         title: 'الأنثى',
         dataIndex: 'female_id',
         width: 200,
-        render: (id: string) => (
-          <Typography.Text>
-            {en
-              ? animals.find((el) => el.id === Number(id))?.['name:en']
-              : animals.find((el) => el.id === Number(id))?.['name:ar']}
-          </Typography.Text>
-        ),
+        render: (id: string) =>
+          en
+            ? animals.find((el) => el.id === Number(id))?.['name:en']
+            : animals.find((el) => el.id === Number(id))?.['name:ar'],
       },
       type: 'foreign-key',
+      getInitialValue: (id: string) =>
+        en
+          ? animals.find((el) => el.id === Number(id))?.['name:en']
+          : animals.find((el) => el.id === Number(id))?.['name:ar'],
+
       foreignKeyArr: animals
         .filter((el) => el.gender === '1')
         .map((el) => ({
@@ -111,9 +122,7 @@ const ManagePollinations: FC = () => {
       items={pollinations}
       loading={status === 'loading'}
       AddAsync={(el) => InsertPollinationAsync({ pollination: el.item })}
-      UpdateAsync={(el) =>
-        UpdatePollinationAsync({ id: el.id, pollination: el.item })
-      }
+      UpdateAsync={(el) => UpdatePollinationAsync({ id: el.id, pollination: el.item })}
       DeleteAsync={(el) => DeletePollinationAsync({ id: el.id })}
       itemsHeader={[...columnsPollinations, ...tmp]}
       Mapper={mapper}
