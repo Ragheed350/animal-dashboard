@@ -32,6 +32,7 @@ export const columnsFeatures: ItemType[] = [
       width: 'auto',
     },
     type: 'number',
+    getInitialValue: (val: any) => Number(val),
   },
   {
     columnType: {
@@ -40,6 +41,7 @@ export const columnsFeatures: ItemType[] = [
       width: 'auto',
     },
     type: 'number',
+    getInitialValue: (val: any) => Number(val),
   },
   {
     columnType: {
@@ -48,6 +50,7 @@ export const columnsFeatures: ItemType[] = [
       width: 'auto',
     },
     type: 'number',
+    getInitialValue: (val: any) => Number(val),
   },
 ];
 
@@ -78,10 +81,10 @@ const ManageFeatures: FC = () => {
         title: 'الصنف',
         dataIndex: 'category_id',
         width: 200,
-        render: (id: number | string) => parents.find(el => el.id === Number(id))?.['name:ar']
+        render: (id: number | string) => parents.find((el) => el.id === Number(id))?.['name:ar'],
       },
       type: 'foreign-key',
-      foreignKeyArr: parents.map(el => ({ title: el['name:ar'], value: el.id }))
+      foreignKeyArr: parents.map((el) => ({ title: el['name:ar'], value: el.id })),
     },
   ];
 
@@ -94,7 +97,7 @@ const ManageFeatures: FC = () => {
       UpdateAsync={(el) => UpdateFeatureAsync({ id: el.id, feature: el.item })}
       DeleteAsync={(el) => DeleteFeatureAsync({ id: el.id })}
       itemsHeader={[...columnsFeatures, ...tmp]}
-    // Mapper={mapper}
+      // Mapper={mapper}
     />
   );
 };

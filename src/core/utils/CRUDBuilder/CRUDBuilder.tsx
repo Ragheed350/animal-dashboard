@@ -1,4 +1,16 @@
-import { Button, Form, notification, Popconfirm, Row, Table, Modal, Typography, DatePicker, Carousel, Image } from 'antd';
+import {
+  Button,
+  Form,
+  notification,
+  Popconfirm,
+  Row,
+  Table,
+  Modal,
+  Typography,
+  DatePicker,
+  Carousel,
+  Image,
+} from 'antd';
 import { CheckSquareFilled, CloseSquareFilled, DeleteFilled, EditFilled, EditOutlined } from '@ant-design/icons';
 import { ColumnsType, ColumnType } from 'antd/lib/table';
 import React, { useEffect, useState } from 'react';
@@ -11,7 +23,6 @@ import { ItemType } from './types';
 import { getColumnSearchProps } from './CustomComponent/searchProperties';
 import useTranslation from 'next-translate/useTranslation';
 
-
 const { Text, Paragraph } = Typography;
 
 interface CRADBuilderProps {
@@ -19,13 +30,22 @@ interface CRADBuilderProps {
   items: any[];
   loading: boolean;
   lang?: 'ar' | 'en';
-  AddAsync?: ((req: { item: any }) => AppThunk);
-  DeleteAsync?: ((req: { id: number }) => AppThunk);
-  UpdateAsync?: ((eq: { id: number; item: any }) => AppThunk);
-  Mapper?: ((old: any) => any);
+  AddAsync?: (req: { item: any }) => AppThunk;
+  DeleteAsync?: (req: { id: number }) => AppThunk;
+  UpdateAsync?: (eq: { id: number; item: any }) => AppThunk;
+  Mapper?: (old: any) => any;
 }
 
-export const CRUDBuilder: React.FC<CRADBuilderProps> = ({ AddAsync, DeleteAsync, UpdateAsync, Mapper, items, itemsHeader, lang, loading }) => {
+export const CRUDBuilder: React.FC<CRADBuilderProps> = ({
+  AddAsync,
+  DeleteAsync,
+  UpdateAsync,
+  Mapper,
+  items,
+  itemsHeader,
+  lang,
+  loading,
+}) => {
   const { t } = useTranslation('crud-builder');
 
   const [columns, setColumns] = useState<ColumnsType<any>>();
@@ -41,11 +61,9 @@ export const CRUDBuilder: React.FC<CRADBuilderProps> = ({ AddAsync, DeleteAsync,
     setTableHeader(lang);
   }, [resultItems, itemsHeader, lang]);
 
-
   //set search button for searchable fields
   const setTableHeader = (lang?: 'ar' | 'en') => {
     if (resultItems && resultItems.length > 0) {
-
       //work on trans and put a['key'] prop and search for searchable fields
       let res: ColumnsType<any> = [];
       itemsHeader.forEach((el, ind) => {
@@ -65,16 +83,18 @@ export const CRUDBuilder: React.FC<CRADBuilderProps> = ({ AddAsync, DeleteAsync,
               };
               break;
 
-
             case 'text-area':
               col = {
-                render: (val) => <Paragraph title={val} ellipsis={{ rows: 2 }}>{val}</Paragraph>,
+                render: (val) => (
+                  <Paragraph title={val} ellipsis={{ rows: 2 }}>
+                    {val}
+                  </Paragraph>
+                ),
                 align: 'center',
                 ...el.columnType,
                 ...getColumnSearchProps(dataindex, t),
               };
               break;
-
 
             case 'date':
               col = {
@@ -83,7 +103,6 @@ export const CRUDBuilder: React.FC<CRADBuilderProps> = ({ AddAsync, DeleteAsync,
                 ...el.columnType,
               };
               break;
-
 
             case 'html-editor':
               col = {
@@ -94,24 +113,29 @@ export const CRUDBuilder: React.FC<CRADBuilderProps> = ({ AddAsync, DeleteAsync,
               };
               break;
 
-
             case 'image':
               col = {
-                render: (val) => <Image src={val} alt='NOT_FOUND' style={{ width: 150, height: 150, objectFit: 'contain' }} />,
+                render: (val) => (
+                  <Image src={val} alt='NOT_FOUND' style={{ width: 150, height: 150, objectFit: 'contain' }} />
+                ),
                 align: 'center',
                 ...el.columnType,
               };
               break;
-
 
             case 'multi-images':
               col = {
-                render: (val: string[]) => <Carousel draggable>{val.map(el => <Image src={el} alt='NOT_FOUND' style={{ width: 150, height: 150, objectFit: 'cover' }} />)}</Carousel>,
+                render: (val: string[]) => (
+                  <Carousel draggable>
+                    {val.map((el) => (
+                      <Image src={el} alt='NOT_FOUND' style={{ width: 150, height: 150, objectFit: 'cover' }} />
+                    ))}
+                  </Carousel>
+                ),
                 align: 'center',
                 ...el.columnType,
               };
               break;
-
 
             case 'foreign-key-obj':
               col = {
@@ -120,15 +144,18 @@ export const CRUDBuilder: React.FC<CRADBuilderProps> = ({ AddAsync, DeleteAsync,
               };
               break;
 
-
             case 'check-box':
               col = {
                 align: 'center',
-                render: (val: boolean) => val ? <CheckSquareFilled style={{ color: 'green', fontSize: 40 }} /> : <CloseSquareFilled style={{ color: '#c0392b', fontSize: 40 }} />,
+                render: (val: any) =>
+                  Number(val) ? (
+                    <CheckSquareFilled style={{ color: 'green', fontSize: 40 }} />
+                  ) : (
+                    <CloseSquareFilled style={{ color: '#c0392b', fontSize: 40 }} />
+                  ),
                 ...el.columnType,
               };
               break;
-
 
             case 'multi-foreign-key':
               col = {
@@ -137,11 +164,10 @@ export const CRUDBuilder: React.FC<CRADBuilderProps> = ({ AddAsync, DeleteAsync,
               };
               break;
 
-
             default:
               col = {
                 align: 'center',
-                ...el.columnType
+                ...el.columnType,
               };
               break;
           }
@@ -159,27 +185,20 @@ export const CRUDBuilder: React.FC<CRADBuilderProps> = ({ AddAsync, DeleteAsync,
             const from_dataIndex = el.initialValueDataIndex ?? el.columnType.dataIndex!.toString();
             const to_dataIndex = el.columnType.dataIndex!.toString();
 
-            if (el.getInitialValue)
-              res[to_dataIndex] = el.getInitialValue(item[from_dataIndex])
-            else if (el.type === 'date')
-              res[to_dataIndex] = moment(item[from_dataIndex]);
-            else if (el.type === 'foreign-key-obj')
-              res[to_dataIndex] = item[from_dataIndex].id;
-            else if (el.type === 'foreign-key')
-              res[to_dataIndex] = item[from_dataIndex];
-            else if (el.type === 'multi-foreign-key')
-              res[to_dataIndex] = item[from_dataIndex];
+            if (el.getInitialValue) res[to_dataIndex] = el.getInitialValue(item[from_dataIndex]);
+            else if (el.type === 'date') res[to_dataIndex] = moment(item[from_dataIndex]);
+            else if (el.type === 'foreign-key-obj') res[to_dataIndex] = item[from_dataIndex].id;
+            else if (el.type === 'foreign-key') res[to_dataIndex] = item[from_dataIndex];
+            else if (el.type === 'multi-foreign-key') res[to_dataIndex] = item[from_dataIndex];
             else if (el.type === 'multi-foreign-key-obj')
-              res[to_dataIndex] = (item[from_dataIndex] as { id: number }[]).map(el => el.id);
+              res[to_dataIndex] = (item[from_dataIndex] as { id: number }[]).map((el) => el.id);
             else if (el.type === 'multi-images')
-              res[to_dataIndex] = (item[from_dataIndex] as string[]).map(el => ({ uid: el, name: el, url: el }));
+              res[to_dataIndex] = (item[from_dataIndex] as string[]).map((el) => ({ uid: el, name: el, url: el }));
             else {
               if (el.trans) {
                 res[to_dataIndex + ':ar'] = item[from_dataIndex + ':ar'];
                 res[to_dataIndex + ':en'] = item[from_dataIndex + ':en'];
-              }
-              else
-                res[to_dataIndex] = item[from_dataIndex];
+              } else res[to_dataIndex] = item[from_dataIndex];
             }
           });
           form.setFieldsValue(res);
@@ -197,11 +216,7 @@ export const CRUDBuilder: React.FC<CRADBuilderProps> = ({ AddAsync, DeleteAsync,
           render: (id: number) => (
             <React.Fragment>
               {UpdateAsync ? (
-                <Button
-                  type="link"
-                  onClick={() => displayModal(id)}
-                  title={t`edit`}
-                >
+                <Button type='link' onClick={() => displayModal(id)} title={t`edit`}>
                   <EditFilled style={{ fontSize: 20 }} />
                 </Button>
               ) : null}
@@ -213,11 +228,8 @@ export const CRUDBuilder: React.FC<CRADBuilderProps> = ({ AddAsync, DeleteAsync,
                   }}
                   title={t`operations.delete-confirm`}
                 >
-                  <Button type="link">
-                    <DeleteFilled
-                      style={{ fontSize: 20, color: 'red' }}
-                      title={t`delete`}
-                    />
+                  <Button type='link'>
+                    <DeleteFilled style={{ fontSize: 20, color: 'red' }} title={t`delete`} />
                   </Button>
                 </Popconfirm>
               ) : null}
@@ -227,7 +239,7 @@ export const CRUDBuilder: React.FC<CRADBuilderProps> = ({ AddAsync, DeleteAsync,
         });
       setColumns(res);
     }
-  }
+  };
 
   //edit submeted
   const onFinishEdit = async (values: any) => {
@@ -266,35 +278,66 @@ export const CRUDBuilder: React.FC<CRADBuilderProps> = ({ AddAsync, DeleteAsync,
 
   // add button
   const addButton = AddAsync
-    ? () => (
-      <Button size="large" type="primary" onClick={() => setAddModalVisible(true)}>{t`add`}</Button>
-    )
+    ? () => <Button size='large' type='primary' onClick={() => setAddModalVisible(true)}>{t`add`}</Button>
     : undefined;
 
   //return :)
   return (
     <React.Fragment>
-      <Table title={addButton} footer={addButton} bordered dataSource={resultItems} columns={columns} loading={loading} scroll={{ x: 1500 }} pagination={{ position: ['topRight', 'bottomRight'] }} />
+      <Table
+        title={addButton}
+        footer={addButton}
+        bordered
+        dataSource={resultItems}
+        columns={columns}
+        loading={loading}
+        scroll={{ x: 1500 }}
+        pagination={{ position: ['topRight', 'bottomRight'] }}
+      />
       {AddAsync ? (
-        <Modal width={800} footer={false} title={<React.Fragment><EditOutlined />{`  `}{t`add`}</React.Fragment>} visible={addModalVisible} onCancel={() => setAddModalVisible(false)}>
-          <Form scrollToFirstError={true} name="Add" layout="vertical" onFinish={onFinishAdd}>
+        <Modal
+          width={800}
+          footer={false}
+          title={
+            <React.Fragment>
+              <EditOutlined />
+              {`  `}
+              {t`add`}
+            </React.Fragment>
+          }
+          visible={addModalVisible}
+          onCancel={() => setAddModalVisible(false)}
+        >
+          <Form scrollToFirstError={true} name='Add' layout='vertical' onFinish={onFinishAdd}>
             <Row gutter={16}>
               <MapIntoFormItems itemsHeader={itemsHeader} />
             </Row>
             <Form.Item>
-              <Button size="large" htmlType="submit" type="primary">{t`add`}</Button>
+              <Button size='large' htmlType='submit' type='primary'>{t`add`}</Button>
             </Form.Item>
           </Form>
         </Modal>
       ) : null}
       {UpdateAsync ? (
-        <Modal width={800} footer={false} title={<React.Fragment><EditOutlined />{`  `}{t`edit`}</React.Fragment>} visible={editModalVisible} onCancel={() => setEditModalVisible(false)}>
-          <Form scrollToFirstError={true} name="Edit" layout="vertical" form={form} onFinish={onFinishEdit}>
+        <Modal
+          width={800}
+          footer={false}
+          title={
+            <React.Fragment>
+              <EditOutlined />
+              {`  `}
+              {t`edit`}
+            </React.Fragment>
+          }
+          visible={editModalVisible}
+          onCancel={() => setEditModalVisible(false)}
+        >
+          <Form scrollToFirstError={true} name='Edit' layout='vertical' form={form} onFinish={onFinishEdit}>
             <Row gutter={16}>
               <MapIntoFormItems form={form} itemsHeader={itemsHeader} />
             </Row>
             <Form.Item>
-              <Button size="large" htmlType="submit" type="primary">{t`edit`}</Button>
+              <Button size='large' htmlType='submit' type='primary'>{t`edit`}</Button>
             </Form.Item>
           </Form>
         </Modal>

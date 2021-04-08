@@ -75,9 +75,7 @@ const ManageCertificates: FC = () => {
   const en = lang === 'en';
   const dispatch = useDispatch();
 
-  const { status, certificates } = useSelector(
-    (state: RootState) => state.Certificate
-  );
+  const { status, certificates } = useSelector((state: RootState) => state.Certificate);
   const { animals } = useSelector((state: RootState) => state.Animal);
 
   useEffect(() => {
@@ -107,23 +105,24 @@ const ManageCertificates: FC = () => {
         title: 'الشهادة',
         dataIndex: 'url',
         width: 'auto',
+        render: (val: string) => (
+          <a href={val} target='_blank'>
+            {val}
+          </a>
+        ),
       },
       type: 'file',
+      getInitialValue: () => {
+        undefined;
+      },
       customFormItem: (
         <Col span={24}>
-          <Form.Item
-            valuePropName={'file'}
-            label='Certificate'
-            name='pdf'
-            rules={[{ required: true }]}
-          >
+          <Form.Item valuePropName={'file'} label='Certificate' name='pdf' rules={[{ required: true }]}>
             <Dragger {...pdf_props}>
               <p className='ant-upload-drag-icon'>
                 <InboxOutlined />
               </p>
-              <p className='ant-upload-text'>
-                Click or drag file to this area to upload
-              </p>
+              <p className='ant-upload-text'>Click or drag file to this area to upload</p>
             </Dragger>
           </Form.Item>
         </Col>
@@ -137,9 +136,7 @@ const ManageCertificates: FC = () => {
       items={certificates}
       loading={status === 'loading'}
       AddAsync={(el) => InsertCertificateAsync({ certificate: el.item })}
-      UpdateAsync={(el) =>
-        UpdateCertificateAsync({ id: el.id, certificate: el.item })
-      }
+      UpdateAsync={(el) => UpdateCertificateAsync({ id: el.id, certificate: el.item })}
       DeleteAsync={(el) => DeleteCertificateAsync({ id: el.id })}
       itemsHeader={[...columnsCertificates, ...tmp]}
       Mapper={mapper}

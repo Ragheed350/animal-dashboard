@@ -7,20 +7,15 @@ export class FarmService extends ApiService {
     super({ baseURL: `${process.env.API_URL}admin/`, ...config });
   }
 
-  public Fetch = async (): Promise<ApiResult<Farm[]>> =>
-    this.get<Farm[]>(`farms`);
+  public Fetch = async (): Promise<ApiResult<Farm[]>> => this.get<Farm[]>(`farms`);
 
-  public Insert = async ({ farm }: Farm_I_Req): Promise<ApiResult<Farm>> =>
-    this.post<Farm>(`farms`, farm);
+  public Insert = async ({ farm }: Farm_I_Req): Promise<ApiResult<Farm>> => this.post<Farm>(`farms`, farm);
 
-  public Update = async ({ farm, id }: Farm_U_Req): Promise<ApiResult<Farm>> =>
-    this.put<Farm>(`farms/${id}`, farm);
+  public Update = async ({ farm, id }: Farm_U_Req): Promise<ApiResult<Farm>> => this.post<Farm>(`farms/${id}`, farm);
 
-  public Delete = async ({ id }: Farm_D_Req): Promise<ApiResult<Farm>> =>
-    this.delete<Farm>(`farm/soft_delete/${id}`);
+  public Delete = async ({ id }: Farm_D_Req): Promise<ApiResult<Farm>> => this.delete<Farm>(`farm/soft_delete/${id}`);
 
-  public Show = async ({ id }: Farm_S_Req): Promise<ApiResult<Farm>> =>
-    this.get<Farm>(`farm/show/${id}`);
+  public Show = async ({ id }: Farm_S_Req): Promise<ApiResult<Farm>> => this.get<Farm>(`farm/show/${id}`);
 }
 
 export const farmService = new FarmService({

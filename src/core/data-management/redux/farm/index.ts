@@ -51,18 +51,9 @@ const FarmsSlice = createSlice({
   },
 });
 
-const {
-  setStatus,
-  InsertFarm,
-  UpdateFarm,
-  DeleteFarm,
-  FetchFarms,
-  ShowFarm,
-} = FarmsSlice.actions;
+const { setStatus, InsertFarm, UpdateFarm, DeleteFarm, FetchFarms, ShowFarm } = FarmsSlice.actions;
 
-export const InsertFarmAsync = (req: Farm_I_Req): AppThunk => async (
-  dispatch
-) => {
+export const InsertFarmAsync = (req: Farm_I_Req): AppThunk => async (dispatch) => {
   dispatch(setStatus('loading'));
   const result = await farmService.Insert(req);
   if (isError(result)) {
@@ -74,9 +65,7 @@ export const InsertFarmAsync = (req: Farm_I_Req): AppThunk => async (
   }
 };
 
-export const ShowFarmAsync = (req: Farm_S_Req): AppThunk => async (
-  dispatch
-) => {
+export const ShowFarmAsync = (req: Farm_S_Req): AppThunk => async (dispatch) => {
   dispatch(setStatus('loading'));
   const result = await farmService.Show(req);
   if (isError(result)) {
@@ -88,11 +77,12 @@ export const ShowFarmAsync = (req: Farm_S_Req): AppThunk => async (
   }
 };
 
-export const UpdateFarmAsync = (req: Farm_U_Req): AppThunk => async (
-  dispatch
-) => {
+export const UpdateFarmAsync = (req: Farm_U_Req): AppThunk => async (dispatch) => {
   dispatch(setStatus('loading'));
-  const result = await farmService.Update(req);
+  let req1: any = req;
+  req1.farm.append('_method', 'put');
+
+  const result = await farmService.Update(req1);
   if (isError(result)) {
     ApiErrorNotification(result);
     dispatch(setStatus('error'));
@@ -102,9 +92,7 @@ export const UpdateFarmAsync = (req: Farm_U_Req): AppThunk => async (
   }
 };
 
-export const DeleteFarmAsync = (req: Farm_D_Req): AppThunk => async (
-  dispatch
-) => {
+export const DeleteFarmAsync = (req: Farm_D_Req): AppThunk => async (dispatch) => {
   dispatch(setStatus('loading'));
   const result = await farmService.Delete(req);
   if (isError(result)) {

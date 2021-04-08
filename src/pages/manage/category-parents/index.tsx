@@ -12,13 +12,34 @@ import {
   InsertParentAsync,
   UpdateParentAsync,
   DeleteParentAsync,
-  ObjToFormData,
 } from '@core';
 import { UploadFile } from 'antd/lib/upload/interface';
 
 const mapper = (req: any) => {
-  const fd = ObjToFormData(req)
-  return fd;
+  const formData = new FormData();
+
+  let result: string | File | Blob = '';
+
+  if (req.image.lastModified) result = req.image;
+  else result = req.image.name!;
+
+  req.image = result;
+
+  for (const key in req) {
+    if (Object.prototype.hasOwnProperty.call(req, key)) {
+      const el = req[key];
+      if (key === 'image') {
+        if (typeof el === 'string') {
+          const arr = el.split('/');
+          console.log(`${arr[arr.length - 2]}/${arr[arr.length - 1]}`);
+
+          formData.append(key, `${arr[arr.length - 2]}/${arr[arr.length - 1]}`);
+        } else formData.append(key, el);
+      } else formData.append(key, el);
+    }
+  }
+
+  return formData;
 };
 
 export const columnsCategories: ItemType[] = [

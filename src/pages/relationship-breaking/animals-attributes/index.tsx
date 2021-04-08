@@ -37,9 +37,7 @@ const ManageAttributes: FC = () => {
   const en = lang === 'en';
   const dispatch = useDispatch();
 
-  const { status, AnimalAttributes } = useSelector(
-    (state: RootState) => state.AnimalAttribute
-  );
+  const { status, AnimalAttributes } = useSelector((state: RootState) => state.AnimalAttribute);
   const { animals } = useSelector((state: RootState) => state.Animal);
   const { attributes } = useSelector((state: RootState) => state.Attribute);
 
@@ -97,15 +95,11 @@ const ManageAttributes: FC = () => {
       lang={lang === 'en' ? 'en' : 'ar'}
       items={AnimalAttributes}
       loading={status === 'loading'}
-      AddAsync={(el) =>
-        InsertAnimalAttributeAsync({ animalAttribute: el.item })
-      }
-      UpdateAsync={(el) =>
-        UpdateAnimalAttributeAsync({ id: el.id, animalAttribute: el.item })
-      }
+      AddAsync={(el) => InsertAnimalAttributeAsync({ animalAttribute: el.item })}
+      UpdateAsync={(el) => UpdateAnimalAttributeAsync({ id: el.id, animalAttribute: el.item })}
       DeleteAsync={(el) => DeleteAnimalAttributeAsync({ id: el.id })}
       itemsHeader={[...columnsAnimalAttributes, ...tmp]}
-    // Mapper={mapper}
+      // Mapper={mapper}
     />
   );
 };

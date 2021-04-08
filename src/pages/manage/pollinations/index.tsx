@@ -14,15 +14,12 @@ import {
   UpdatePollinationAsync,
   FetchAnimalsAsync,
   Pollination_Req,
-  Pollination,
-  Animal,
 } from '@core';
-import { Typography } from 'antd';
 
-const mapper = (req: Pollination): Pollination_Req => ({
+const mapper = (req: Pollination_Req) => ({
   duration: req.duration,
-  female_no: req.female_id,
-  male_no: req.male_id,
+  female_no: req.female_no,
+  male_no: req.male_no,
 });
 
 export const columnsPollinations: ItemType[] = [
@@ -71,18 +68,14 @@ const ManagePollinations: FC = () => {
     {
       columnType: {
         title: 'الذكر',
-        dataIndex: 'male_id',
+        dataIndex: 'male_no',
         width: 200,
-        render: (id: string) =>
+        render: (no: string) =>
           en
-            ? animals.find((el) => el.id === Number(id))?.['name:en']
-            : animals.find((el) => el.id === Number(id))?.['name:ar'],
+            ? animals.find((el) => el.animal_no === no)?.['name:en']
+            : animals.find((el) => el.animal_no === no)?.['name:ar'],
       },
       type: 'foreign-key',
-      getInitialValue: (id: string) =>
-        en
-          ? animals.find((el) => el.id === Number(id))?.['name:en']
-          : animals.find((el) => el.id === Number(id))?.['name:ar'],
 
       foreignKeyArr: animals
         .filter((el) => el.gender === '0')
@@ -94,18 +87,14 @@ const ManagePollinations: FC = () => {
     {
       columnType: {
         title: 'الأنثى',
-        dataIndex: 'female_id',
+        dataIndex: 'female_no',
         width: 200,
-        render: (id: string) =>
+        render: (no: string) =>
           en
-            ? animals.find((el) => el.id === Number(id))?.['name:en']
-            : animals.find((el) => el.id === Number(id))?.['name:ar'],
+            ? animals.find((el) => el.animal_no === no)?.['name:en']
+            : animals.find((el) => el.animal_no === no)?.['name:ar'],
       },
       type: 'foreign-key',
-      getInitialValue: (id: string) =>
-        en
-          ? animals.find((el) => el.id === Number(id))?.['name:en']
-          : animals.find((el) => el.id === Number(id))?.['name:ar'],
 
       foreignKeyArr: animals
         .filter((el) => el.gender === '1')

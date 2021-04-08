@@ -1,15 +1,8 @@
 {
-  "operations": {
-    "header": "Operations",
-    "delete-confirm": "Are you sure you want to delete this item"
-  },
-  "search": {
-    "search-a": "Search about ${name}",
-    "search": "Search",
-    "reset": "Reset",
-    "match-word": "Match the whole word"
-  },
-  "edit": "Edit",
-  "add": "Add",
-  "delete": "Delete"
+    "add": "Add",
+    "edit": "Edit",
+    "delete": "Delete",
+    "operations": {
+        "header": "Operations"
+    }
 }

@@ -20,8 +20,9 @@ const mapper = (req: any) => {
   const formData = new FormData();
 
   let result: string | File | Blob = '';
-  if (req.image.originFileObj) result = req.image.originFileObj;
-  else result = req.image.url!;
+
+  if (req.image.lastModified) result = req.image;
+  else result = req.image.name!;
 
   req.image = result;
 
