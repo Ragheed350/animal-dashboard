@@ -43,47 +43,8 @@ const mapper = (req: any) => {
   return formData;
 };
 
-export const columnsCategories: ItemType[] = [
-  {
-    columnType: {
-      title: 'المعرف',
-      dataIndex: 'id',
-      fixed: 'left',
-      width: 100,
-    },
-    type: 'primary-key',
-  },
-  {
-    columnType: {
-      title: 'الاسم',
-      dataIndex: 'name',
-      width: 200,
-    },
-    type: 'text',
-    trans: true,
-  },
-  {
-    columnType: {
-      title: 'الوصف',
-      dataIndex: 'description',
-      width: 'auto',
-    },
-    type: 'text-area',
-    trans: true,
-  },
-  {
-    columnType: {
-      title: 'الصورة',
-      dataIndex: 'image',
-      width: 300,
-    },
-    getInitialValue: (val: string) => ({ name: val, preview: val, uid: val } as UploadFile),
-    type: 'image',
-  },
-];
-
 const ManageCategories: FC = () => {
-  const { lang } = useTranslation();
+  const { lang, t } = useTranslation('common');
   const en = lang === 'en';
   const dispatch = useDispatch();
 
@@ -94,10 +55,49 @@ const ManageCategories: FC = () => {
     dispatch(FetchLevel3Async());
   }, [dispatch]);
 
+  const columnsCategories: ItemType[] = [
+    {
+      columnType: {
+        title: t`id`,
+        dataIndex: 'id',
+        fixed: 'left',
+        width: 100,
+      },
+      type: 'primary-key',
+    },
+    {
+      columnType: {
+        title: t`name`,
+        dataIndex: 'name',
+        width: 200,
+      },
+      type: 'text',
+      trans: true,
+    },
+    {
+      columnType: {
+        title: t`description`,
+        dataIndex: 'description',
+        width: 'auto',
+      },
+      type: 'text-area',
+      trans: true,
+    },
+    {
+      columnType: {
+        title: t`image`,
+        dataIndex: 'image',
+        width: 300,
+      },
+      getInitialValue: (val: string) => ({ name: val, preview: val, uid: val } as UploadFile),
+      type: 'image',
+    },
+  ];
+
   const tmp: ItemType[] = [
     {
       columnType: {
-        title: 'معرف الأب',
+        title: t`parent_id`,
         dataIndex: 'parent_id',
         width: 200,
         render: (val: string) =>

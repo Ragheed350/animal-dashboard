@@ -20,20 +20,8 @@ import { FetchAnimalAttributesAsync } from 'src/core/data-management/redux/anima
 
 // })
 
-export const columnsAnimalAttributes: ItemType[] = [
-  {
-    columnType: {
-      title: 'المعرف',
-      dataIndex: 'id',
-      fixed: 'left',
-      width: 100,
-    },
-    type: 'primary-key',
-  },
-];
-
 const ManageAttributes: FC = () => {
-  const { lang } = useTranslation();
+  const { lang, t } = useTranslation('common');
   const en = lang === 'en';
   const dispatch = useDispatch();
 
@@ -47,10 +35,22 @@ const ManageAttributes: FC = () => {
     dispatch(FetchAnimalAttributesAsync());
   }, []);
 
+  const columnsAnimalAttributes: ItemType[] = [
+    {
+      columnType: {
+        title: t`id`,
+        dataIndex: 'id',
+        fixed: 'left',
+        width: 100,
+      },
+      type: 'primary-key',
+    },
+  ];
+
   const tmp: ItemType[] = [
     {
       columnType: {
-        title: 'الحيوان',
+        title: t`animal`,
         dataIndex: 'animal_id',
         width: 'auto',
         render: (val: string) =>
@@ -66,7 +66,7 @@ const ManageAttributes: FC = () => {
     },
     {
       columnType: {
-        title: 'الصفة',
+        title: t`attribute`,
         dataIndex: 'attribute_id',
         width: 'auto',
         render: (val: string) =>
@@ -82,7 +82,7 @@ const ManageAttributes: FC = () => {
     },
     {
       columnType: {
-        title: 'القيمة',
+        title: t`value`,
         dataIndex: 'value',
         width: 'auto',
       },

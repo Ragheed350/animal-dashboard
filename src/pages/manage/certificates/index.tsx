@@ -50,28 +50,8 @@ const pdf_props = {
   // },
 };
 
-export const columnsCertificates: ItemType[] = [
-  {
-    columnType: {
-      title: 'المعرف',
-      dataIndex: 'id',
-      fixed: 'left',
-      width: 100,
-    },
-    type: 'primary-key',
-  },
-  {
-    columnType: {
-      title: 'العنوان',
-      dataIndex: 'title',
-      width: 'auto',
-    },
-    type: 'text',
-  },
-];
-
 const ManageCertificates: FC = () => {
-  const { lang } = useTranslation();
+  const { lang, t } = useTranslation('common');
   const en = lang === 'en';
   const dispatch = useDispatch();
 
@@ -83,10 +63,30 @@ const ManageCertificates: FC = () => {
     dispatch(FetchCertificatesAsync());
   }, [dispatch]);
 
+  const columnsCertificates: ItemType[] = [
+    {
+      columnType: {
+        title: t`id`,
+        dataIndex: 'id',
+        fixed: 'left',
+        width: 100,
+      },
+      type: 'primary-key',
+    },
+    {
+      columnType: {
+        title: t`title`,
+        dataIndex: 'title',
+        width: 'auto',
+      },
+      type: 'text',
+    },
+  ];
+
   const tmp: ItemType[] = [
     {
       columnType: {
-        title: 'الحيوان',
+        title: t`animal`,
         dataIndex: 'animal_id',
         width: 'auto',
         render: (val: string) =>
@@ -102,7 +102,7 @@ const ManageCertificates: FC = () => {
     },
     {
       columnType: {
-        title: 'الشهادة',
+        title: t`certificate`,
         dataIndex: 'url',
         width: 'auto',
         render: (val: string) => (

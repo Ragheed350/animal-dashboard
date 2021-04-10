@@ -3,6 +3,7 @@
     "edit": "Edit",
     "delete": "Delete",
     "operations": {
-        "header": "Operations"
+        "header": "Operations",
+        "delete-confirm": "Are you sure you want to delete this item?"
     }
 }

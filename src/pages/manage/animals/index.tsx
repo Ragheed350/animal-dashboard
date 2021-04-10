@@ -61,238 +61,8 @@ const mapper = (req: any): any => {
   return formData;
 };
 
-export const columnsAnimals: ItemType[] = [
-  {
-    columnType: {
-      title: 'المعرف',
-      dataIndex: 'id',
-      fixed: 'left',
-      width: 100,
-    },
-    type: 'primary-key',
-  },
-  {
-    columnType: {
-      title: 'رقم الحيوان',
-      dataIndex: 'animal_no',
-      width: 200,
-    },
-    type: 'text',
-  },
-  {
-    columnType: {
-      title: 'الاسم',
-      dataIndex: 'name',
-      width: 200,
-    },
-    type: 'text',
-    trans: true,
-  },
-  {
-    columnType: {
-      title: 'تاريخ الولادة',
-      dataIndex: 'birth_date',
-      width: 200,
-    },
-    type: 'date',
-  },
-  {
-    columnType: {
-      title: 'الجنس',
-      dataIndex: 'gender',
-      width: 200,
-      render: (val: '0' | '1') => <Typography.Text>{val === '1' ? 'ذكر' : 'أنثى'}</Typography.Text>,
-    },
-    type: 'select',
-    foreignKeyArr: [
-      { title: 'ذكر', value: '0' },
-      { title: 'أنثى', value: '1' },
-    ],
-  },
-  {
-    columnType: {
-      title: 'للشراء؟',
-      dataIndex: 'for_buy',
-      width: 200,
-    },
-    type: 'check-box',
-    required: false,
-  },
-  {
-    columnType: {
-      title: 'السعر',
-      dataIndex: 'price',
-      width: 200,
-    },
-    type: 'text',
-    ignore: true,
-  },
-  {
-    columnType: {
-      title: 'بيانات المشتري',
-      dataIndex: 'puyer_data',
-      width: 200,
-    },
-    type: 'text',
-    ignore: true,
-  },
-  {
-    columnType: {
-      title: 'للعرض؟',
-      dataIndex: 'is_shown',
-      width: 200,
-    },
-    type: 'check-box',
-    required: false,
-  },
-  {
-    columnType: {
-      title: 'كود',
-      dataIndex: 'qr',
-      width: 200,
-    },
-    type: 'text',
-    ignore: true,
-  },
-  {
-    columnType: {
-      title: 'صورة الكود',
-      dataIndex: 'qr_image',
-      width: 200,
-    },
-    type: 'image',
-    ignore: true,
-  },
-  {
-    columnType: {
-      title: 'ميّت؟',
-      dataIndex: 'is_dead',
-      width: 200,
-    },
-    type: 'check-box',
-    required: false,
-  },
-  {
-    columnType: {
-      title: 'مقبول؟',
-      dataIndex: 'approved',
-      width: 200,
-    },
-    type: 'check-box',
-    ignore: true,
-  },
-  {
-    columnType: {
-      title: 'الرقاقة الالكترونية',
-      dataIndex: 'nfc',
-      width: 200,
-    },
-    type: 'number',
-    required: true,
-    customFormItem: (
-      <Col span={12}>
-        <Form.Item
-          label='nfc'
-          name='nfc'
-          rules={[
-            { type: 'number' },
-            () => ({
-              validator(_, value) {
-                console.log(value, value.toString().length);
-                if (value && value.toString().length === 15) {
-                  return Promise.resolve();
-                }
-                return Promise.reject('nfc number should be 15 character');
-              },
-            }),
-          ]}
-        >
-          <InputNumber style={{ width: '100%' }} />
-        </Form.Item>
-      </Col>
-    ),
-  },
-  {
-    columnType: {
-      title: 'موقع الرقاقة',
-      dataIndex: 'nfc_location',
-      width: 200,
-    },
-    type: 'text',
-    required: false,
-  },
-  {
-    columnType: {
-      title: 'المرفقات',
-      dataIndex: 'attachments',
-      width: 200,
-      render: (arr: Attachment[]) => (
-        <Carousel draggable>
-          {arr.map((el) => (
-            <div>
-              <Image key={el.id} src={el.url} style={{ width: 150, height: 150, objectFit: 'cover' }} />
-            </div>
-          ))}
-        </Carousel>
-      ),
-    },
-    type: 'multi-foreign-key',
-    ignore: true,
-  },
-  {
-    columnType: {
-      title: 'التقييم',
-      dataIndex: 'rate',
-      width: 200,
-    },
-    type: 'number',
-    ignore: true,
-  },
-  {
-    columnType: {
-      title: 'العمر',
-      dataIndex: 'age',
-      width: 200,
-    },
-    type: 'number',
-    ignore: true,
-  },
-  {
-    columnType: {
-      title: 'الوزن',
-      dataIndex: 'weight',
-      width: 200,
-    },
-    type: 'number',
-    hidden: true,
-    initialValueDataIndex: 'Weight',
-    getInitialValue: (val: Weight[]) => Number(val[val.length - 1]?.value),
-  },
-  {
-    columnType: {
-      title: 'الوزن',
-      dataIndex: 'Weight',
-      width: 200,
-      render: (val: Weight[]) => Number(val[val.length - 1]?.value),
-    },
-    type: 'number',
-    ignore: true,
-  },
-  {
-    columnType: {
-      title: 'الصور',
-      dataIndex: 'image',
-      width: 200,
-    },
-    type: 'multi-images',
-    hidden: true,
-    initialValueDataIndex: 'attachments',
-    getInitialValue: (val: Attachment[]) => val.map((el) => ({ uid: el.id, name: el.url, url: el.url })),
-  },
-];
-
 const ManageAnimals: FC = () => {
-  const { lang } = useTranslation();
+  const { lang, t } = useTranslation('common');
   const en = lang === 'en';
   const dispatch = useDispatch();
 
@@ -314,23 +84,240 @@ const ManageAnimals: FC = () => {
     dispatch(FetchLevel3Async());
   }, [dispatch]);
 
-  // {
-  //   columnType: {
-  //     title: 'الوزن',
-  //     dataIndex: 'weight',
-  //     width: 200,
-  //   },
-  //   type: 'number',
-  //   hidden: true,
-  //   initialValueDataIndex: 'Weight',
-  //   getInitialValue: (val: { id: number; value: string; animal_id: string; weight_date: string }[]) =>
-  //     val[val.length - 1]?.value,
-  // },
+  const columnsAnimals: ItemType[] = [
+    {
+      columnType: {
+        title: t`id`,
+        dataIndex: 'id',
+        fixed: 'left',
+        width: 100,
+      },
+      type: 'primary-key',
+    },
+    {
+      columnType: {
+        title: t`animal_no`,
+        dataIndex: 'animal_no',
+        width: 200,
+      },
+      type: 'text',
+    },
+    {
+      columnType: {
+        title: t`name`,
+        dataIndex: 'name',
+        width: 200,
+      },
+      type: 'text',
+      trans: true,
+    },
+    {
+      columnType: {
+        title: t`birth_day`,
+        dataIndex: 'birth_date',
+        width: 200,
+      },
+      type: 'date',
+    },
+    {
+      columnType: {
+        title: t`gender`,
+        dataIndex: 'gender',
+        width: 200,
+        render: (val: '0' | '1') => <Typography.Text>{val === '1' ? 'ذكر' : 'أنثى'}</Typography.Text>,
+      },
+      type: 'select',
+      foreignKeyArr: [
+        { title: 'ذكر', value: '0' },
+        { title: 'أنثى', value: '1' },
+      ],
+    },
+    {
+      columnType: {
+        title: t`for_buy`,
+        dataIndex: 'for_buy',
+        width: 200,
+      },
+      type: 'check-box',
+      required: false,
+    },
+    {
+      columnType: {
+        title: t`price`,
+        dataIndex: 'price',
+        width: 200,
+      },
+      type: 'text',
+      ignore: true,
+    },
+    {
+      columnType: {
+        title: t`buyer_data`,
+        dataIndex: 'puyer_data',
+        width: 200,
+      },
+      type: 'text',
+      ignore: true,
+    },
+    {
+      columnType: {
+        title: t`for_show`,
+        dataIndex: 'is_shown',
+        width: 200,
+      },
+      type: 'check-box',
+      required: false,
+    },
+    {
+      columnType: {
+        title: t`code`,
+        dataIndex: 'qr',
+        width: 200,
+      },
+      type: 'text',
+      ignore: true,
+    },
+    {
+      columnType: {
+        title: t`code_image`,
+        dataIndex: 'qr_image',
+        width: 200,
+      },
+      type: 'image',
+      ignore: true,
+    },
+    {
+      columnType: {
+        title: t`dead`,
+        dataIndex: 'is_dead',
+        width: 200,
+      },
+      type: 'check-box',
+      required: false,
+    },
+    {
+      columnType: {
+        title: t`approverd`,
+        dataIndex: 'approved',
+        width: 200,
+      },
+      type: 'check-box',
+      ignore: true,
+    },
+    {
+      columnType: {
+        title: t`microship`,
+        dataIndex: 'nfc',
+        width: 200,
+      },
+      type: 'number',
+      required: true,
+      customFormItem: (
+        <Col span={12}>
+          <Form.Item
+            label='nfc'
+            name='nfc'
+            rules={[
+              { type: 'number' },
+              () => ({
+                validator(_, value) {
+                  console.log(value, value.toString().length);
+                  if (value && value.toString().length === 15) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject('nfc number should be 15 character');
+                },
+              }),
+            ]}
+          >
+            <InputNumber style={{ width: '100%' }} />
+          </Form.Item>
+        </Col>
+      ),
+    },
+    {
+      columnType: {
+        title: t`microship_location`,
+        dataIndex: 'nfc_location',
+        width: 200,
+      },
+      type: 'text',
+      required: false,
+    },
+    {
+      columnType: {
+        title: t`attachments`,
+        dataIndex: 'attachments',
+        width: 200,
+        render: (arr: Attachment[]) => (
+          <Carousel draggable>
+            {arr.map((el) => (
+              <div>
+                <Image key={el.id} src={el.url} style={{ width: 150, height: 150, objectFit: 'cover' }} />
+              </div>
+            ))}
+          </Carousel>
+        ),
+      },
+      type: 'multi-foreign-key',
+      ignore: true,
+    },
+    {
+      columnType: {
+        title: t`evaluation`,
+        dataIndex: 'rate',
+        width: 200,
+      },
+      type: 'number',
+      ignore: true,
+    },
+    {
+      columnType: {
+        title: t`age`,
+        dataIndex: 'age',
+        width: 200,
+      },
+      type: 'number',
+      ignore: true,
+    },
+    {
+      columnType: {
+        title: t`weight`,
+        dataIndex: 'weight',
+        width: 200,
+      },
+      type: 'number',
+      hidden: true,
+      initialValueDataIndex: 'Weight',
+      getInitialValue: (val: Weight[]) => Number(val[val.length - 1]?.value),
+    },
+    {
+      columnType: {
+        title: t`weight`,
+        dataIndex: 'Weight',
+        width: 200,
+        render: (val: Weight[]) => Number(val[val.length - 1]?.value),
+      },
+      type: 'number',
+      ignore: true,
+    },
+    {
+      columnType: {
+        title: t`image`,
+        dataIndex: 'image',
+        width: 200,
+      },
+      type: 'multi-images',
+      hidden: true,
+      initialValueDataIndex: 'attachments',
+      getInitialValue: (val: Attachment[]) => val.map((el) => ({ uid: el.id, name: el.url, url: el.url })),
+    },
+  ];
 
   const tmp: ItemType[] = [
     {
       columnType: {
-        title: 'المزرعة',
+        title: t`farm`,
         dataIndex: 'farm',
         width: 200,
         render: (farm: AnimalFarm[]) => farm[0]['name:ar']!,
@@ -342,7 +329,7 @@ const ManageAnimals: FC = () => {
     },
     {
       columnType: {
-        title: 'الأب',
+        title: t`father`,
         dataIndex: 'father_id',
         width: 200,
         render: (id: string) => (
@@ -361,7 +348,7 @@ const ManageAnimals: FC = () => {
     },
     {
       columnType: {
-        title: 'الأم',
+        title: t`mother`,
         dataIndex: 'mother_id',
         width: 200,
         render: (id: string) => (
@@ -380,7 +367,7 @@ const ManageAnimals: FC = () => {
     },
     {
       columnType: {
-        title: 'البلد',
+        title: t`country`,
         dataIndex: 'country_id',
         width: 200,
       },
@@ -393,7 +380,7 @@ const ManageAnimals: FC = () => {
     },
     {
       columnType: {
-        title: 'البلد',
+        title: t`country`,
         dataIndex: 'country',
         width: 200,
       },
@@ -403,7 +390,7 @@ const ManageAnimals: FC = () => {
     },
     {
       columnType: {
-        title: 'اللون',
+        title: t`color`,
         dataIndex: 'color_id',
         width: 200,
       },
@@ -416,7 +403,7 @@ const ManageAnimals: FC = () => {
     },
     {
       columnType: {
-        title: 'اللون',
+        title: t`color`,
         dataIndex: 'color',
         width: 200,
       },
@@ -427,7 +414,7 @@ const ManageAnimals: FC = () => {
     },
     {
       columnType: {
-        title: 'السلالة',
+        title: t`strain`,
         dataIndex: 'category_id',
         width: 200,
         render: (id: string) => level3.find((el) => el.id.toString() === id)?.['name:ar'],
@@ -443,7 +430,7 @@ const ManageAnimals: FC = () => {
     },
     {
       columnType: {
-        title: 'صنف العرض',
+        title: t`display_category`,
         dataIndex: 'display_category_id',
         width: 200,
       },

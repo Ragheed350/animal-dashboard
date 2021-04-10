@@ -22,37 +22,8 @@ const mapper = (req: Pollination_Req) => ({
   male_no: req.male_no,
 });
 
-export const columnsPollinations: ItemType[] = [
-  {
-    columnType: {
-      title: 'المعرف',
-      dataIndex: 'id',
-      fixed: 'left',
-      width: 100,
-    },
-    type: 'primary-key',
-    // ignore: { insert: true }
-  },
-  {
-    columnType: {
-      title: 'المدة المتبقية للولادة(باليوم)',
-      dataIndex: 'duration',
-      width: 200,
-    },
-    type: 'text',
-  },
-  {
-    columnType: {
-      title: 'تاريخ التلقيح',
-      dataIndex: 'date',
-      width: 200,
-    },
-    type: 'date',
-  },
-];
-
 const ManagePollinations: FC = () => {
-  const { lang } = useTranslation();
+  const { lang, t } = useTranslation('common');
   const en = lang === 'en';
   const dispatch = useDispatch();
 
@@ -64,10 +35,39 @@ const ManagePollinations: FC = () => {
     dispatch(FetchAnimalsAsync());
   }, [dispatch]);
 
+  const columnsPollinations: ItemType[] = [
+    {
+      columnType: {
+        title: t`id`,
+        dataIndex: 'id',
+        fixed: 'left',
+        width: 100,
+      },
+      type: 'primary-key',
+      // ignore: { insert: true }
+    },
+    {
+      columnType: {
+        title: t`remaining period for childbirth (per day)`,
+        dataIndex: 'duration',
+        width: 200,
+      },
+      type: 'text',
+    },
+    {
+      columnType: {
+        title: t`date of pollination`,
+        dataIndex: 'date',
+        width: 200,
+      },
+      type: 'date',
+    },
+  ];
+
   const tmp: ItemType[] = [
     {
       columnType: {
-        title: 'الذكر',
+        title: t`male`,
         dataIndex: 'male_no',
         width: 200,
         render: (no: string) =>
@@ -86,7 +86,7 @@ const ManagePollinations: FC = () => {
     },
     {
       columnType: {
-        title: 'الأنثى',
+        title: t`female`,
         dataIndex: 'female_no',
         width: 200,
         render: (no: string) =>

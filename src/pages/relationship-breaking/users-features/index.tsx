@@ -15,38 +15,8 @@ import {
   removeFeatureUserAsync,
 } from '@core';
 
-// const mapper = (req: Attribute): Promise<Attribute_Req> => ({
-
-// })
-
-export const columnsAnimalAttributes: ItemType[] = [
-  {
-    columnType: {
-      title: 'المعرف',
-      dataIndex: 'id',
-      fixed: 'left',
-      width: 100,
-    },
-    type: 'primary-key',
-  },
-  {
-    columnType: {
-      title: 'المدة(باليوم)',
-      dataIndex: 'duration',
-    },
-    type: 'number',
-  },
-  {
-    columnType: {
-      title: 'مقبول؟',
-      dataIndex: 'is_approved',
-    },
-    type: 'check-box',
-  },
-];
-
 const ManageAttributes: FC = () => {
-  const { lang } = useTranslation();
+  const { lang, t } = useTranslation('common');
   const dispatch = useDispatch();
 
   const { featuresApprove, features, status } = useSelector((state: RootState) => state.Feature);
@@ -58,10 +28,36 @@ const ManageAttributes: FC = () => {
     dispatch(FetchUsersAsync());
   }, []);
 
+  const columnsAnimalAttributes: ItemType[] = [
+    {
+      columnType: {
+        title: t`id`,
+        dataIndex: 'id',
+        fixed: 'left',
+        width: 100,
+      },
+      type: 'primary-key',
+    },
+    {
+      columnType: {
+        title: t`duration(per day)`,
+        dataIndex: 'duration',
+      },
+      type: 'number',
+    },
+    {
+      columnType: {
+        title: t`approved`,
+        dataIndex: 'is_approved',
+      },
+      type: 'check-box',
+    },
+  ];
+
   const tmp: ItemType[] = [
     {
       columnType: {
-        title: 'المستخدم',
+        title: t`user`,
         dataIndex: 'user_id',
         width: 'auto',
         render: (val: number | string) => <>{users.find((el) => el.id === Number(val))?.['name:ar']}</>,
@@ -71,7 +67,7 @@ const ManageAttributes: FC = () => {
     },
     {
       columnType: {
-        title: 'الباقة',
+        title: t`package`,
         dataIndex: 'feature_id',
         width: 'auto',
         render: (val: number | string) => <>{features.find((el) => el.id === Number(val))?.['text:ar']}</>,

@@ -21,29 +21,8 @@ import { Typography } from 'antd';
 
 // })
 
-export const columnsRates: ItemType[] = [
-  {
-    columnType: {
-      title: 'المعرف',
-      dataIndex: 'id',
-      fixed: 'left',
-      width: 100,
-    },
-    type: 'primary-key',
-    // ignore: { insert: true }
-  },
-  {
-    columnType: {
-      title: 'القيمة',
-      dataIndex: 'value',
-      width: 200,
-    },
-    type: 'text',
-  },
-];
-
 const ManageRates: FC = () => {
-  const { lang } = useTranslation();
+  const { lang, t } = useTranslation('common');
   const en = lang === 'en';
   const dispatch = useDispatch();
 
@@ -57,10 +36,31 @@ const ManageRates: FC = () => {
     dispatch(FetchUsersAsync());
   }, [dispatch]);
 
+  const columnsRates: ItemType[] = [
+    {
+      columnType: {
+        title: t`id`,
+        dataIndex: 'id',
+        fixed: 'left',
+        width: 100,
+      },
+      type: 'primary-key',
+      // ignore: { insert: true }
+    },
+    {
+      columnType: {
+        title: t`value`,
+        dataIndex: 'value',
+        width: 200,
+      },
+      type: 'text',
+    },
+  ];
+
   const tmp: ItemType[] = [
     {
       columnType: {
-        title: 'المستخدم',
+        title: t`user`,
         dataIndex: 'user_id',
         width: 200,
         render: (id: string) => (
@@ -79,7 +79,7 @@ const ManageRates: FC = () => {
     },
     {
       columnType: {
-        title: 'الحيوان',
+        title: t`animal`,
         dataIndex: 'animal_id',
         width: 200,
         render: (id: string) => (
@@ -107,7 +107,7 @@ const ManageRates: FC = () => {
       UpdateAsync={(el) => UpdateRateAsync({ id: el.id, rate: el.item })}
       DeleteAsync={(el) => DeleteRateAsync({ id: el.id })}
       itemsHeader={[...columnsRates, ...tmp]}
-    // Mapper={mapper}
+      // Mapper={mapper}
     />
   );
 };

@@ -17,55 +17,12 @@ import {
 } from '@core';
 import { Typography } from 'antd';
 
-// const mapper = (req: Attribute): Promise<Attribute_Req> => ({
-
-// })
-
-export const columnsAttributes: ItemType[] = [
-  {
-    columnType: {
-      title: 'المعرف',
-      dataIndex: 'id',
-      fixed: 'left',
-      width: 100,
-    },
-    type: 'primary-key',
-    // ignore: { insert: true }
-  },
-  {
-    columnType: {
-      title: 'الاسم',
-      dataIndex: 'name',
-      width: 'auto',
-    },
-    type: 'text',
-    trans: true,
-  },
-  {
-    columnType: {
-      title: 'الجنس',
-      dataIndex: 'gender',
-      width: 200,
-      render: (val: '0' | '1') => (
-        <Typography.Text>{val === '1' ? 'ذكر' : 'أنثى'}</Typography.Text>
-      ),
-    },
-    type: 'select',
-    foreignKeyArr: [
-      { title: 'ذكر', value: '0' },
-      { title: 'أنثى', value: '1' },
-    ],
-  },
-];
-
 const ManageAttributes: FC = () => {
-  const { lang } = useTranslation();
+  const { lang, t } = useTranslation('common');
   const en = lang === 'en';
   const dispatch = useDispatch();
 
-  const { status, attributes } = useSelector(
-    (state: RootState) => state.Attribute
-  );
+  const { status, attributes } = useSelector((state: RootState) => state.Attribute);
   const { parents } = useSelector((state: RootState) => state.Category);
 
   useEffect(() => {
@@ -74,10 +31,45 @@ const ManageAttributes: FC = () => {
     dispatch(FetchAttributesAsync());
   }, [dispatch]);
 
+  const columnsAttributes: ItemType[] = [
+    {
+      columnType: {
+        title: t`id`,
+        dataIndex: 'id',
+        fixed: 'left',
+        width: 100,
+      },
+      type: 'primary-key',
+      // ignore: { insert: true }
+    },
+    {
+      columnType: {
+        title: t`name`,
+        dataIndex: 'name',
+        width: 'auto',
+      },
+      type: 'text',
+      trans: true,
+    },
+    {
+      columnType: {
+        title: t`gender`,
+        dataIndex: 'gender',
+        width: 200,
+        render: (val: '0' | '1') => <Typography.Text>{val === '1' ? 'ذكر' : 'أنثى'}</Typography.Text>,
+      },
+      type: 'select',
+      foreignKeyArr: [
+        { title: 'ذكر', value: '0' },
+        { title: 'أنثى', value: '1' },
+      ],
+    },
+  ];
+
   const tmp: ItemType[] = [
     {
       columnType: {
-        title: 'معرف الصنف',
+        title: t`category`,
         dataIndex: 'category_id',
         width: 200,
         render: (val: string) =>
@@ -99,9 +91,7 @@ const ManageAttributes: FC = () => {
       items={attributes}
       loading={status === 'loading'}
       AddAsync={(el) => InsertAttributeAsync({ attribute: el.item })}
-      UpdateAsync={(el) =>
-        UpdateAttributeAsync({ id: el.id, attribute: el.item })
-      }
+      UpdateAsync={(el) => UpdateAttributeAsync({ id: el.id, attribute: el.item })}
       DeleteAsync={(el) => DeleteAttributeAsync({ id: el.id })}
       itemsHeader={[...columnsAttributes, ...tmp]}
       // Mapper={mapper}

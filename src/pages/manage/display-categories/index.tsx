@@ -14,43 +14,8 @@ import {
   UpdateDisplayCategoryAsync,
 } from '@core';
 
-// const mapper = (req: DisplayCategory): Promise<DisplayCategory_Req> => ({
-
-// })
-
-export const columnsDisplayCategories: ItemType[] = [
-  {
-    columnType: {
-      title: 'المعرف',
-      dataIndex: 'id',
-      fixed: 'left',
-      width: 100,
-    },
-    type: 'primary-key',
-    // ignore: { insert: true }
-  },
-  {
-    columnType: {
-      title: 'الاسم',
-      dataIndex: 'name',
-      width: 'auto',
-    },
-    type: 'text',
-    trans: true,
-  },
-  {
-    columnType: {
-      title: 'مميز؟',
-      dataIndex: 'is_featured',
-      width: 100,
-    },
-    type: 'check-box',
-    getInitialValue: (val: any) => Number(val),
-  },
-];
-
 const ManageDisplayCategories: FC = () => {
-  const { lang } = useTranslation();
+  const { lang, t } = useTranslation('common');
   // const en = lang === 'en';
   const dispatch = useDispatch();
 
@@ -60,18 +25,36 @@ const ManageDisplayCategories: FC = () => {
     dispatch(FetchDisplayCategoriesAsync());
   }, [dispatch]);
 
-  // const tmp: ItemType[] = [
-  //     {
-  //         columnType: {
-  //             title: 'Parent ID',
-  //             dataIndex: 'parent_id',
-  //             width: 200,
-  //             render: (val: string) => en ? displayCategories.find(el => el.id === Number(val))?.['name:en'] : displayCategories.find(el => el.id === Number(val))?.['name:ar']
-  //         },
-  //         type: 'foreign-key',
-  //         foreignKeyArr: displayCategories.map(el => ({ title: en ? el['name:en'] : el['name:en'], value: el.id }))
-  //     },
-  // ]
+  const columnsDisplayCategories: ItemType[] = [
+    {
+      columnType: {
+        title: t`id`,
+        dataIndex: 'id',
+        fixed: 'left',
+        width: 100,
+      },
+      type: 'primary-key',
+      // ignore: { insert: true }
+    },
+    {
+      columnType: {
+        title: t`name`,
+        dataIndex: 'name',
+        width: 'auto',
+      },
+      type: 'text',
+      trans: true,
+    },
+    {
+      columnType: {
+        title: t`featured`,
+        dataIndex: 'is_featured',
+        width: 100,
+      },
+      type: 'check-box',
+      getInitialValue: (val: any) => Number(val),
+    },
+  ];
 
   return (
     <CRUDBuilder

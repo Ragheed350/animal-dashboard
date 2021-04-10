@@ -19,39 +19,8 @@ import { Typography } from 'antd';
 // const mapper = (req: Weight): Weight_Req => ({
 // })
 
-export const columnsWeights: ItemType[] = [
-  {
-    columnType: {
-      title: 'المعرف',
-      dataIndex: 'id',
-      fixed: 'left',
-      width: 100,
-    },
-    type: 'primary-key',
-    // ignore: { insert: true }
-  },
-  {
-    columnType: {
-      title: 'القيمة',
-      dataIndex: 'value',
-      width: 200,
-    },
-    type: 'number',
-    getInitialValue: (val: any) => Number(val),
-  },
-  {
-    columnType: {
-      title: 'تاريخ الوزن',
-      dataIndex: 'weight_date',
-      width: 300,
-    },
-    type: 'date',
-    ignore: true,
-  },
-];
-
 const ManageWeights: FC = () => {
-  const { lang } = useTranslation();
+  const { lang, t } = useTranslation('common');
   const en = lang === 'en';
   const dispatch = useDispatch();
 
@@ -63,10 +32,41 @@ const ManageWeights: FC = () => {
     dispatch(FetchAnimalsAsync());
   }, [dispatch]);
 
+  const columnsWeights: ItemType[] = [
+    {
+      columnType: {
+        title: t`id`,
+        dataIndex: 'id',
+        fixed: 'left',
+        width: 100,
+      },
+      type: 'primary-key',
+      // ignore: { insert: true }
+    },
+    {
+      columnType: {
+        title: t`value`,
+        dataIndex: 'value',
+        width: 200,
+      },
+      type: 'number',
+      getInitialValue: (val: any) => Number(val),
+    },
+    {
+      columnType: {
+        title: t`weight_date`,
+        dataIndex: 'weight_date',
+        width: 300,
+      },
+      type: 'date',
+      ignore: true,
+    },
+  ];
+
   const tmp: ItemType[] = [
     {
       columnType: {
-        title: 'الحيوان',
+        title: t`animal`,
         dataIndex: 'animal_id',
         width: 200,
         render: (id: string) => (

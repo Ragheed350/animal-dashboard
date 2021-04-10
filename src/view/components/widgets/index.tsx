@@ -18,7 +18,7 @@ export const CamelLayout: React.FC = ({ children }) => {
   const { lang } = useTranslation();
 
   const { pathname } = useRouter();
-  const [marginContent, setMarginContent] = useState(pathname === 'login' ? 0 : 80);
+  const [marginContent, setMarginContent] = useState(pathname === '/login' ? 0 : 80);
 
   const collapsed = marginContent === 80;
 

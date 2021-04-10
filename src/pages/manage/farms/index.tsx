@@ -36,120 +36,116 @@ const mapper = (req: any) => {
   return formData;
 };
 
-export const columnsFarms: ItemType[] = [
-  {
-    columnType: {
-      title: 'المعرف',
-      dataIndex: 'id',
-      fixed: 'left',
-      width: 100,
-    },
-    type: 'number',
-    // ignore: { insert: true }
-  },
-  {
-    columnType: {
-      title: 'الاسم',
-      dataIndex: 'name',
-      width: 200,
-    },
-    type: 'text',
-    trans: true,
-  },
-  {
-    columnType: {
-      title: 'الوصف',
-      dataIndex: 'description',
-      width: 300,
-    },
-    type: 'text-area',
-    trans: true,
-  },
-  {
-    columnType: {
-      title: 'الكود',
-      dataIndex: 'code',
-      width: 200,
-    },
-    type: 'text',
-  },
-  {
-    columnType: {
-      title: 'التقييم',
-      dataIndex: 'rate',
-      width: 200,
-    },
-    type: 'text',
-    ignore: true,
-  },
-  {
-    columnType: {
-      title: 'الشعار',
-      dataIndex: 'logo',
-      width: 300,
-    },
-    type: 'image',
-    getInitialValue: (val: string) => ({ name: val, preview: val, uid: val } as UploadFile),
-  },
-  {
-    columnType: {
-      title: 'الموقع',
-      dataIndex: 'latLng',
-      render: (val: string) => {
-        const res = JSON.parse(val) as { longitude: string; latitude: string };
-        return (
-          <a target='__blank' href={`https://www.google.com/maps/place/${res.longitude}, ${res.latitude}`}>
-            {'إذهب إلى الموقع'}
-          </a>
-        );
-      },
-      width: 200,
-    },
-    type: 'text',
-    ignore: true,
-  },
-  {
-    columnType: {
-      title: 'خطوط الطول',
-      dataIndex: 'latitude',
-      width: 200,
-    },
-    type: 'text',
-    hidden: true,
-  },
-  {
-    columnType: {
-      title: 'خطوط العرض',
-      dataIndex: 'longitude',
-      width: 200,
-    },
-    type: 'text',
-    hidden: true,
-  },
-];
-
 const ManageFarms: FC = () => {
-  const { lang } = useTranslation();
-  // const en = lang === 'en';
+  const { lang, t } = useTranslation('common');
   const dispatch = useDispatch();
 
   const { status, farms } = useSelector((state: RootState) => state.Farm);
 
   useEffect(() => {
     dispatch(FetchFarmsAsync());
-    // dispatch()
   }, [dispatch]);
+
+  const columnsFarms: ItemType[] = [
+    {
+      columnType: {
+        title: t`id`,
+        dataIndex: 'id',
+        fixed: 'left',
+        width: 100,
+      },
+      type: 'number',
+    },
+    {
+      columnType: {
+        title: t`name`,
+        dataIndex: 'name',
+        width: 200,
+      },
+      type: 'text',
+      trans: true,
+    },
+    {
+      columnType: {
+        title: t`description`,
+        dataIndex: 'description',
+        width: 300,
+      },
+      type: 'text-area',
+      trans: true,
+    },
+    {
+      columnType: {
+        title: t`code`,
+        dataIndex: 'code',
+        width: 200,
+      },
+      type: 'text',
+    },
+    {
+      columnType: {
+        title: t`rate`,
+        dataIndex: 'rate',
+        width: 200,
+      },
+      type: 'text',
+      ignore: true,
+    },
+    {
+      columnType: {
+        title: t`logo`,
+        dataIndex: 'logo',
+        width: 300,
+      },
+      type: 'image',
+      getInitialValue: (val: string) => ({ name: val, preview: val, uid: val } as UploadFile),
+    },
+    {
+      columnType: {
+        title: t`location`,
+        dataIndex: 'latLng',
+        render: (val: string) => {
+          const res = JSON.parse(val) as { longitude: string; latitude: string };
+          return (
+            <a target='__blank' href={`https://www.google.com/maps/place/${res.longitude}, ${res.latitude}`}>
+              {t`go_to_location`}
+            </a>
+          );
+        },
+        width: 200,
+      },
+      type: 'text',
+      ignore: true,
+    },
+    {
+      columnType: {
+        title: t`latitude`,
+        dataIndex: 'latitude',
+        width: 200,
+      },
+      type: 'text',
+      hidden: true,
+    },
+    {
+      columnType: {
+        title: t`longitude`,
+        dataIndex: 'longitude',
+        width: 200,
+      },
+      type: 'text',
+      hidden: true,
+    },
+  ];
 
   const tmp: ItemType[] = [
     {
       columnType: {
-        title: 'المالك',
+        title: t`owner`,
         dataIndex: 'owner_id',
         width: 200,
       },
       type: 'text',
       ignore: true,
-      // type: 'foreign-key',
     },
   ];
 
@@ -160,8 +156,6 @@ const ManageFarms: FC = () => {
       loading={status === 'loading'}
       AddAsync={(el) => InsertFarmAsync({ farm: el.item })}
       UpdateAsync={(el) => UpdateFarmAsync({ id: el.id, farm: el.item })}
-      // by request from the customer
-      // DeleteAsync={(el) => DeleteFarmAsync({ id: el.id })}
       itemsHeader={[...columnsFarms, ...tmp]}
       Mapper={mapper}
     />

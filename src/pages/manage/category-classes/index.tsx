@@ -10,7 +10,6 @@ import {
   Authenticated,
   FetchLevel2Async,
   FetchParentsAsync,
-  ObjToFormData,
   InsertLevel2Async,
   UpdateLevel2Async,
   DeleteLevel2Async,
@@ -44,47 +43,8 @@ const mapper = (req: any) => {
   return formData;
 };
 
-export const columnsCategories: ItemType[] = [
-  {
-    columnType: {
-      title: 'المعرف',
-      dataIndex: 'id',
-      fixed: 'left',
-      width: 100,
-    },
-    type: 'primary-key',
-  },
-  {
-    columnType: {
-      title: 'الاسم',
-      dataIndex: 'name',
-      width: 200,
-    },
-    type: 'text',
-    trans: true,
-  },
-  {
-    columnType: {
-      title: 'الوصف',
-      dataIndex: 'description',
-      width: 'auto',
-    },
-    type: 'text-area',
-    trans: true,
-  },
-  {
-    columnType: {
-      title: 'معدل الولادة (بالشهر)',
-      dataIndex: 'pregnancy',
-      width: 300,
-    },
-    getInitialValue: (val: string) => Number(val),
-    type: 'number',
-  },
-];
-
 const ManageCategories: FC = () => {
-  const { lang } = useTranslation();
+  const { lang, t } = useTranslation('common');
   const en = lang === 'en';
   const dispatch = useDispatch();
 
@@ -95,10 +55,49 @@ const ManageCategories: FC = () => {
     dispatch(FetchParentsAsync());
   }, [dispatch]);
 
+  const columnsCategories: ItemType[] = [
+    {
+      columnType: {
+        title: t`id`,
+        dataIndex: 'id',
+        fixed: 'left',
+        width: 100,
+      },
+      type: 'primary-key',
+    },
+    {
+      columnType: {
+        title: t`name`,
+        dataIndex: 'name',
+        width: 200,
+      },
+      type: 'text',
+      trans: true,
+    },
+    {
+      columnType: {
+        title: t`description`,
+        dataIndex: 'description',
+        width: 'auto',
+      },
+      type: 'text-area',
+      trans: true,
+    },
+    {
+      columnType: {
+        title: t`birth_rate(per month)`,
+        dataIndex: 'pregnancy',
+        width: 300,
+      },
+      getInitialValue: (val: string) => Number(val),
+      type: 'number',
+    },
+  ];
+
   const tmp: ItemType[] = [
     {
       columnType: {
-        title: 'السلالة',
+        title: t`strain`,
         dataIndex: 'parent_id',
         width: 200,
         render: (val: string) =>
@@ -114,7 +113,7 @@ const ManageCategories: FC = () => {
     },
     {
       columnType: {
-        title: 'الصورة',
+        title: t`image`,
         dataIndex: 'image',
         width: 300,
       },

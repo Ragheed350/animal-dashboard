@@ -15,47 +15,8 @@ import {
   FetchParentsAsync,
 } from '@core';
 
-export const columnsFeatures: ItemType[] = [
-  {
-    columnType: {
-      title: 'المعرف',
-      dataIndex: 'id',
-      fixed: 'left',
-      width: 100,
-    },
-    type: 'primary-key',
-  },
-  {
-    columnType: {
-      title: 'عدد الحيوانات المسموحة',
-      dataIndex: 'value',
-      width: 'auto',
-    },
-    type: 'number',
-    getInitialValue: (val: any) => Number(val),
-  },
-  {
-    columnType: {
-      title: 'السعر',
-      dataIndex: 'price',
-      width: 'auto',
-    },
-    type: 'number',
-    getInitialValue: (val: any) => Number(val),
-  },
-  {
-    columnType: {
-      title: 'الحد (بالشهر)',
-      dataIndex: 'limit',
-      width: 'auto',
-    },
-    type: 'number',
-    getInitialValue: (val: any) => Number(val),
-  },
-];
-
 const ManageFeatures: FC = () => {
-  const { lang } = useTranslation();
+  const { lang, t } = useTranslation('common');
   const dispatch = useDispatch();
 
   const { parents } = useSelector((state: RootState) => state.Category);
@@ -66,10 +27,49 @@ const ManageFeatures: FC = () => {
     dispatch(FetchFeaturesAsync());
   }, [dispatch]);
 
+  const columnsFeatures: ItemType[] = [
+    {
+      columnType: {
+        title: t`id`,
+        dataIndex: 'id',
+        fixed: 'left',
+        width: 100,
+      },
+      type: 'primary-key',
+    },
+    {
+      columnType: {
+        title: t`Number of animals allowed`,
+        dataIndex: 'value',
+        width: 'auto',
+      },
+      type: 'number',
+      getInitialValue: (val: any) => Number(val),
+    },
+    {
+      columnType: {
+        title: t`price`,
+        dataIndex: 'price',
+        width: 'auto',
+      },
+      type: 'number',
+      getInitialValue: (val: any) => Number(val),
+    },
+    {
+      columnType: {
+        title: t`Limit (per month)`,
+        dataIndex: 'limit',
+        width: 'auto',
+      },
+      type: 'number',
+      getInitialValue: (val: any) => Number(val),
+    },
+  ];
+
   const tmp: ItemType[] = [
     {
       columnType: {
-        title: 'النص',
+        title: t`Text`,
         dataIndex: 'text',
         width: 'auto',
       },
@@ -78,7 +78,7 @@ const ManageFeatures: FC = () => {
     },
     {
       columnType: {
-        title: 'الصنف',
+        title: t`category`,
         dataIndex: 'category_id',
         width: 200,
         render: (id: number | string) => parents.find((el) => el.id === Number(id))?.['name:ar'],

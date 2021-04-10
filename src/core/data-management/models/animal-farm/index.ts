@@ -1,9 +1,6 @@
 //---------------AnimalFarm-Req.ts---------------
 export interface AnimalFarm_Req {}
 
-//---------------AnimalFarm.ts---------------
-export interface AnimalFarm {}
-
 //---------------AnimalFarm-I-Req.ts---------------
 
 export interface AnimalFarm_I_Req {
