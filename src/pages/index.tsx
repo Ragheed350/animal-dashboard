@@ -1,9 +1,16 @@
-import { Authenticated } from '@utils';
 import React from 'react';
+import { Authenticated } from '@utils';
+import { HomeChart } from 'src/components/Charts';
+import dynamic from 'next/dynamic';
 
-const index: React.FC<{ name: string }> = () => {
-  return <>HOME</>;
-};
-export default index;
+const NoSsr = () => (
+  <React.Fragment>
+    <HomeChart />
+  </React.Fragment>
+);
 
-export const getServerSideProps = Authenticated
+export default dynamic(() => Promise.resolve(NoSsr), {
+  ssr: false,
+});
+
+export const getServerSideProps = Authenticated;

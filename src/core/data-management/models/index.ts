@@ -21,3 +21,4 @@ export * from './weight';
 export * from './certificate';
 export * from './feature';
 export * from './approve-animal';
+export * from './statistic';

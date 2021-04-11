@@ -20,6 +20,7 @@ import Vitamin from './vitamin';
 import Weight from './weight';
 import Certificate from './certificate';
 import Feature from './feature';
+import Statistics from './statistics';
 
 const store = configureStore({
   reducer: {
@@ -43,6 +44,7 @@ const store = configureStore({
     Users,
     Certificate,
     Feature,
+    Statistics,
   },
 });
 
@@ -50,9 +52,4 @@ export default store;
 
 export type RootState = ReturnType<typeof store.getState>;
 
-export type AppThunk<ReturnType = void> = ThunkAction<
-  ReturnType,
-  RootState,
-  unknown,
-  Action<string>
->;
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action<string>>;

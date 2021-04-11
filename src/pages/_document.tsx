@@ -4,7 +4,7 @@ class CustomeDoc extends Document {
   render() {
     return (
       <Html lang='ar'>
-        <Head />
+        <Head></Head>
         <body>
           <Main />
           <NextScript />
