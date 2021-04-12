@@ -72,5 +72,7 @@
     "seller_name": "Seller name",
     "dead_date": "Dead date",
     "dead_reason": "Dead reason",
-    "alive": "Alive"
+    "alive": "Alive",
+    "Feature statistics": "Feature statistics",
+    "Animals statistics": "Animals statistics"
 }

@@ -10,7 +10,7 @@
     "for_show": "للعرض؟",
     "code": "الكود",
     "code_image": "صورة الكود",
-    "dead": "ميّت؟",
+    "dead": "ميّت",
     "approverd": "مقبول",
     "microship": "الرقاقة الالكترونية",
     "microship_location": "موضع الرقاقة",
@@ -72,5 +72,7 @@
     "seller_name": "اسم البائع",
     "dead_date": "تاريخ الموت",
     "dead_reason": "سبب الموت",
-    "alive": "حيّ"
+    "alive": "حيّ",
+    "Feature statistics": "احصائيات الباقات",
+    "Animals statistics": "احصائيات الحيوانات"
 }

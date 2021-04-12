@@ -2,7 +2,6 @@ import useTranslation from 'next-translate/useTranslation';
 import React, { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetServerSideProps } from 'next';
-import { ColumnsType } from 'antd/lib/table';
 
 import {
   CRUDBuilder,

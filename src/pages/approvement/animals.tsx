@@ -4,7 +4,7 @@ import { Button, Popconfirm, Table } from 'antd';
 import { ColumnsType } from 'antd/lib/table';
 import { FilterValue } from 'antd/lib/table/interface';
 import useTranslation from 'next-translate/useTranslation';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 const index: React.FC = () => {

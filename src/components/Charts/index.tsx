@@ -23,11 +23,13 @@ import {
   Legend,
   Tooltip,
 } from 'chart.js';
-import { Col, Row, Skeleton, Typography } from 'antd';
-import './style.less';
+import { RootState } from '@core';
+import { Col, Row, Typography } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { FetchAnimalsStatisticsAsync, FetchFeatureStatisticsAsync } from 'src/core/data-management/redux/statistics';
-import { RootState } from '@core';
+
+import './style.less';
+import useTranslation from 'next-translate/useTranslation';
 
 Chart.register(
   ArcElement,
@@ -60,6 +62,8 @@ var myChart2: Chart;
 
 export const HomeChart = () => {
   const dispatch = useDispatch();
+  const { lang, t } = useTranslation('common');
+  const en = lang === 'en';
   const { animals_data, features_data } = useSelector((state: RootState) => state.Statistics);
 
   const [animal_statistics, setanimal_statistics] = useState<{
@@ -75,7 +79,7 @@ export const HomeChart = () => {
   useEffect(() => {
     dispatch(FetchAnimalsStatisticsAsync());
     dispatch(FetchFeatureStatisticsAsync());
-  }, []);
+  }, [lang]);
 
   useEffect(() => {
     if (window) {
@@ -125,7 +129,7 @@ export const HomeChart = () => {
     let newlables: string[] = [];
     let newdata: number[] = [];
     for (let i = 0; i < animals_data?.length; i++) {
-      newlables.push(animals_data[i]?.['key:ar']);
+      newlables.push(en ? animals_data[i]?.['key:en'] : animals_data[i]?.['key:ar']);
       newdata.push(animals_data[i]?.value);
     }
     setanimal_statistics({
@@ -146,7 +150,7 @@ export const HomeChart = () => {
     let newlables: string[] = [];
     let newdata: number[] = [];
     for (let i = 0; i < features_data?.length; i++) {
-      newlables.push(features_data[i]?.['key:ar']);
+      newlables.push(en ? features_data[i]?.['key:en'] : features_data[i]?.['key:ar']);
       newdata.push(features_data[i]?.value);
     }
     setfeature_statistics({
@@ -164,15 +168,15 @@ export const HomeChart = () => {
 
   return (
     <Row justify='center' style={{ padding: '20px 0px' }} gutter={[0, 24]}>
-      <Col md={20} xs={23}>
+      <Col md={22} xs={23}>
         <div className='container'>
-          <Title level={2}>Animals statistics</Title>
+          <Title level={2}>{t`Animals statistics`}</Title>
           {animals_data && <canvas id='myChart1'></canvas>}
         </div>
       </Col>
-      <Col md={20} xs={23}>
+      <Col md={22} xs={23}>
         <div className='container'>
-          <Title level={2}>Feature statistics</Title>
+          <Title level={2}>{t`Feature statistics`}</Title>
           {features_data && myChart2 && <canvas id='myChart2'></canvas>}
         </div>
       </Col>
