@@ -17,6 +17,7 @@ import {
 
 const ManageAttributes: FC = () => {
   const { lang, t } = useTranslation('common');
+  const en = lang === 'en';
   const dispatch = useDispatch();
 
   const { featuresApprove, features, status } = useSelector((state: RootState) => state.Feature);
@@ -60,20 +61,30 @@ const ManageAttributes: FC = () => {
         title: t`user`,
         dataIndex: 'user_id',
         width: 'auto',
-        render: (val: number | string) => <>{users.find((el) => el.id === Number(val))?.['name:ar']}</>,
+        render: (val: number | string) => (
+          <>
+            {en
+              ? users.find((el) => el.id === Number(val))?.['name:en']
+              : users.find((el) => el.id === Number(val))?.['name:ar']}
+          </>
+        ),
       },
       type: 'foreign-key',
-      foreignKeyArr: users.map((el) => ({ title: el['name:ar'], value: el.id })),
     },
     {
       columnType: {
         title: t`package`,
         dataIndex: 'feature_id',
         width: 'auto',
-        render: (val: number | string) => <>{features.find((el) => el.id === Number(val))?.['text:ar']}</>,
+        render: (val: number | string) => (
+          <>
+            {en
+              ? features.find((el) => el.id === Number(val))?.['text:en']
+              : features.find((el) => el.id === Number(val))?.['text:ar']}
+          </>
+        ),
       },
       type: 'foreign-key',
-      foreignKeyArr: features.map((el) => ({ title: el['text:ar'], value: el.id })),
     },
   ];
 

@@ -9,7 +9,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const index: React.FC = () => {
   const dispatch = useDispatch();
-  const { t } = useTranslation('common');
+  const { lang, t } = useTranslation('common');
+  const en = lang === 'en';
 
   const { animals, status } = useSelector((state: RootState) => state.Animal);
 
@@ -24,7 +25,7 @@ const index: React.FC = () => {
     },
     {
       title: t`name`,
-      dataIndex: 'name:ar',
+      dataIndex: en ? 'name:en' : 'name:ar',
       width: 'auto',
     },
     {
@@ -39,8 +40,8 @@ const index: React.FC = () => {
         ),
 
       filters: [
-        { text: 'الموافق عليه', value: '1' },
-        { text: 'غير الموافق عليه', value: '0' },
+        { text: en ? 'approved' : 'الموافق عليه', value: '1' },
+        { text: en ? 'unapproved' : 'غير الموافق عليه', value: '0' },
       ],
       filteredValue: filterInfo && filterInfo.approved,
       onFilter: (value, record) => record.approved === Number(value),

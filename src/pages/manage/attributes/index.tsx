@@ -56,12 +56,14 @@ const ManageAttributes: FC = () => {
         title: t`gender`,
         dataIndex: 'gender',
         width: 200,
-        render: (val: '0' | '1') => <Typography.Text>{val === '1' ? 'ذكر' : 'أنثى'}</Typography.Text>,
+        render: (val: '0' | '1') => (
+          <Typography.Text>{val === '1' ? (en ? 'female' : 'انثى') : en ? 'male' : 'ذكر'}</Typography.Text>
+        ),
       },
       type: 'select',
       foreignKeyArr: [
-        { title: 'ذكر', value: '0' },
-        { title: 'أنثى', value: '1' },
+        { title: en ? 'male' : 'ذكر', value: '0' },
+        { title: en ? 'female' : 'أنثى', value: '1' },
       ],
     },
   ];

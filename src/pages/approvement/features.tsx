@@ -17,7 +17,8 @@ import React, { useEffect } from 'react';
 
 const index: React.FC = () => {
   const dispatch = useDispatch();
-  const { t } = useTranslation('common');
+  const { lang, t } = useTranslation('common');
+  const en = lang === 'en';
 
   const { featuresApprove, features, status } = useSelector((state: RootState) => state.Feature);
   const { users } = useSelector((state: RootState) => state.Users);
@@ -39,13 +40,25 @@ const index: React.FC = () => {
       title: t`user`,
       dataIndex: 'user_id',
       width: 'auto',
-      render: (val: number | string) => <>{users.find((el) => el.id === Number(val))?.['name:ar']}</>,
+      render: (val: number | string) => (
+        <>
+          {en
+            ? users.find((el) => el.id === Number(val))?.['name:en']
+            : users.find((el) => el.id === Number(val))?.['name:ar']}
+        </>
+      ),
     },
     {
       title: t`package`,
       dataIndex: 'feature_id',
       width: 'auto',
-      render: (val: number | string) => <>{features.find((el) => el.id === Number(val))?.['text:ar']}</>,
+      render: (val: number | string) => (
+        <>
+          {en
+            ? features.find((el) => el.id === Number(val))?.['text:en']
+            : features.find((el) => el.id === Number(val))?.['text:ar']}
+        </>
+      ),
     },
     {
       title: t`approved`,

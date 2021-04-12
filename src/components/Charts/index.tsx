@@ -27,9 +27,9 @@ import { RootState } from '@core';
 import { Col, Row, Typography } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { FetchAnimalsStatisticsAsync, FetchFeatureStatisticsAsync } from 'src/core/data-management/redux/statistics';
+import useTranslation from 'next-translate/useTranslation';
 
 import './style.less';
-import useTranslation from 'next-translate/useTranslation';
 
 Chart.register(
   ArcElement,
@@ -79,7 +79,7 @@ export const HomeChart = () => {
   useEffect(() => {
     dispatch(FetchAnimalsStatisticsAsync());
     dispatch(FetchFeatureStatisticsAsync());
-  }, [lang]);
+  }, []);
 
   useEffect(() => {
     if (window) {
@@ -143,7 +143,7 @@ export const HomeChart = () => {
         },
       ],
     });
-  }, [animals_data]);
+  }, [animals_data, lang]);
 
   useEffect(() => {
     //get data from feature statistics and map it
@@ -164,7 +164,7 @@ export const HomeChart = () => {
         },
       ],
     });
-  }, [features_data]);
+  }, [features_data, lang]);
 
   return (
     <Row justify='center' style={{ padding: '20px 0px' }} gutter={[0, 24]}>
