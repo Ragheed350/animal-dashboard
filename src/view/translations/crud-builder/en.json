@@ -5,5 +5,11 @@
     "operations": {
         "header": "Operations",
         "delete-confirm": "Are you sure you want to delete this item?"
+    },
+    "search": {
+        "match-word": "Match word",
+        "search": "Search",
+        "reset": "Reset",
+        "search-a": "Search text"
     }
 }

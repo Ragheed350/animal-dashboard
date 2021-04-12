@@ -5,5 +5,11 @@
     "operations": {
         "header": "العمليات",
         "delete-confirm": "هل انت متأكد من انك تريد حذف هذا العنصر؟"
+    },
+    "search": {
+        "match-word": "مطابقة الكلمة",
+        "search": "بحث",
+        "reset": "مسح",
+        "search-a": "نص البحث"
     }
 }

@@ -67,5 +67,10 @@
     "approved_ru_sure": "Are you sure you want to approve this animal?",
     "operations": "Operations",
     "approve_ru_package": "Are you sure you want to approve this package?",
-    "unapprove_ru_package": "Are you sure you want to unapprove this package?"
+    "unapprove_ru_package": "Are you sure you want to unapprove this package?",
+    "purchasing_price": "Purchasing price",
+    "seller_name": "Seller name",
+    "dead_date": "Dead date",
+    "dead_reason": "Dead reason",
+    "alive": "Alive"
 }

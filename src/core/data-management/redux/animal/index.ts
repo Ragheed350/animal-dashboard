@@ -12,6 +12,7 @@ import {
   Animal_I_Req,
   Animal_D_Req,
   ApiSuccessNotification,
+  Animal_Death_Req,
 } from '@core';
 
 interface AnimalsState {
@@ -80,14 +81,12 @@ export const ShowAnimalAsync = (req: Animal_S_Req): AppThunk => async (dispatch)
 
 export const UpdateAnimalAsync = (req: Animal_U_Req): AppThunk => async (dispatch) => {
   dispatch(setStatus('loading'));
-
+  //clear req
   for (var key in req.animal.keys) {
     if (req.animal[key] === null || req.animal[key] === undefined) {
       req.animal.delete(key);
     }
   }
-  console.log(req.animal.keys);
-
   const result = await animalService.Update(req);
   if (isError(result)) {
     ApiErrorNotification(result);
@@ -144,6 +143,18 @@ export const FetchAnimalsAsync = (): AppThunk => async (dispatch) => {
     dispatch(setStatus('error'));
   } else {
     dispatch(FetchAnimals(result.data));
+    dispatch(setStatus('data'));
+  }
+};
+
+export const DeathAnimalAsync = (req: Animal_Death_Req): AppThunk => async (dispatch) => {
+  dispatch(setStatus('loading'));
+  const result = await animalService.Death(req);
+  if (isError(result)) {
+    ApiErrorNotification(result);
+    dispatch(setStatus('error'));
+  } else {
+    dispatch(UpdateAnimal(result.data));
     dispatch(setStatus('data'));
   }
 };

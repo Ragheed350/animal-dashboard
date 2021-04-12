@@ -1,10 +1,4 @@
-import {
-  Animal,
-  Animal_D_Req,
-  Animal_I_Req,
-  Animal_S_Req,
-  Animal_U_Req,
-} from '@core';
+import { Animal, Animal_Death_Req, Animal_D_Req, Animal_I_Req, Animal_S_Req, Animal_U_Req } from '@core';
 import { ApiService, ApiResult } from '@utils';
 import { AxiosRequestConfig } from 'axios';
 
@@ -13,41 +7,27 @@ export class AnimalService extends ApiService {
     super({ baseURL: `${process.env.API_URL}admin/`, ...config });
   }
 
-  public Fetch = async (): Promise<ApiResult<Animal[]>> =>
-    this.get<Animal[]>(`animals`);
+  public Fetch = async (): Promise<ApiResult<Animal[]>> => this.get<Animal[]>(`animals`);
 
-  public Insert = async ({
-    animal,
-  }: Animal_I_Req): Promise<ApiResult<Animal>> =>
+  public Insert = async ({ animal }: Animal_I_Req): Promise<ApiResult<Animal>> =>
     this.post<Animal>(`animal/store_by_admin`, animal);
 
-  public Update = async ({
-    animal,
-    id,
-  }: Animal_U_Req): Promise<ApiResult<Animal>> =>
+  public Update = async ({ animal, id }: Animal_U_Req): Promise<ApiResult<Animal>> =>
     this.post<Animal>(`animal/update/${id}`, animal);
 
   public Delete = async ({ id }: Animal_D_Req): Promise<ApiResult<Animal>> =>
     this.delete<Animal>(`animal/soft_delete/${id}`);
 
-  public Show = async ({ id }: Animal_S_Req): Promise<ApiResult<Animal>> =>
-    this.get<Animal>(`animal/show/${id}`);
+  public Show = async ({ id }: Animal_S_Req): Promise<ApiResult<Animal>> => this.get<Animal>(`animal/show/${id}`);
 
-  public approve = async ({
-    id,
-    user_id,
-  }: {
-    id: number;
-    user_id: number;
-  }): Promise<ApiResult<Animal>> =>
+  public approve = async ({ id, user_id }: { id: number; user_id: number }): Promise<ApiResult<Animal>> =>
     this.post<Animal>(`animal/approve_animal/${id}`, { user_id });
 
-  public unapprove = async ({
-    id,
-  }: {
-    id: number;
-  }): Promise<ApiResult<Animal>> =>
+  public unapprove = async ({ id }: { id: number }): Promise<ApiResult<Animal>> =>
     this.post<Animal>(`animal/unapprove_animal/${id}`);
+
+  public Death = async ({ dead_date, dead_reason, id }: Animal_Death_Req): Promise<ApiResult<Animal>> =>
+    this.post<Animal>(`animal/dead_animal/${id}`, { dead_date, dead_reason });
 }
 
 export const animalService = new AnimalService({

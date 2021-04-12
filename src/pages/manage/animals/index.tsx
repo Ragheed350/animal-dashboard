@@ -1,7 +1,8 @@
 import useTranslation from 'next-translate/useTranslation';
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetServerSideProps } from 'next';
+import { ColumnsType } from 'antd/lib/table';
 
 import {
   CRUDBuilder,
@@ -24,8 +25,11 @@ import {
   AnimalFarm,
   Farm,
   FetchLevel3Async,
+  Animal,
+  DeathAnimalAsync,
+  Animal_Death_Req,
 } from '@core';
-import { Carousel, Col, Form, Image, InputNumber, Typography } from 'antd';
+import { Button, Carousel, Col, DatePicker, Form, Image, Input, InputNumber, Modal, Typography } from 'antd';
 import CascederForm from 'src/components/CascederFrom';
 import { UploadFile } from 'antd/lib/upload/interface';
 
@@ -43,7 +47,7 @@ const mapper = (req: any): any => {
   for (const key in req) {
     if (Object.prototype.hasOwnProperty.call(req, key)) {
       const el = req[key];
-      if (key === 'birth_date') formData.append(key, (el as moment.Moment).format(DATE_FORMAT));
+      if (key === 'birth_date' || key === 'dead_date') formData.append(key, (el as moment.Moment).format(DATE_FORMAT));
       else if (key === 'image') {
         (el as (File | string)[]).forEach((element) => {
           if (typeof element === 'string') {
@@ -72,6 +76,8 @@ const ManageAnimals: FC = () => {
   const { countries } = useSelector((state: RootState) => state.Country);
   const { displayCategories } = useSelector((state: RootState) => state.DisplayCategory);
   const { level3 } = useSelector((state: RootState) => state.Category);
+
+  const [modal, setmodal] = useState<number | undefined>();
 
   useEffect(() => {
     dispatch(FetchAnimalsAsync());
@@ -186,15 +192,7 @@ const ManageAnimals: FC = () => {
       type: 'image',
       ignore: true,
     },
-    {
-      columnType: {
-        title: t`dead`,
-        dataIndex: 'is_dead',
-        width: 200,
-      },
-      type: 'check-box',
-      required: false,
-    },
+
     {
       columnType: {
         title: t`approverd`,
@@ -311,6 +309,38 @@ const ManageAnimals: FC = () => {
       hidden: true,
       initialValueDataIndex: 'attachments',
       getInitialValue: (val: Attachment[]) => val.map((el) => ({ uid: el.id, name: el.url, url: el.url })),
+    },
+    {
+      columnType: {
+        title: t`purchasing_price`,
+        dataIndex: 'purchasing_price',
+        width: 200,
+      },
+      type: 'text',
+    },
+    {
+      columnType: {
+        title: t`seller_name`,
+        dataIndex: 'seller_name',
+        width: 200,
+      },
+      type: 'text',
+    },
+    {
+      columnType: {
+        title: t`dead_date`,
+        dataIndex: 'dead_date',
+        width: 200,
+      },
+      type: 'date',
+    },
+    {
+      columnType: {
+        title: t`dead_reason`,
+        dataIndex: 'dead_reason',
+        width: 200,
+      },
+      type: 'text',
     },
   ];
 
@@ -443,26 +473,91 @@ const ManageAnimals: FC = () => {
     },
   ];
 
+  const tmp1: ItemType[] = [
+    {
+      columnType: {
+        title: t`dead`,
+        dataIndex: 'is_dead',
+        width: 200,
+        render: (val: 1 | 0, { id }: Animal) =>
+          val === 1 ? (
+            <Button type='primary' size='large' ghost>
+              {t`dead`}
+            </Button>
+          ) : (
+            <Button onClick={() => setmodal(id)} type='primary' size='large'>
+              {t`alive`}
+            </Button>
+          ),
+      },
+      type: 'number',
+      ignore: true,
+    },
+  ];
+
+  const [form] = Form.useForm();
+  const death_animal = (
+    <Modal
+      title='Basic Modal'
+      visible={Boolean(modal)}
+      onCancel={() => setmodal(undefined)}
+      onOk={() => {
+        form
+          .validateFields()
+          .then((values: Animal_Death_Req) => {
+            form.resetFields();
+            dispatch(
+              DeathAnimalAsync({
+                id: Number(modal!),
+                dead_date: (values.dead_date as any).format(DATE_FORMAT),
+                dead_reason: values.dead_reason,
+              })
+            );
+          })
+          .catch((info) => {
+            console.log('Validate Failed:', info);
+          });
+        setmodal(undefined);
+      }}
+    >
+      <Form form={form} layout='vertical' name='form_in_modal' initialValues={{ modifier: 'public' }}>
+        <Form.Item
+          name='dead_reason'
+          label='Dead reason'
+          rules={[{ required: true, message: 'This filed is required' }]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item name='dead_date' label='Dead date' rules={[{ required: true, message: 'This filed is required' }]}>
+          <DatePicker />
+        </Form.Item>
+      </Form>
+    </Modal>
+  );
+
   return (
-    <CRUDBuilder
-      lang={lang === 'en' ? 'en' : 'ar'}
-      items={[
-        ...animals.map((el) => ({
-          ...el,
-          for_buy: Number(el.for_buy),
-          is_dead: Number(el.is_dead),
-          is_shown: Number(el.is_shown),
-          approved: Number(el.approved),
-          nfc: Number(el.nfc),
-        })),
-      ]}
-      loading={status === 'loading'}
-      AddAsync={(el) => InsertAnimalAsync({ animal: el.item })}
-      UpdateAsync={(el) => UpdateAnimalAsync({ id: el.id, animal: el.item })}
-      DeleteAsync={(el) => DeleteAnimalAsync({ id: el.id })}
-      itemsHeader={[...columnsAnimals, ...tmp]}
-      Mapper={mapper}
-    />
+    <>
+      {death_animal}
+      <CRUDBuilder
+        lang={lang === 'en' ? 'en' : 'ar'}
+        items={[
+          ...animals.map((el) => ({
+            ...el,
+            for_buy: Number(el.for_buy),
+            is_dead: Number(el.is_dead),
+            is_shown: Number(el.is_shown),
+            approved: Number(el.approved),
+            nfc: Number(el.nfc),
+          })),
+        ]}
+        loading={status === 'loading'}
+        AddAsync={(el) => InsertAnimalAsync({ animal: el.item })}
+        UpdateAsync={(el) => UpdateAnimalAsync({ id: el.id, animal: el.item })}
+        DeleteAsync={(el) => DeleteAnimalAsync({ id: el.id })}
+        itemsHeader={[...columnsAnimals, ...tmp, ...tmp1]}
+        Mapper={mapper}
+      />
+    </>
   );
 };
 export default ManageAnimals;

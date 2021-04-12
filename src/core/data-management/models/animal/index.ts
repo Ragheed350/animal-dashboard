@@ -54,6 +54,10 @@ export interface Animal {
   Weight: Weight[];
   rate: number;
   age: number;
+  purchasing_price: string;
+  seller_name: string;
+  dead_date: string;
+  dead_reason: string;
 }
 
 //---------------Animal-I-Req.ts---------------
@@ -101,4 +105,10 @@ interface Weight {
   value: string;
   animal_id: string;
   weight_date: Date;
+}
+
+export interface Animal_Death_Req {
+  id: number;
+  dead_reason: string;
+  dead_date: Date;
 }
