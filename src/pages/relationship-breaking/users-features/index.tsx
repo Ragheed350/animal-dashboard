@@ -13,7 +13,10 @@ import {
   FetchFeaturesAsync,
   addFeatureUserAsync,
   removeFeatureUserAsync,
+  unapproveFeatureAsync,
+  approveFeatureAsync,
 } from '@core';
+import { Button, Popconfirm } from 'antd';
 
 const ManageAttributes: FC = () => {
   const { lang, t } = useTranslation('common');
@@ -29,7 +32,7 @@ const ManageAttributes: FC = () => {
     dispatch(FetchUsersAsync());
   }, []);
 
-  const columnsAnimalAttributes: ItemType[] = [
+  const tmp: ItemType[] = [
     {
       columnType: {
         title: t`id`,
@@ -46,16 +49,6 @@ const ManageAttributes: FC = () => {
       },
       type: 'number',
     },
-    {
-      columnType: {
-        title: t`approved`,
-        dataIndex: 'is_approved',
-      },
-      type: 'check-box',
-    },
-  ];
-
-  const tmp: ItemType[] = [
     {
       columnType: {
         title: t`user`,
@@ -86,6 +79,39 @@ const ManageAttributes: FC = () => {
       },
       type: 'foreign-key',
     },
+    {
+      columnType: {
+        title: t`approved`,
+        dataIndex: 'is_approved',
+      },
+      type: 'check-box',
+    },
+    {
+      columnType: {
+        title: t`operations`,
+        dataIndex: 'is_approved',
+        key: '01',
+        width: 200,
+        render: (val: '1' | '0', { id, feature_id, user_id }) =>
+          Number(val) === 1 ? (
+            <Popconfirm onConfirm={() => dispatch(unapproveFeatureAsync({ id }))} title={t`unapprove_ru_package`}>
+              <Button type='primary' danger ghost size='large'>
+                {t`unapproved`}
+              </Button>
+            </Popconfirm>
+          ) : (
+            <Popconfirm
+              onConfirm={() => dispatch(approveFeatureAsync({ id, feature_id, user_id }))}
+              title={t`approve_ru_package`}
+            >
+              <Button type='primary' size='large'>
+                {t`approve`}
+              </Button>
+            </Popconfirm>
+          ),
+      },
+      type: 'check-box',
+    },
   ];
 
   return (
@@ -98,7 +124,7 @@ const ManageAttributes: FC = () => {
         const rec = featuresApprove.find((l) => Number(l.id) === Number(el.id));
         return rec ? removeFeatureUserAsync({ id: el.id, user_id: rec.user_id, feature_id: rec.feature_id }) : () => {};
       }}
-      itemsHeader={[...columnsAnimalAttributes, ...tmp]}
+      itemsHeader={tmp}
       // Mapper={mapper}
     />
   );

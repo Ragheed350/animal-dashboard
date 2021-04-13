@@ -1,11 +1,22 @@
+import React, { useEffect, useState } from 'react';
 import { CheckCircleFilled, CloseCircleFilled } from '@ant-design/icons';
-import { Animal, ApproveAnimalAsync, Authenticated, FetchAnimalsAsync, RootState, UnApproveAnimalAsync } from '@core';
-import { Button, Popconfirm, Table } from 'antd';
+import {
+  Animal,
+  AnimalFarm,
+  ApproveAnimalAsync,
+  Attachment,
+  Authenticated,
+  FetchAnimalsAsync,
+  FetchLevel3Async,
+  RootState,
+  UnApproveAnimalAsync,
+  Weight,
+} from '@core';
 import { ColumnsType } from 'antd/lib/table';
 import { FilterValue } from 'antd/lib/table/interface';
-import useTranslation from 'next-translate/useTranslation';
-import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import useTranslation from 'next-translate/useTranslation';
+import { Button, Carousel, Popconfirm, Table, Image } from 'antd';
 
 const index: React.FC = () => {
   const dispatch = useDispatch();
@@ -13,6 +24,7 @@ const index: React.FC = () => {
   const en = lang === 'en';
 
   const { animals, status } = useSelector((state: RootState) => state.Animal);
+  const { level3 } = useSelector((state: RootState) => state.Category);
 
   const [filterInfo, setFilterInfo] = useState<Record<string, FilterValue | null>>();
 
@@ -26,7 +38,157 @@ const index: React.FC = () => {
     {
       title: t`name`,
       dataIndex: en ? 'name:en' : 'name:ar',
-      width: 'auto',
+      width: 200,
+    },
+    {
+      title: t`animal_no`,
+      dataIndex: 'animal_no',
+      width: 200,
+    },
+    {
+      title: t`birth_day`,
+      dataIndex: 'birth_date',
+      width: 200,
+    },
+    {
+      title: t`gender`,
+      dataIndex: 'gender',
+      width: 200,
+      render: (val: '0' | '1') => (en ? (val === '1' ? 'male' : 'female') : val === '1' ? 'ذكر' : 'أنثى'),
+    },
+    {
+      title: t`for_buy`,
+      dataIndex: 'for_buy',
+      width: 200,
+    },
+    {
+      title: t`price`,
+      dataIndex: 'price',
+      width: 200,
+    },
+    {
+      title: t`buyer_data`,
+      dataIndex: 'puyer_data',
+      width: 200,
+    },
+    {
+      title: t`code`,
+      dataIndex: 'qr',
+      width: 200,
+    },
+    {
+      title: t`code_image`,
+      dataIndex: 'qr_image',
+      width: 200,
+    },
+    {
+      title: t`approverd`,
+      dataIndex: 'approved',
+      width: 200,
+    },
+    {
+      title: t`microship`,
+      dataIndex: 'nfc',
+      width: 200,
+    },
+    {
+      title: t`microship_location`,
+      dataIndex: 'nfc_location',
+      width: 200,
+    },
+    {
+      title: t`attachments`,
+      dataIndex: 'attachments',
+      width: 200,
+      render: (arr: Attachment[]) => (
+        <Carousel draggable>
+          {arr.map((el) => (
+            <div>
+              <Image key={el.id} src={el.url} style={{ width: 150, height: 150, objectFit: 'cover' }} />
+            </div>
+          ))}
+        </Carousel>
+      ),
+    },
+    {
+      title: t`evaluation`,
+      dataIndex: 'rate',
+      width: 200,
+    },
+    {
+      title: t`age`,
+      dataIndex: 'age',
+      width: 200,
+    },
+    {
+      title: t`weight`,
+      dataIndex: 'Weight',
+      width: 200,
+      render: (val: Weight[]) => Number(val[val.length - 1]?.value),
+    },
+    {
+      title: t`image`,
+      dataIndex: 'image',
+      width: 200,
+    },
+    {
+      title: t`purchasing_price`,
+      dataIndex: 'purchasing_price',
+      width: 200,
+    },
+    {
+      title: t`seller_name`,
+      dataIndex: 'seller_name',
+      width: 200,
+    },
+    {
+      title: t`dead_date`,
+      dataIndex: 'dead_date',
+      width: 200,
+    },
+    {
+      title: t`dead_reason`,
+      dataIndex: 'dead_reason',
+      width: 200,
+    },
+    {
+      title: t`farm`,
+      dataIndex: 'farm',
+      width: 200,
+      render: (farm: AnimalFarm[]) => farm[0]['name:ar']!,
+    },
+    {
+      title: t`father`,
+      dataIndex: 'father_id',
+      width: 200,
+      render: (id: string) => animals.find((el) => el.id === Number(id))?.animal_no,
+    },
+    {
+      title: t`mother`,
+      dataIndex: 'mother_id',
+      width: 200,
+      render: (id: string) => animals.find((el) => el.id === Number(id))?.animal_no,
+    },
+    {
+      title: t`country`,
+      dataIndex: 'country',
+      width: 200,
+    },
+    {
+      title: t`country`,
+      dataIndex: 'country_id',
+      width: 200,
+    },
+    {
+      title: t`color`,
+      dataIndex: 'color_id',
+      width: 200,
+    },
+    {
+      title: t`strain`,
+      dataIndex: 'category_id',
+      width: 200,
+      render: (id: string) => level3.find((el) => el.id.toString() === id)?.['name:ar'],
     },
     {
       title: t`approved`,
@@ -51,6 +213,7 @@ const index: React.FC = () => {
 
   useEffect(() => {
     dispatch(FetchAnimalsAsync());
+    dispatch(FetchLevel3Async());
   }, []);
 
   const tmp: ColumnsType<any> = [

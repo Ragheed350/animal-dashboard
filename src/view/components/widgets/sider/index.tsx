@@ -3,7 +3,7 @@ import {
   // ApartmentOutlined,
   HomeOutlined,
   LogoutOutlined,
-  SecurityScanOutlined,
+  // SecurityScanOutlined,
   SettingOutlined,
   TranslationOutlined,
 } from '@ant-design/icons';
@@ -109,16 +109,16 @@ const Sider: FC = () => {
     },
   ];
 
-  const approvementMenu_arr: { title: string; href: string }[] = [
-    {
-      title: t`animals`,
-      href: '/approvement/animals',
-    },
-    {
-      title: t`packages`,
-      href: '/approvement/features',
-    },
-  ];
+  // const approvementMenu_arr: { title: string; href: string }[] = [
+  //   {
+  //     title: t`animals`,
+  //     href: '/approvement/animals',
+  //   },
+  //   {
+  //     title: t`packages`,
+  //     href: '/approvement/features',
+  //   },
+  // ];
 
   return (
     <Menu theme='dark' selectedKeys={[pathname]} mode='vertical'>
@@ -133,14 +133,14 @@ const Sider: FC = () => {
           </Menu.Item>
         ))}
       </Menu.SubMenu>
-
+      {/* 
       <Menu.SubMenu key='sub3' title={t`approvment`} icon={<SecurityScanOutlined />}>
         {approvementMenu_arr.map((el) => (
           <Menu.Item key={el.href}>
             <Link href={el.href}>{el.title}</Link>
           </Menu.Item>
         ))}
-      </Menu.SubMenu>
+      </Menu.SubMenu> */}
 
       <Menu.Item icon={<ContactsOutlined />} key='/contact-us-requests'>
         <Link href='/contact-us-requests'>{t`contact_requests`}</Link>

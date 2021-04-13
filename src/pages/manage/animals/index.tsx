@@ -27,10 +27,26 @@ import {
   Animal,
   DeathAnimalAsync,
   Animal_Death_Req,
+  UnApproveAnimalAsync,
+  ApproveAnimalAsync,
 } from '@core';
-import { Button, Carousel, Col, DatePicker, Form, Image, Input, InputNumber, Modal, Typography } from 'antd';
+import {
+  Button,
+  Carousel,
+  Col,
+  DatePicker,
+  Form,
+  Image,
+  Input,
+  InputNumber,
+  Modal,
+  Popconfirm,
+  Typography,
+} from 'antd';
 import CascederForm from 'src/components/CascederFrom';
 import { UploadFile } from 'antd/lib/upload/interface';
+import { FilterValue } from 'antd/lib/table/interface';
+import { CheckCircleFilled, CloseCircleFilled } from '@ant-design/icons';
 
 const mapper = (req: any): any => {
   const formData = new FormData();
@@ -68,6 +84,8 @@ const ManageAnimals: FC = () => {
   const { lang, t } = useTranslation('common');
   const en = lang === 'en';
   const dispatch = useDispatch();
+
+  const [filterInfo] = useState<Record<string, FilterValue | null>>();
 
   const { status, animals } = useSelector((state: RootState) => state.Animal);
   const { farms } = useSelector((state: RootState) => state.Farm);
@@ -137,15 +155,7 @@ const ManageAnimals: FC = () => {
         { title: 'أنثى', value: '1' },
       ],
     },
-    {
-      columnType: {
-        title: t`for_buy`,
-        dataIndex: 'for_buy',
-        width: 200,
-      },
-      type: 'check-box',
-      required: false,
-    },
+
     {
       columnType: {
         title: t`price`,
@@ -166,15 +176,6 @@ const ManageAnimals: FC = () => {
     },
     {
       columnType: {
-        title: t`for_show`,
-        dataIndex: 'is_shown',
-        width: 200,
-      },
-      type: 'check-box',
-      required: false,
-    },
-    {
-      columnType: {
         title: t`code`,
         dataIndex: 'qr',
         width: 200,
@@ -189,16 +190,6 @@ const ManageAnimals: FC = () => {
         width: 200,
       },
       type: 'image',
-      ignore: true,
-    },
-
-    {
-      columnType: {
-        title: t`approverd`,
-        dataIndex: 'approved',
-        width: 200,
-      },
-      type: 'check-box',
       ignore: true,
     },
     {
@@ -290,6 +281,24 @@ const ManageAnimals: FC = () => {
     },
     {
       columnType: {
+        title: t`for_buy`,
+        dataIndex: 'for_buy',
+        width: 200,
+      },
+      type: 'check-box',
+      required: false,
+    },
+    {
+      columnType: {
+        title: t`for_show`,
+        dataIndex: 'is_shown',
+        width: 200,
+      },
+      type: 'check-box',
+      required: false,
+    },
+    {
+      columnType: {
         title: t`weight`,
         dataIndex: 'Weight',
         width: 200,
@@ -330,7 +339,9 @@ const ManageAnimals: FC = () => {
         title: t`dead_date`,
         dataIndex: 'dead_date',
         width: 200,
+        render: (val: Date) => (val ? val : '-'),
       },
+      ignore: true,
       type: 'date',
     },
     {
@@ -339,6 +350,7 @@ const ManageAnimals: FC = () => {
         dataIndex: 'dead_reason',
         width: 200,
       },
+      ignore: true,
       type: 'text',
     },
   ];
@@ -487,6 +499,56 @@ const ManageAnimals: FC = () => {
             <Button onClick={() => setmodal(id)} type='primary' size='large'>
               {t`alive`}
             </Button>
+          ),
+      },
+      type: 'number',
+      ignore: true,
+    },
+    {
+      columnType: {
+        title: t`approved`,
+        dataIndex: 'approved',
+        width: 200,
+        render: (val: '1' | '0') =>
+          Number(val) === 1 ? (
+            <CheckCircleFilled style={{ fontSize: '3rem', color: 'green' }} />
+          ) : (
+            <CloseCircleFilled style={{ fontSize: '3rem', color: 'red' }} />
+          ),
+
+        filters: [
+          { text: en ? 'approved' : 'الموافق عليه', value: '1' },
+          { text: en ? 'unapproved' : 'غير الموافق عليه', value: '0' },
+        ],
+        filteredValue: filterInfo && filterInfo.approved,
+        onFilter: (value, record) => record.approved === Number(value),
+        ellipsis: true,
+      },
+      type: 'check-box',
+      ignore: true,
+    },
+    {
+      columnType: {
+        title: t`approve`,
+        dataIndex: 'approved',
+        key: '123123',
+        width: 200,
+        render: (val: '1' | '0', { id, farm }: Animal) =>
+          Number(val) === 1 ? (
+            <Popconfirm onConfirm={() => dispatch(UnApproveAnimalAsync({ id }))} title={t`unapproved_ru_sure`}>
+              <Button type='primary' size='large' ghost danger>
+                {t`unapproved`}
+              </Button>
+            </Popconfirm>
+          ) : (
+            <Popconfirm
+              onConfirm={() => dispatch(ApproveAnimalAsync({ id, user_id: Number(farm[0].farm_id) }))}
+              title={t`approved_ru_sure`}
+            >
+              <Button type='primary' size='large'>
+                {t`approve`}
+              </Button>
+            </Popconfirm>
           ),
       },
       type: 'number',

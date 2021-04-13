@@ -74,5 +74,7 @@
     "dead_reason": "سبب الموت",
     "alive": "حيّ",
     "Feature statistics": "احصائيات الباقات",
-    "Animals statistics": "احصائيات الحيوانات"
+    "Animals statistics": "احصائيات الحيوانات",
+    "longitude": "احداثيات الطول",
+    "latitude": "احداثيات العرض"
 }

@@ -85,7 +85,7 @@ const ManageUsers: FC = () => {
         dataIndex: 'marital',
         width: 200,
       },
-      type: 'text',
+      type: 'check-box',
     },
     {
       columnType: {

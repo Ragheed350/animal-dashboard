@@ -11,6 +11,7 @@ import {
   FetchFarmsAsync,
   InsertFarmAsync,
   UpdateFarmAsync,
+  FetchUsersAsync,
 } from '@core';
 import { UploadFile } from 'antd/lib/upload/interface';
 
@@ -18,7 +19,6 @@ const mapper = (req: any) => {
   const formData = new FormData();
 
   let result: string | File | Blob = '';
-  console.log(req.logo);
 
   if (req.logo.lastModified) result = req.logo;
   else result = req.logo.name!;
@@ -29,7 +29,12 @@ const mapper = (req: any) => {
   for (const key in req) {
     if (Object.prototype.hasOwnProperty.call(req, key)) {
       const el = req[key];
-      formData.append(key, el);
+      if (key === 'image') {
+        if (typeof el === 'string') {
+          const arr = el.split('/');
+          formData.append(key, `${arr[arr.length - 2]}/${arr[arr.length - 1]}`);
+        } else formData.append(key, el);
+      } else formData.append(key, el);
     }
   }
 
@@ -38,12 +43,15 @@ const mapper = (req: any) => {
 
 const ManageFarms: FC = () => {
   const { lang, t } = useTranslation('common');
+  const en = lang === 'en';
   const dispatch = useDispatch();
 
   const { status, farms } = useSelector((state: RootState) => state.Farm);
+  const { status: users_status, users } = useSelector((state: RootState) => state.Users);
 
   useEffect(() => {
     dispatch(FetchFarmsAsync());
+    dispatch(FetchUsersAsync());
   }, [dispatch]);
 
   const columnsFarms: ItemType[] = [
@@ -135,14 +143,13 @@ const ManageFarms: FC = () => {
       type: 'text',
       hidden: true,
     },
-  ];
-
-  const tmp: ItemType[] = [
     {
       columnType: {
         title: t`owner`,
         dataIndex: 'owner_id',
         width: 200,
+        render: (id: any) =>
+          en ? users.find((el) => el.id === Number(id))?.['name:en'] : users.find((el) => el.id === id)?.['name:ar'],
       },
       type: 'text',
       ignore: true,
@@ -153,10 +160,10 @@ const ManageFarms: FC = () => {
     <CRUDBuilder
       lang={lang === 'en' ? 'en' : 'ar'}
       items={farms}
-      loading={status === 'loading'}
+      loading={status === 'loading' || users_status === 'loading'}
       AddAsync={(el) => InsertFarmAsync({ farm: el.item })}
       UpdateAsync={(el) => UpdateFarmAsync({ id: el.id, farm: el.item })}
-      itemsHeader={[...columnsFarms, ...tmp]}
+      itemsHeader={columnsFarms}
       Mapper={mapper}
     />
   );

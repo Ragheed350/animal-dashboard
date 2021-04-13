@@ -32,7 +32,6 @@ const mapper = (req: any) => {
       if (key === 'image') {
         if (typeof el === 'string') {
           const arr = el.split('/');
-          console.log(`${arr[arr.length - 2]}/${arr[arr.length - 1]}`);
 
           formData.append(key, `${arr[arr.length - 2]}/${arr[arr.length - 1]}`);
         } else formData.append(key, el);
