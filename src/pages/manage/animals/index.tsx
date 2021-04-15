@@ -30,19 +30,7 @@ import {
   UnApproveAnimalAsync,
   ApproveAnimalAsync,
 } from '@core';
-import {
-  Button,
-  Carousel,
-  Col,
-  DatePicker,
-  Form,
-  Image,
-  Input,
-  InputNumber,
-  Modal,
-  Popconfirm,
-  Typography,
-} from 'antd';
+import { Button, Carousel, Col, DatePicker, Form, Image, Input, InputNumber, Modal, Popconfirm, Typography } from 'antd';
 import CascederForm from 'src/components/CascederFrom';
 import { UploadFile } from 'antd/lib/upload/interface';
 import { FilterValue } from 'antd/lib/table/interface';
@@ -199,7 +187,7 @@ const ManageAnimals: FC = () => {
         width: 200,
       },
       type: 'number',
-      required: true,
+      required: false,
       customFormItem: (
         <Col span={12}>
           <Form.Item
@@ -324,6 +312,7 @@ const ManageAnimals: FC = () => {
         dataIndex: 'purchasing_price',
         width: 200,
       },
+      required: false,
       type: 'text',
     },
     {
@@ -332,6 +321,7 @@ const ManageAnimals: FC = () => {
         dataIndex: 'seller_name',
         width: 200,
       },
+      required: false,
       type: 'text',
     },
     {
@@ -373,9 +363,7 @@ const ManageAnimals: FC = () => {
         title: t`father`,
         dataIndex: 'father_id',
         width: 200,
-        render: (id: string) => (
-          <Typography.Text>{animals.find((el) => el.id === Number(id))?.animal_no}</Typography.Text>
-        ),
+        render: (id: string) => <Typography.Text>{animals.find((el) => el.id === Number(id))?.animal_no}</Typography.Text>,
       },
       type: 'foreign-key',
       required: false,
@@ -392,9 +380,7 @@ const ManageAnimals: FC = () => {
         title: t`mother`,
         dataIndex: 'mother_id',
         width: 200,
-        render: (id: string) => (
-          <Typography.Text>{animals.find((el) => el.id === Number(id))?.animal_no}</Typography.Text>
-        ),
+        render: (id: string) => <Typography.Text>{animals.find((el) => el.id === Number(id))?.animal_no}</Typography.Text>,
       },
       type: 'foreign-key',
       required: false,
@@ -582,11 +568,7 @@ const ManageAnimals: FC = () => {
       }}
     >
       <Form form={form} layout='vertical' name='form_in_modal' initialValues={{ modifier: 'public' }}>
-        <Form.Item
-          name='dead_reason'
-          label='Dead reason'
-          rules={[{ required: true, message: 'This filed is required' }]}
-        >
+        <Form.Item name='dead_reason' label='Dead reason' rules={[{ required: true, message: 'This filed is required' }]}>
           <Input />
         </Form.Item>
         <Form.Item name='dead_date' label='Dead date' rules={[{ required: true, message: 'This filed is required' }]}>
