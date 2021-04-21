@@ -21,6 +21,7 @@ import Weight from './weight';
 import Certificate from './certificate';
 import Feature from './feature';
 import Statistics from './statistics';
+import QR_Request from './qr_request';
 
 const store = configureStore({
   reducer: {
@@ -45,6 +46,7 @@ const store = configureStore({
     Certificate,
     Feature,
     Statistics,
+    QR_Request,
   },
 });
 

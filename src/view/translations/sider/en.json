@@ -24,5 +24,6 @@
     "weights": "Weights",
     "certificates": "Certificates",
     "users": "Users",
-    "ratings": "Ratings"
+    "ratings": "Ratings",
+    "qr_requests": "QR requests"
 }

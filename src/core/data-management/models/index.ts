@@ -22,3 +22,4 @@ export * from './certificate';
 export * from './feature';
 export * from './approve-animal';
 export * from './statistic';
+export * from './qr_request';

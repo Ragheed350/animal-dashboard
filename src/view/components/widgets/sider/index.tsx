@@ -102,23 +102,15 @@ const Sider: FC = () => {
       title: t`users`,
       href: '/manage/users',
     },
-
     {
       title: t`ratings`,
       href: '/manage/rates',
     },
+    {
+      title: t`qr_requests`,
+      href: '/manage/qr_requests',
+    },
   ];
-
-  // const approvementMenu_arr: { title: string; href: string }[] = [
-  //   {
-  //     title: t`animals`,
-  //     href: '/approvement/animals',
-  //   },
-  //   {
-  //     title: t`packages`,
-  //     href: '/approvement/features',
-  //   },
-  // ];
 
   return (
     <Menu theme='dark' selectedKeys={[pathname]} mode='vertical'>

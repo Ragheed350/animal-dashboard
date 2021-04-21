@@ -20,3 +20,4 @@ export * from './certificate';
 export * from './features';
 export * from './approve-animal';
 export * from './statistic';
+export * from './qr_request';

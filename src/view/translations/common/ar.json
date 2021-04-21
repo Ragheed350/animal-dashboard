@@ -76,5 +76,10 @@
     "Feature statistics": "احصائيات الباقات",
     "Animals statistics": "احصائيات الحيوانات",
     "longitude": "احداثيات الطول",
-    "latitude": "احداثيات العرض"
+    "latitude": "احداثيات العرض",
+    "is_printed": "مطبوع؟",
+    "printed": "مطبوع",
+    "print": "طباعة",
+    "print_qr_sure": "هل انت متأكد من أنك تريد طباعة ال QR؟",
+    "show": "عرض"
 }
