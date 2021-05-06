@@ -90,6 +90,7 @@ export const HomeChart = () => {
         data: animal_statistics,
         options: {
           scales: {
+            xAxes: { ticks: { display: false } },
             y: {
               beginAtZero: true,
             },
@@ -112,6 +113,7 @@ export const HomeChart = () => {
         data: feature_statistics,
         options: {
           scales: {
+            xAxes: { ticks: { display: false } },
             y: {
               beginAtZero: true,
             },
@@ -167,14 +169,14 @@ export const HomeChart = () => {
   }, [features_data, lang]);
 
   return (
-    <Row justify='center' style={{ padding: '20px 0px' }} gutter={[0, 24]}>
-      <Col md={22} xs={23}>
+    <Row justify='center' style={{ padding: '20px' }} gutter={[24, 24]}>
+      <Col md={12} xs={23}>
         <div className='container'>
           <Title level={2}>{t`Animals statistics`}</Title>
           {animals_data && <canvas id='myChart1'></canvas>}
         </div>
       </Col>
-      <Col md={22} xs={23}>
+      <Col md={12} xs={23}>
         <div className='container'>
           <Title level={2}>{t`Feature statistics`}</Title>
           {features_data && myChart2 && <canvas id='myChart2'></canvas>}

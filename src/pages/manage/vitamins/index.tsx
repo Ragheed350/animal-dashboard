@@ -14,7 +14,7 @@ import {
   UpdateVitaminAsync,
   Vitamin_Req,
   Category,
-  FetchLevel3Async,
+  FetchLevel2Async,
 } from '@core';
 import { Select } from 'antd';
 
@@ -29,11 +29,11 @@ const ManageVitamins: FC = () => {
   const dispatch = useDispatch();
 
   const { status, vitamins } = useSelector((state: RootState) => state.Vitamin);
-  const { level3, status: cstatus } = useSelector((state: RootState) => state.Category);
+  const { level2, status: cstatus } = useSelector((state: RootState) => state.Category);
 
   useEffect(() => {
     dispatch(FetchVitaminsAsync());
-    dispatch(FetchLevel3Async());
+    dispatch(FetchLevel2Async());
   }, [dispatch]);
 
   const columnsVitamins: ItemType[] = [
@@ -83,7 +83,7 @@ const ManageVitamins: FC = () => {
         ),
       },
       type: 'multi-foreign-key-obj',
-      foreignKeyArr: level3.map((el) => ({ value: el.id, title: en ? el['name:en'] : el['name:ar'] })),
+      foreignKeyArr: level2.map((el) => ({ value: el.id, title: en ? el['name:en'] : el['name:ar'] })),
     },
   ];
 

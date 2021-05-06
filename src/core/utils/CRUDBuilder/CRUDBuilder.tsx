@@ -1,16 +1,4 @@
-import {
-  Button,
-  Form,
-  notification,
-  Popconfirm,
-  Row,
-  Table,
-  Modal,
-  Typography,
-  DatePicker,
-  Carousel,
-  Image,
-} from 'antd';
+import { Button, Form, notification, Popconfirm, Row, Table, Modal, Typography, DatePicker, Carousel, Image } from 'antd';
 import { CheckSquareFilled, CloseSquareFilled, DeleteFilled, EditFilled, EditOutlined } from '@ant-design/icons';
 import { ColumnsType, ColumnType } from 'antd/lib/table';
 import React, { useEffect, useState } from 'react';
@@ -115,9 +103,7 @@ export const CRUDBuilder: React.FC<CRADBuilderProps> = ({
 
             case 'image':
               col = {
-                render: (val) => (
-                  <Image src={val} alt='NOT_FOUND' style={{ width: 150, height: 150, objectFit: 'contain' }} />
-                ),
+                render: (val) => <Image src={val} alt='NOT_FOUND' style={{ width: 150, height: 150, objectFit: 'contain' }} />,
                 align: 'center',
                 ...el.columnType,
               };

@@ -13,7 +13,7 @@ import {
   InsertVaccinateAsync,
   UpdateVaccinateAsync,
   Category,
-  FetchLevel3Async,
+  FetchLevel2Async,
 } from '@core';
 import { Select } from 'antd';
 
@@ -26,11 +26,11 @@ const ManageVaccinates: FC = () => {
   const dispatch = useDispatch();
 
   const { status, vaccinates } = useSelector((state: RootState) => state.Vaccinate);
-  const { level3 } = useSelector((state: RootState) => state.Category);
+  const { level2 } = useSelector((state: RootState) => state.Category);
 
   useEffect(() => {
     dispatch(FetchVaccinatesAsync());
-    dispatch(FetchLevel3Async());
+    dispatch(FetchLevel2Async());
   }, [dispatch]);
 
   const columnsVaccinates: ItemType[] = [
@@ -93,7 +93,7 @@ const ManageVaccinates: FC = () => {
       initialValueDataIndex: 'category',
       getInitialValue: (arr: Category[]) => arr.map((el) => el.id),
       hidden: true,
-      foreignKeyArr: level3.map((el) => ({ title: en ? el['name:en'] : el['name:ar'], value: el.id })),
+      foreignKeyArr: level2.map((el) => ({ title: en ? el['name:en'] : el['name:ar'], value: el.id })),
     },
   ];
 
