@@ -169,14 +169,14 @@ export const HomeChart = () => {
   }, [features_data, lang]);
 
   return (
-    <Row justify='center' style={{ padding: '20px' }} gutter={[24, 24]}>
-      <Col md={12} xs={23}>
+    <Row justify='space-around' style={{ paddingTop: '20px' }}>
+      <Col md={11} xs={23}>
         <div className='container'>
           <Title level={2}>{t`Animals statistics`}</Title>
           {animals_data && <canvas id='myChart1'></canvas>}
         </div>
       </Col>
-      <Col md={12} xs={23}>
+      <Col md={11} xs={23}>
         <div className='container'>
           <Title level={2}>{t`Feature statistics`}</Title>
           {features_data && myChart2 && <canvas id='myChart2'></canvas>}

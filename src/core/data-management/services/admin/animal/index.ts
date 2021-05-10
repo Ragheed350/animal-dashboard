@@ -15,8 +15,7 @@ export class AnimalService extends ApiService {
   public Update = async ({ animal, id }: Animal_U_Req): Promise<ApiResult<Animal>> =>
     this.post<Animal>(`animal/update/${id}`, animal);
 
-  public Delete = async ({ id }: Animal_D_Req): Promise<ApiResult<Animal>> =>
-    this.delete<Animal>(`animal/soft_delete/${id}`);
+  public Delete = async ({ id }: Animal_D_Req): Promise<ApiResult<Animal>> => this.delete<Animal>(`animal/soft_delete/${id}`);
 
   public Show = async ({ id }: Animal_S_Req): Promise<ApiResult<Animal>> => this.get<Animal>(`animal/show/${id}`);
 

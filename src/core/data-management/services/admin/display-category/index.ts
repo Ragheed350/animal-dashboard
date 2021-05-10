@@ -13,28 +13,18 @@ export class DisplayCategoryService extends ApiService {
     super({ baseURL: `${process.env.API_URL}admin/`, ...config });
   }
 
-  public Fetch = async (): Promise<ApiResult<DisplayCategory[]>> =>
-    this.get<DisplayCategory[]>(`displaycategories`);
+  public Fetch = async (): Promise<ApiResult<DisplayCategory[]>> => this.get<DisplayCategory[]>(`displaycategories`);
 
-  public Insert = async ({
-    displayCategory,
-  }: DisplayCategory_I_Req): Promise<ApiResult<DisplayCategory>> =>
+  public Insert = async ({ displayCategory }: DisplayCategory_I_Req): Promise<ApiResult<DisplayCategory>> =>
     this.post<DisplayCategory>(`displaycategories`, displayCategory);
 
-  public Update = async ({
-    displayCategory,
-    id,
-  }: DisplayCategory_U_Req): Promise<ApiResult<DisplayCategory>> =>
+  public Update = async ({ displayCategory, id }: DisplayCategory_U_Req): Promise<ApiResult<DisplayCategory>> =>
     this.put<DisplayCategory>(`displaycategories/${id}`, displayCategory);
 
-  public Delete = async ({
-    id,
-  }: DisplayCategory_D_Req): Promise<ApiResult<DisplayCategory>> =>
-    this.delete<DisplayCategory>(`display_category/soft_delete/${id}`);
+  public Delete = async ({ id }: DisplayCategory_D_Req): Promise<ApiResult<DisplayCategory>> =>
+    this.delete<DisplayCategory>(`display_category/destroy/${id}`);
 
-  public Show = async ({
-    id,
-  }: DisplayCategory_S_Req): Promise<ApiResult<DisplayCategory>> =>
+  public Show = async ({ id }: DisplayCategory_S_Req): Promise<ApiResult<DisplayCategory>> =>
     this.get<DisplayCategory>(`display_category/show/${id}`);
 }
 

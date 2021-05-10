@@ -85,7 +85,7 @@ const ManageVaccinates: FC = () => {
     },
     {
       columnType: {
-        title: 'الصنف',
+        title: t`category`,
         dataIndex: 'category_id',
         width: 200,
       },

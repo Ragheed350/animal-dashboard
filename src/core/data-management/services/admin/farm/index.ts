@@ -13,7 +13,7 @@ export class FarmService extends ApiService {
 
   public Update = async ({ farm, id }: Farm_U_Req): Promise<ApiResult<Farm>> => this.post<Farm>(`farms/${id}`, farm);
 
-  public Delete = async ({ id }: Farm_D_Req): Promise<ApiResult<Farm>> => this.delete<Farm>(`farm/soft_delete/${id}`);
+  public Delete = async ({ id }: Farm_D_Req): Promise<ApiResult<Farm>> => this.delete<Farm>(`farm/destroy/${id}`);
 
   public Show = async ({ id }: Farm_S_Req): Promise<ApiResult<Farm>> => this.get<Farm>(`farm/show/${id}`);
 }

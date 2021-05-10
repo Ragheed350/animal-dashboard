@@ -60,7 +60,7 @@ const mapper = (req: any): any => {
         });
       } else if (['for_buy', 'is_shown', 'approved', 'is_dead'].includes(key))
         formData.append(key, (el as boolean | undefined) ? '1' : '0');
-      else if (req[key] === undefined) delete req.key;
+      else if (req[key] === undefined || req[key] === null) delete req.key;
       else formData.append(key, el);
     }
   }
@@ -351,7 +351,7 @@ const ManageAnimals: FC = () => {
         title: t`farm`,
         dataIndex: 'farm',
         width: 200,
-        render: (farm: AnimalFarm[]) => farm[0]['name:ar']!,
+        render: (farm: AnimalFarm[]) => (farm.length !== 0 ? (en ? farm[0]['name:en'] : farm[0]['name:ar']) : '-'),
       },
       type: 'foreign-key',
       initialValueDataIndex: 'farm',
@@ -449,7 +449,7 @@ const ManageAnimals: FC = () => {
       type: 'foreign-key',
       customFormItem: (
         <Col span={12}>
-          <Form.Item label='السلالة' name='category_id' rules={[{ required: true }]}>
+          <Form.Item label={t`strain`} name='category_id' rules={[{ required: true }]}>
             <CascederForm />
           </Form.Item>
         </Col>

@@ -69,7 +69,7 @@ const ManageVitamins: FC = () => {
   const tmp: ItemType[] = [
     {
       columnType: {
-        title: t`strain`,
+        title: t`category`,
         dataIndex: 'category',
         width: 300,
         render: (arr: Category[]) => (
