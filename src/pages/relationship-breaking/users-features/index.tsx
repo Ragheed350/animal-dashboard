@@ -54,15 +54,40 @@ const ManageAttributes: FC = () => {
         title: t`user`,
         dataIndex: 'user_id',
         width: 'auto',
-        render: (val: number | string) => (
-          <>
-            {en
-              ? users.find((el) => el.id === Number(val))?.['name:en']
-              : users.find((el) => el.id === Number(val))?.['name:ar']}
-          </>
-        ),
+        render: (val: number | string) =>
+          en ? users.find((el) => el.id === Number(val))?.['name:en'] : users.find((el) => el.id === Number(val))?.['name:ar'],
       },
       type: 'foreign-key',
+    },
+    {
+      columnType: {
+        title: t`address`,
+        dataIndex: 'user_id',
+        width: 'auto',
+        render: (id: string) =>
+          en
+            ? users.find((el) => el.id === Number(id))?.['address:en']
+            : users.find((el) => el.id === Number(id))?.['address:ar'],
+      },
+      type: 'text',
+    },
+    {
+      columnType: {
+        title: t`email`,
+        dataIndex: 'user_id',
+        width: 'auto',
+        render: (id: string) => users.find((el) => el.id === Number(id))?.email,
+      },
+      type: 'text',
+    },
+    {
+      columnType: {
+        title: t`phone`,
+        dataIndex: 'user_id',
+        width: 'auto',
+        render: (id: string) => users.find((el) => el.id === Number(id))?.phone,
+      },
+      type: 'text',
     },
     {
       columnType: {

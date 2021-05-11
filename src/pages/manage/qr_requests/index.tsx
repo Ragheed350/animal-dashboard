@@ -53,7 +53,36 @@ const ManageQR_Requests: FC = () => {
         render: (id: string) =>
           en ? users.find((el) => el.id === Number(id))?.['name:en'] : users.find((el) => el.id === Number(id))?.['name:ar'],
       },
-      ignore: true,
+      type: 'text',
+    },
+    {
+      columnType: {
+        title: t`address`,
+        dataIndex: 'user_id',
+        width: 'auto',
+        render: (id: string) =>
+          en
+            ? users.find((el) => el.id === Number(id))?.['address:en']
+            : users.find((el) => el.id === Number(id))?.['address:ar'],
+      },
+      type: 'text',
+    },
+    {
+      columnType: {
+        title: t`email`,
+        dataIndex: 'user_id',
+        width: 'auto',
+        render: (id: string) => users.find((el) => el.id === Number(id))?.email,
+      },
+      type: 'text',
+    },
+    {
+      columnType: {
+        title: t`phone`,
+        dataIndex: 'user_id',
+        width: 'auto',
+        render: (id: string) => users.find((el) => el.id === Number(id))?.phone,
+      },
       type: 'text',
     },
     {
