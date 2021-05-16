@@ -1,5 +1,6 @@
 import { FormListFieldData, FormListOperation } from 'antd/lib/form/FormList';
 import { ColumnType } from 'antd/lib/table/interface';
+import React from 'react';
 
 export type FieldType =
   // Relational
@@ -45,11 +46,13 @@ export interface ItemType {
   // Custom form item used in add form or edit form
   customFormItem?:
     | React.ReactElement
-    | { insert: React.ReactElement; update: React.ReactElement };
+    | { insert: React.ReactElement; update: React.ReactElement }
+    | ((val: any) => React.ReactElement)
+    | ((val: any) => { insert: React.ReactElement; update: React.ReactElement });
 
   // Initial value section
   initialValueDataIndex?: string;
-  getInitialValue?: (val: any) => any;
+  getInitialValue?: (val: any, rec?: any) => any;
 
   // for dynamic list field type
   dynamicListGenerator?: (

@@ -41,6 +41,8 @@ export const CRUDBuilder: React.FC<CRADBuilderProps> = ({
   const [editModalVisible, setEditModalVisible] = useState(false);
   const [resultItems, setResultItems] = useState<any[]>([]);
 
+  const [record_id, setrecord_id] = useState<number>();
+
   const [form] = Form.useForm();
 
   const dispatch = useDispatch();
@@ -171,7 +173,7 @@ export const CRUDBuilder: React.FC<CRADBuilderProps> = ({
             const from_dataIndex = el.initialValueDataIndex ?? el.columnType.dataIndex!.toString();
             const to_dataIndex = el.columnType.dataIndex!.toString();
 
-            if (el.getInitialValue) res[to_dataIndex] = el.getInitialValue(item[from_dataIndex]);
+            if (el.getInitialValue) res[to_dataIndex] = el.getInitialValue(item[from_dataIndex], res);
             else if (el.type === 'date') res[to_dataIndex] = moment(item[from_dataIndex]);
             else if (el.type === 'foreign-key-obj') res[to_dataIndex] = item[from_dataIndex].id;
             else if (el.type === 'foreign-key') res[to_dataIndex] = item[from_dataIndex];
@@ -202,7 +204,14 @@ export const CRUDBuilder: React.FC<CRADBuilderProps> = ({
           render: (id: number) => (
             <React.Fragment>
               {UpdateAsync ? (
-                <Button type='link' onClick={() => displayModal(id)} title={t`edit`}>
+                <Button
+                  type='link'
+                  onClick={() => {
+                    setrecord_id(id);
+                    displayModal(id);
+                  }}
+                  title={t`edit`}
+                >
                   <EditFilled style={{ fontSize: 20 }} />
                 </Button>
               ) : null}
@@ -320,7 +329,7 @@ export const CRUDBuilder: React.FC<CRADBuilderProps> = ({
         >
           <Form scrollToFirstError={true} name='Edit' layout='vertical' form={form} onFinish={onFinishEdit}>
             <Row gutter={16}>
-              <MapIntoFormItems form={form} itemsHeader={itemsHeader} />
+              <MapIntoFormItems form={form} itemsHeader={itemsHeader} resultItems={resultItems} record_id={record_id} />
             </Row>
             <Form.Item>
               <Button size='large' htmlType='submit' type='primary'>{t`edit`}</Button>

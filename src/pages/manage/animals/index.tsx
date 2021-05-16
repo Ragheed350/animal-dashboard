@@ -188,6 +188,7 @@ const ManageAnimals: FC = () => {
       },
       type: 'number',
       required: false,
+      getInitialValue: () => undefined,
       customFormItem: (
         <Col span={12}>
           <Form.Item
@@ -198,7 +199,9 @@ const ManageAnimals: FC = () => {
               () => ({
                 validator(_, value) {
                   console.log(value, value.toString().length);
-                  if (value && value.toString().length === 15) {
+                  if (!value || value === null) {
+                    return Promise.resolve();
+                  } else if (value && value.toString().length === 15) {
                     return Promise.resolve();
                   }
                   return Promise.reject('nfc number should be 15 character');
@@ -447,13 +450,14 @@ const ManageAnimals: FC = () => {
         render: (id: string) => level3.find((el) => el.id.toString() === id)?.['name:ar'],
       },
       type: 'foreign-key',
-      customFormItem: (
-        <Col span={12}>
-          <Form.Item label={t`strain`} name='category_id' rules={[{ required: true }]}>
-            <CascederForm />
-          </Form.Item>
-        </Col>
-      ),
+      getInitialValue: (id: string) => level3.find((el) => el.id === Number(id))?.['name:ar'],
+      customFormItem: (val: Animal) => <>{val.category_id}</>,
+
+      // <Col span={12}>
+      //   <Form.Item label={t`strain`} name='category_id' rules={[{ required: true }]}>
+      //     <CascederForm rec={val} />
+      //   </Form.Item>
+      // </Col>
     },
     {
       columnType: {

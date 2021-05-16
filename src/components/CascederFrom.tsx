@@ -8,14 +8,19 @@ import useTranslation from 'next-translate/useTranslation';
 interface props {
   value?: any;
   onChange?: (val: any) => void;
+  rec: any;
 }
 
-const CascederForm: FC<props> = ({ onChange }) => {
+const CascederForm: FC<props> = ({ value, onChange, rec }) => {
   const [options, setOptions] = useState<CascaderOptionType[]>();
   const { parents } = useSelector((state: RootState) => state.Category);
   const { lang } = useTranslation();
   const en = lang === 'en';
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log('rec', rec);
+  }, [rec]);
 
   useEffect(() => {
     parents &&
@@ -54,7 +59,6 @@ const CascederForm: FC<props> = ({ onChange }) => {
   return (
     <Cascader
       options={options}
-      defaultValue={[12]}
       loadData={loadData}
       changeOnSelect
       displayRender={(label: any) => {
