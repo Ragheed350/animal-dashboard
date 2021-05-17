@@ -188,23 +188,19 @@ const ManageAnimals: FC = () => {
       },
       type: 'number',
       required: false,
-      getInitialValue: () => undefined,
+      getInitialValue: (val: string) => Number(val),
       customFormItem: (
         <Col span={12}>
           <Form.Item
-            label='nfc'
+            label={t`microship`}
             name='nfc'
             rules={[
-              { type: 'number' },
               () => ({
                 validator(_, value) {
-                  console.log(value, value.toString().length);
-                  if (!value || value === null) {
+                  // console.log(value, value.toString().length);
+                  if (value === null || !value || value.toString().length === 15) {
                     return Promise.resolve();
-                  } else if (value && value.toString().length === 15) {
-                    return Promise.resolve();
-                  }
-                  return Promise.reject('nfc number should be 15 character');
+                  } else return Promise.reject('nfc number should be 15 character');
                 },
               }),
             ]}
@@ -447,17 +443,21 @@ const ManageAnimals: FC = () => {
         title: t`strain`,
         dataIndex: 'category_id',
         width: 200,
-        render: (id: string) => level3.find((el) => el.id.toString() === id)?.['name:ar'],
+        render: (id: string) =>
+          en
+            ? level3.find((el) => el.id.toString() === id)?.['name:en']
+            : level3.find((el) => el.id.toString() === id)?.['name:ar'],
       },
       type: 'foreign-key',
-      getInitialValue: (id: string) => level3.find((el) => el.id === Number(id))?.['name:ar'],
-      customFormItem: (val: Animal) => <>{val.category_id}</>,
-
-      // <Col span={12}>
-      //   <Form.Item label={t`strain`} name='category_id' rules={[{ required: true }]}>
-      //     <CascederForm rec={val} />
-      //   </Form.Item>
-      // </Col>
+      getInitialValue: (id: string) =>
+        en ? level3.find((el) => el.id === Number(id))?.['name:en'] : level3.find((el) => el.id === Number(id))?.['name:ar'],
+      customFormItem: (
+        <Col span={12}>
+          <Form.Item label={t`strain`} name='category_id' rules={[{ required: true }]}>
+            <CascederForm />
+          </Form.Item>
+        </Col>
+      ),
     },
     {
       columnType: {

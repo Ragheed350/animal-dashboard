@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Cascader } from 'antd';
-import { CascaderOptionType } from 'antd/lib/cascader';
+import { CascaderOptionType, CascaderValueType } from 'antd/lib/cascader';
 import { useDispatch, useSelector } from 'react-redux';
 import { categoryService, FetchParentsAsync, isError, RootState } from '@core';
 import useTranslation from 'next-translate/useTranslation';
@@ -8,19 +8,14 @@ import useTranslation from 'next-translate/useTranslation';
 interface props {
   value?: any;
   onChange?: (val: any) => void;
-  rec: any;
 }
 
-const CascederForm: FC<props> = ({ value, onChange, rec }) => {
+const CascederForm: FC<props> = ({ value, onChange }) => {
   const [options, setOptions] = useState<CascaderOptionType[]>();
   const { parents } = useSelector((state: RootState) => state.Category);
   const { lang } = useTranslation();
   const en = lang === 'en';
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    console.log('rec', rec);
-  }, [rec]);
 
   useEffect(() => {
     parents &&
@@ -61,6 +56,7 @@ const CascederForm: FC<props> = ({ value, onChange, rec }) => {
       options={options}
       loadData={loadData}
       changeOnSelect
+      placeholder={value}
       displayRender={(label: any) => {
         return label.length > 2 && label[label.length - 1];
       }}
