@@ -34,18 +34,13 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     placement: lang === 'en' ? 'topRight' : 'topLeft',
   });
 
-  let content =
-    pathname === '/login' ? (
-      <Component {...pageProps} />
-    ) : (
-      <CamelLayout>
-        <Component {...pageProps} />
-      </CamelLayout>
-    );
-
   return (
     <ConfigProvider direction={lang === 'en' ? 'ltr' : 'rtl'} locale={lang === 'en' ? enUS : arEG}>
-      <Provider store={store}>{content}</Provider>
+      <Provider store={store}>
+        <CamelLayout>
+          <Component {...pageProps} />
+        </CamelLayout>
+      </Provider>
     </ConfigProvider>
   );
 };

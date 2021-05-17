@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Cascader } from 'antd';
-import { CascaderOptionType, CascaderValueType } from 'antd/lib/cascader';
+import { CascaderOptionType } from 'antd/lib/cascader';
 import { useDispatch, useSelector } from 'react-redux';
 import { categoryService, FetchParentsAsync, isError, RootState } from '@core';
 import useTranslation from 'next-translate/useTranslation';
@@ -55,6 +55,7 @@ const CascederForm: FC<props> = ({ value, onChange }) => {
     <Cascader
       options={options}
       loadData={loadData}
+      value={undefined}
       changeOnSelect
       placeholder={value}
       displayRender={(label: any) => {

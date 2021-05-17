@@ -449,8 +449,9 @@ const ManageAnimals: FC = () => {
             : level3.find((el) => el.id.toString() === id)?.['name:ar'],
       },
       type: 'foreign-key',
-      getInitialValue: (id: string) =>
-        en ? level3.find((el) => el.id === Number(id))?.['name:en'] : level3.find((el) => el.id === Number(id))?.['name:ar'],
+      // getInitialValue: (id: string) =>
+      //   en ? level3.find((el) => el.id === Number(id))?.['name:en'] : level3.find((el) => el.id === Number(id))?.['name:ar'],
+      getInitialValue: () => undefined,
       customFormItem: (
         <Col span={12}>
           <Form.Item label={t`strain`} name='category_id' rules={[{ required: true }]}>
