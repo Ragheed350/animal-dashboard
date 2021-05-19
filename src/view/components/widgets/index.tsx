@@ -19,9 +19,15 @@ const CamelLayout: React.FC = ({ children }) => {
   const en = lang === 'en';
 
   const { pathname } = useRouter();
-  const [marginContent, setMarginContent] = useState(pathname === '/login' ? 0 : 80);
+  const [marginContent, setMarginContent] = useState(80);
 
   const collapsed = marginContent === 80;
+
+  useEffect(() => {
+    if (pathname === '/login') {
+      setMarginContent(0);
+    }
+  }, [pathname]);
 
   useEffect(() => {
     appServices.getUser().then((result) => {

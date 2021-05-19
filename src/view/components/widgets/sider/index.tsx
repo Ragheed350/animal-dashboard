@@ -7,14 +7,19 @@ import {
   SettingOutlined,
   TranslationOutlined,
 } from '@ant-design/icons';
-import { Menu } from 'antd';
+import { Badge, Menu } from 'antd';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { FC } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { FC, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { logoutAsync, appServices } from '@core';
+import { logoutAsync, appServices, RootState } from '@core';
 import useTranslation from 'next-translate/useTranslation';
+import {
+  FetchunReadRequestQrsAsync,
+  FetchunReadAnimalsAsync,
+  FetchunReadFeaturesAsync,
+} from 'src/core/data-management/redux/statistics';
 // import { PermissionToMenuItem } from '../../../utils/helpers/permission-to-menu-item';
 
 const Sider: FC = () => {
@@ -22,6 +27,15 @@ const Sider: FC = () => {
   const { t } = useTranslation('sider');
 
   const { replace, asPath, pathname } = useRouter();
+
+  const { unreadRequestQrs, unreadFeatures, unreadAnimals } = useSelector((state: RootState) => state.Statistics);
+
+  //get unprinted requestqrs
+  useEffect(() => {
+    dispatch(FetchunReadRequestQrsAsync());
+    dispatch(FetchunReadAnimalsAsync());
+    dispatch(FetchunReadFeaturesAsync());
+  }, []);
 
   const manageMenu_arr: { title: string; href: string }[] = [
     {
@@ -121,18 +135,24 @@ const Sider: FC = () => {
       <Menu.SubMenu key='sub1' title={t`manage`} icon={<SettingOutlined />}>
         {manageMenu_arr.map((el) => (
           <Menu.Item key={el.href}>
-            <Link href={el.href}>{el.title}</Link>
+            {el.href.includes('qr_requests') ? (
+              <Badge count={unreadRequestQrs ?? 0} size='small'>
+                <Link href={el.href}>{el.title}</Link>
+              </Badge>
+            ) : el.href.includes('users-features') ? (
+              <Badge count={unreadFeatures ?? 0} size='small'>
+                <Link href={el.href}>{el.title}</Link>
+              </Badge>
+            ) : el.href.includes('animals') ? (
+              <Badge count={unreadAnimals ?? 0} size='small'>
+                <Link href={el.href}>{el.title}</Link>
+              </Badge>
+            ) : (
+              <Link href={el.href}>{el.title}</Link>
+            )}
           </Menu.Item>
         ))}
       </Menu.SubMenu>
-      {/* 
-      <Menu.SubMenu key='sub3' title={t`approvment`} icon={<SecurityScanOutlined />}>
-        {approvementMenu_arr.map((el) => (
-          <Menu.Item key={el.href}>
-            <Link href={el.href}>{el.title}</Link>
-          </Menu.Item>
-        ))}
-      </Menu.SubMenu> */}
 
       <Menu.Item icon={<ContactsOutlined />} key='/contact-us-requests'>
         <Link href='/contact-us-requests'>{t`contact_requests`}</Link>

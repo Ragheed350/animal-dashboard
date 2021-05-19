@@ -8,6 +8,9 @@ interface StatisticssState {
   animals_data: Statistic[];
   features_data: Statistic[];
   statistic?: Statistic;
+  unreadRequestQrs?: number;
+  unreadAnimals?: number;
+  unreadFeatures?: number;
 }
 
 let initialState: StatisticssState = {
@@ -29,10 +32,26 @@ const StatisticssSlice = createSlice({
     FetchFeatureStatistics: (state, { payload }: PayloadAction<Statistic[]>) => {
       state.features_data = payload;
     },
+    FetchunReadRequestQrs: (state, { payload }: PayloadAction<number>) => {
+      state.unreadRequestQrs = payload;
+    },
+    FetchunReadAnimals: (state, { payload }: PayloadAction<number>) => {
+      state.unreadAnimals = payload;
+    },
+    FetchunReadFeatures: (state, { payload }: PayloadAction<number>) => {
+      state.unreadFeatures = payload;
+    },
   },
 });
 
-const { setStatus, FetchAnimalsStatistics, FetchFeatureStatistics } = StatisticssSlice.actions;
+const {
+  setStatus,
+  FetchAnimalsStatistics,
+  FetchFeatureStatistics,
+  FetchunReadRequestQrs,
+  FetchunReadAnimals,
+  FetchunReadFeatures,
+} = StatisticssSlice.actions;
 
 export const FetchAnimalsStatisticsAsync = (): AppThunk => async (dispatch) => {
   dispatch(setStatus('loading'));
@@ -54,6 +73,40 @@ export const FetchFeatureStatisticsAsync = (): AppThunk => async (dispatch) => {
     dispatch(setStatus('error'));
   } else {
     dispatch(FetchFeatureStatistics(result.data));
+    dispatch(setStatus('data'));
+  }
+};
+
+export const FetchunReadRequestQrsAsync = (): AppThunk => async (dispatch) => {
+  dispatch(setStatus('loading'));
+  const result = await statisticService.FetchunReadQrs();
+  if (isError(result)) {
+    ApiErrorNotification(result);
+    dispatch(setStatus('error'));
+  } else {
+    dispatch(FetchunReadRequestQrs(result.data));
+    dispatch(setStatus('data'));
+  }
+};
+export const FetchunReadFeaturesAsync = (): AppThunk => async (dispatch) => {
+  dispatch(setStatus('loading'));
+  const result = await statisticService.FetchunReadFeatures();
+  if (isError(result)) {
+    ApiErrorNotification(result);
+    dispatch(setStatus('error'));
+  } else {
+    dispatch(FetchunReadFeatures(result.data));
+    dispatch(setStatus('data'));
+  }
+};
+export const FetchunReadAnimalsAsync = (): AppThunk => async (dispatch) => {
+  dispatch(setStatus('loading'));
+  const result = await statisticService.FetchunReadAnimals();
+  if (isError(result)) {
+    ApiErrorNotification(result);
+    dispatch(setStatus('error'));
+  } else {
+    dispatch(FetchunReadAnimals(result.data));
     dispatch(setStatus('data'));
   }
 };

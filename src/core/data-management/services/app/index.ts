@@ -5,16 +5,11 @@ class AppServices extends ApiService {
   constructor() {
     super({ baseURL: `/api` });
   }
-  public changeLang = async (req: {
-    lang: string;
-  }): Promise<ApiResult<undefined>> =>
-    this.post<undefined>(`/change-lang`, req);
+  public changeLang = async (req: { lang: string }): Promise<ApiResult<undefined>> => this.post<undefined>(`/change-lang`, req);
 
-  public logout = async (): Promise<ApiResult<undefined>> =>
-    this.post<undefined>(`/logout`);
+  public logout = async (): Promise<ApiResult<undefined>> => this.post<undefined>(`/logout`);
 
-  public getUser = async (): Promise<ApiResult<User>> =>
-    this.post<User>(`/get-user`);
+  public getUser = async (): Promise<ApiResult<User>> => this.post<User>(`/get-user`);
 }
 
 export const appServices = new AppServices();
