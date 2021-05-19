@@ -9,14 +9,14 @@ import { useRouter } from 'next/router';
 
 import { appServices, eventManager, EVENT_UNAUTHORIZED } from '@core';
 import store from '../core/data-management/redux/store';
-import { CamelLayout } from '@view';
+import CamelLayout from 'src/view/components/widgets';
 
 import '../view/style/antd.less';
 import '../view/style/global.less';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const { lang } = useTranslation();
-  const { replace, pathname } = useRouter();
+  const { replace } = useRouter();
 
   useEffect(() => {
     appServices.changeLang({ lang: lang === 'en' ? 'en' : 'ar' }).then(() => {

@@ -29,6 +29,7 @@ import {
   Animal_Death_Req,
   UnApproveAnimalAsync,
   ApproveAnimalAsync,
+  Gender,
 } from '@core';
 import { Button, Carousel, Col, DatePicker, Form, Image, Input, InputNumber, Modal, Popconfirm, Typography } from 'antd';
 import CascederForm from 'src/components/CascederFrom';
@@ -135,12 +136,15 @@ const ManageAnimals: FC = () => {
         title: t`gender`,
         dataIndex: 'gender',
         width: 200,
-        render: (val: '0' | '1') => <Typography.Text>{val === '1' ? 'ذكر' : 'أنثى'}</Typography.Text>,
+        render: (val: Gender) => (!en ? (val === Gender.male ? 'ذكر' : 'انثى') : val === Gender.male ? 'male' : 'female'),
       },
       type: 'select',
-      foreignKeyArr: [
+      foreignKeyArr: en?[
         { title: 'ذكر', value: '0' },
         { title: 'أنثى', value: '1' },
+      ]:[
+        { title: 'male', value: '0' },
+        { title: 'female', value: '1' },
       ],
     },
 

@@ -13,9 +13,10 @@ import { getToken, onMessageListener } from '../../../../firebase';
 
 const { Content, Sider } = Layout;
 
-export const CamelLayout: React.FC = ({ children }) => {
+const CamelLayout: React.FC = ({ children }) => {
   const dispatch = useDispatch();
   const { lang } = useTranslation();
+  const en = lang === 'en';
 
   const { pathname } = useRouter();
   const [marginContent, setMarginContent] = useState(pathname === '/login' ? 0 : 80);
@@ -66,9 +67,6 @@ export const CamelLayout: React.FC = ({ children }) => {
           defaultCollapsed
           collapsible
         >
-          {/* <div style={{ padding: 5 }}>
-                    <Image src='/assets/DTIC_logo.png' layout='responsive' width={289} height={159} />
-                    </div> */}
           <DTICSider />
           <div style={{ padding: collapsed ? 10 : 5, position: 'fixed', bottom: collapsed ? 25 : 50 }}>
             <Link href='https://its.ae'>
@@ -84,9 +82,10 @@ export const CamelLayout: React.FC = ({ children }) => {
         </Sider>
       )}
 
-      <Content style={lang === 'en' ? { marginLeft: marginContent } : { marginRight: marginContent }}>
+      <Content style={{ marginLeft: en ? marginContent : 0, marginRight: en ? 0 : marginContent, transition: 'all .2s' }}>
         <div>{children}</div>
       </Content>
     </Layout>
   );
 };
+export default CamelLayout;
