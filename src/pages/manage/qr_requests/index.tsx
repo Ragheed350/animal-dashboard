@@ -23,7 +23,7 @@ const ManageQR_Requests: FC = () => {
   const en = lang === 'en';
   const dispatch = useDispatch();
   const { users } = useSelector((state: RootState) => state.Users);
-  const { animals } = useSelector((state: RootState) => state.Animal);
+  const { animals, status: animals_status } = useSelector((state: RootState) => state.Animal);
   const { status, qr_requests } = useSelector((state: RootState) => state.QR_Request);
 
   const [visible, setvisible] = useState(false);
@@ -159,6 +159,12 @@ const ManageQR_Requests: FC = () => {
               {t`printed`}
             </Button>
           ),
+        filters: [
+          { text: t`printed`, value: '1' },
+          { text: t`not_printed`, value: '0' },
+        ],
+        onFilter: (value, record) => record.is_printed === value,
+        ellipsis: true,
       },
       type: 'check-box',
     },
@@ -169,7 +175,7 @@ const ManageQR_Requests: FC = () => {
       <CRUDBuilder
         lang={lang === 'en' ? 'en' : 'ar'}
         items={qr_requests}
-        loading={status === 'loading'}
+        loading={status === 'loading' || animals_status === 'loading'}
         DeleteAsync={(el) => DeleteQR_RequestAsync({ id: el.id })}
         itemsHeader={[...columnsQR_Requests]}
       />

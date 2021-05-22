@@ -42,6 +42,7 @@
     "user": "User",
     "package": "Package",
     "approved": "Approved?",
+    "not_approved": "Not approved",
     "attribute": "Attribute",
     "value": "Value",
     "animal": "Animal",
@@ -79,7 +80,10 @@
     "latitude": "Latitude",
     "is_printed": "Is printed?",
     "printed": "Printed",
+    "not_printed": "Not printed",
     "print": "Print",
     "print_qr_sure": "Are you sure you want to print the QR?",
-    "show": "Show"
+    "show": "Show",
+    "sold": "Sold",
+    "not_sold": "Not sold"
 }

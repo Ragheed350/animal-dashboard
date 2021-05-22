@@ -8,6 +8,7 @@ import {
   Authenticated,
   FetchAnimalsAsync,
   FetchLevel3Async,
+  Gender,
   RootState,
   UnApproveAnimalAsync,
   Weight,
@@ -54,7 +55,7 @@ const index: React.FC = () => {
       title: t`gender`,
       dataIndex: 'gender',
       width: 200,
-      render: (val: '0' | '1') => (en ? (val === '1' ? 'male' : 'female') : val === '1' ? 'ذكر' : 'أنثى'),
+      render: (val: Gender) => (!en ? (val === Gender.male ? 'ذكر' : 'انثى') : val === Gender.male ? 'male' : 'female'),
     },
     {
       title: t`for_buy`,

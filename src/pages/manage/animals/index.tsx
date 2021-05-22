@@ -139,28 +139,21 @@ const ManageAnimals: FC = () => {
         render: (val: Gender) => (!en ? (val === Gender.male ? 'ذكر' : 'انثى') : val === Gender.male ? 'male' : 'female'),
       },
       type: 'select',
-      foreignKeyArr: en?[
-        { title: 'ذكر', value: '0' },
-        { title: 'أنثى', value: '1' },
-      ]:[
-        { title: 'male', value: '0' },
-        { title: 'female', value: '1' },
-      ],
+      foreignKeyArr: en
+        ? [
+            { title: 'ذكر', value: '0' },
+            { title: 'أنثى', value: '1' },
+          ]
+        : [
+            { title: 'male', value: '0' },
+            { title: 'female', value: '1' },
+          ],
     },
 
     {
       columnType: {
         title: t`price`,
         dataIndex: 'price',
-        width: 200,
-      },
-      type: 'text',
-      ignore: true,
-    },
-    {
-      columnType: {
-        title: t`buyer_data`,
-        dataIndex: 'puyer_data',
         width: 200,
       },
       type: 'text',
@@ -272,15 +265,6 @@ const ManageAnimals: FC = () => {
     },
     {
       columnType: {
-        title: t`for_buy`,
-        dataIndex: 'for_buy',
-        width: 200,
-      },
-      type: 'check-box',
-      required: false,
-    },
-    {
-      columnType: {
         title: t`for_show`,
         dataIndex: 'is_shown',
         width: 200,
@@ -290,24 +274,33 @@ const ManageAnimals: FC = () => {
     },
     {
       columnType: {
-        title: t`weight`,
-        dataIndex: 'Weight',
+        title: t`for_buy`,
+        dataIndex: 'for_buy',
         width: 200,
-        render: (val: Weight[]) => Number(val[val.length - 1]?.value),
+        filters: [
+          { text: en ? 'For buy' : 'معروض للبيع', value: 1 },
+          { text: en ? 'Not for buy' : 'ليس معروض للبيع', value: 0 },
+        ],
+        onFilter: (value, record) => record.for_buy === value,
+        ellipsis: true,
       },
-      type: 'number',
-      ignore: true,
+      type: 'check-box',
+      required: false,
     },
     {
       columnType: {
-        title: t`image`,
-        dataIndex: 'image',
+        title: t`sold`,
+        dataIndex: 'for_buy',
         width: 200,
+        filters: [
+          { text: t`sold`, value: 2 },
+          { text: t`not_sold`, value: 1 | 0 },
+        ],
+        onFilter: (value, record) => record.for_buy === value,
+        ellipsis: true,
       },
-      type: 'multi-images',
-      hidden: true,
-      initialValueDataIndex: 'attachments',
-      getInitialValue: (val: Attachment[]) => val.map((el) => ({ uid: el.id, name: el.url, url: el.url })),
+      type: 'check-box',
+      ignore: true,
     },
     {
       columnType: {
@@ -329,22 +322,33 @@ const ManageAnimals: FC = () => {
     },
     {
       columnType: {
-        title: t`dead_date`,
-        dataIndex: 'dead_date',
+        title: t`buyer_data`,
+        dataIndex: 'puyer_data',
         width: 200,
-        render: (val: Date) => (val ? val : '-'),
       },
+      type: 'text',
       ignore: true,
-      type: 'date',
     },
     {
       columnType: {
-        title: t`dead_reason`,
-        dataIndex: 'dead_reason',
+        title: t`weight`,
+        dataIndex: 'Weight',
+        width: 200,
+        render: (val: Weight[]) => Number(val[val.length - 1]?.value),
+      },
+      type: 'number',
+      ignore: true,
+    },
+    {
+      columnType: {
+        title: t`image`,
+        dataIndex: 'image',
         width: 200,
       },
-      ignore: true,
-      type: 'text',
+      type: 'multi-images',
+      hidden: true,
+      initialValueDataIndex: 'attachments',
+      getInitialValue: (val: Attachment[]) => val.map((el) => ({ uid: el.id, name: el.url, url: el.url })),
     },
   ];
 
@@ -495,9 +499,34 @@ const ManageAnimals: FC = () => {
               {t`alive`}
             </Button>
           ),
+        filters: [
+          { text: t`dead`, value: 1 },
+          { text: t`alive`, value: 0 },
+        ],
+        onFilter: (value, record) => record.is_dead === value,
+        ellipsis: true,
       },
-      type: 'number',
+      type: 'check-box',
       ignore: true,
+    },
+    {
+      columnType: {
+        title: t`dead_date`,
+        dataIndex: 'dead_date',
+        width: 200,
+        render: (val: Date) => (val ? val : '-'),
+      },
+      ignore: true,
+      type: 'date',
+    },
+    {
+      columnType: {
+        title: t`dead_reason`,
+        dataIndex: 'dead_reason',
+        width: 200,
+      },
+      ignore: true,
+      type: 'text',
     },
     {
       columnType: {

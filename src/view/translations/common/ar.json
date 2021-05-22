@@ -42,6 +42,7 @@
     "user": "المستخدم",
     "package": "الباقة",
     "approved": "مقبول؟",
+    "not_approved": "غير مقبول",
     "attribute": "الصفة",
     "value": "القيمة",
     "animal": "الحيوان",
@@ -79,7 +80,10 @@
     "latitude": "احداثيات العرض",
     "is_printed": "مطبوع؟",
     "printed": "مطبوع",
+    "not_printed": "غير مطبوع",
     "print": "طباعة",
     "print_qr_sure": "هل انت متأكد من أنك تريد طباعة ال QR؟",
-    "show": "عرض"
+    "show": "عرض",
+    "sold": "مباع",
+    "not_sold": "غير مباع"
 }

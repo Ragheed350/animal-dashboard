@@ -11,12 +11,8 @@ import {
   FetchUsersAsync,
   DeleteUserAsync,
   FetchCountriesAsync,
+  Gender,
 } from '@core';
-import { Typography } from 'antd';
-
-// const mapper = (req: User): Promise<User_Req> => ({
-
-// })
 
 const ManageUsers: FC = () => {
   const { lang, t } = useTranslation('common');
@@ -71,7 +67,7 @@ const ManageUsers: FC = () => {
         title: t`gender`,
         dataIndex: 'gender',
         width: 200,
-        render: (val: '0' | '1') => <Typography.Text>{val === '1' ? 'ذكر' : 'أنثى'}</Typography.Text>,
+        render: (val: Gender) => (!en ? (val === Gender.male ? 'ذكر' : 'انثى') : val === Gender.male ? 'male' : 'female'),
       },
       type: 'select',
       foreignKeyArr: [

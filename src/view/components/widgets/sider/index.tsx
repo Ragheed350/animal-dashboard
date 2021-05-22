@@ -143,7 +143,7 @@ const Sider: FC = () => {
               <Badge count={unreadFeatures ?? 0} size='small'>
                 <Link href={el.href}>{el.title}</Link>
               </Badge>
-            ) : el.href.includes('animals') ? (
+            ) : el.href === '/manage/animals' ? (
               <Badge count={unreadAnimals ?? 0} size='small'>
                 <Link href={el.href}>{el.title}</Link>
               </Badge>

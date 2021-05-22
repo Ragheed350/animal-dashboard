@@ -14,8 +14,8 @@ import {
   FetchCategoriesAsync,
   FetchParentsAsync,
   FetchAttributesAsync,
+  Gender,
 } from '@core';
-import { Typography } from 'antd';
 
 const ManageAttributes: FC = () => {
   const { lang, t } = useTranslation('common');
@@ -56,9 +56,7 @@ const ManageAttributes: FC = () => {
         title: t`gender`,
         dataIndex: 'gender',
         width: 200,
-        render: (val: '0' | '1') => (
-          <Typography.Text>{val === '1' ? (en ? 'female' : 'انثى') : en ? 'male' : 'ذكر'}</Typography.Text>
-        ),
+        render: (val: Gender) => (!en ? (val === Gender.male ? 'ذكر' : 'انثى') : val === Gender.male ? 'male' : 'female'),
       },
       type: 'select',
       foreignKeyArr: [

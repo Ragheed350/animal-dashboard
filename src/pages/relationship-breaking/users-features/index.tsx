@@ -108,6 +108,12 @@ const ManageAttributes: FC = () => {
       columnType: {
         title: t`approved`,
         dataIndex: 'is_approved',
+        filters: [
+          { text: t`approved`, value: '1' },
+          { text: t`not_approved`, value: '0' },
+        ],
+        onFilter: (value, record) => record.is_approved === value,
+        ellipsis: true,
       },
       type: 'check-box',
     },

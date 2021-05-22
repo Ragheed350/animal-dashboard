@@ -1,15 +1,15 @@
-import { Layout, notification } from 'antd';
 import React, { useEffect, useState } from 'react';
+import { Layout, notification } from 'antd';
+import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Head from 'next/head';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 
 import DTICSider from './sider';
-import { appServices, setUser, isError, setFirebaseToken, setFirebaseValid } from '@core';
 import { useDispatch } from 'react-redux';
 import useTranslation from 'next-translate/useTranslation';
 import { getToken, onMessageListener } from '../../../../firebase';
+import { appServices, setUser, isError, setFirebaseToken, setFirebaseValid } from '@core';
 
 const { Content, Sider } = Layout;
 
@@ -20,6 +20,9 @@ const CamelLayout: React.FC = ({ children }) => {
 
   const { pathname } = useRouter();
   const [marginContent, setMarginContent] = useState(80);
+
+  const AR_layout: React.CSSProperties = { marginRight: marginContent, transition: 'all .2s' };
+  const EN_layout: React.CSSProperties = { marginLeft: marginContent, transition: 'all .2s' };
 
   const collapsed = marginContent === 80;
 
@@ -88,7 +91,7 @@ const CamelLayout: React.FC = ({ children }) => {
         </Sider>
       )}
 
-      <Content style={{ marginLeft: en ? marginContent : 0, marginRight: en ? 0 : marginContent, transition: 'all .2s' }}>
+      <Content style={en ? EN_layout : AR_layout}>
         <div>{children}</div>
       </Content>
     </Layout>
