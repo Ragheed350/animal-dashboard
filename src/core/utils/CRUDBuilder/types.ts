@@ -44,11 +44,7 @@ export interface ItemType {
   required?: boolean;
 
   // Custom form item used in add form or edit form
-  customFormItem?:
-    | React.ReactElement
-    | { insert: React.ReactElement; update: React.ReactElement }
-    | ((val: any) => React.ReactElement)
-    | ((val: any) => { insert: React.ReactElement; update: React.ReactElement });
+  customFormItem?: React.ReactElement | { insert: React.ReactElement; update: React.ReactElement };
 
   // Initial value section
   initialValueDataIndex?: string;

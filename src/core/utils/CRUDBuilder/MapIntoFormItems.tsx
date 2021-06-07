@@ -12,8 +12,6 @@ import { CustomUploadFile } from './CustomComponent';
 
 const { Option } = Select;
 
-var selected_record: any = undefined;
-
 export const MapIntoFormItems: React.FC<{
   multiImageUrl?: { add: string; delete: string };
   itemsHeader: ItemType[];
@@ -22,17 +20,13 @@ export const MapIntoFormItems: React.FC<{
   type?: 'insert' | 'update' | 'show';
   resultItems?: any;
   record_id?: number;
-}> = ({ itemsHeader, form, allDisabled, type = 'show', resultItems, record_id }) => {
+}> = ({ itemsHeader, form, allDisabled, type = 'show' }) => {
   const [result, setResult] = useState<any[]>([]);
   const [preview, setPreview] = useState<{
     previewVisible: boolean;
     previewImage?: string;
     previewTitle?: string;
   }>({ previewVisible: false, previewImage: '', previewTitle: '' });
-
-  useEffect(() => {
-    selected_record = resultItems.find((el: any) => el.id === record_id!);
-  }, [record_id]);
 
   useEffect(() => {
     //give it itemType return a form.item
@@ -184,7 +178,7 @@ export const MapIntoFormItems: React.FC<{
 
     let res: React.ReactNode[] = itemsHeader.map((el, ind) => {
       if (el.customFormItem && {}.toString.call(el.customFormItem) === '[object Function]') {
-        return (el.customFormItem as any)(selected_record);
+        return el.customFormItem;
       } else if (el.customFormItem) {
         if ('insert' in el.customFormItem && type === 'insert') return el.customFormItem;
         if ('update' in el.customFormItem && type === 'update') return el.customFormItem;
